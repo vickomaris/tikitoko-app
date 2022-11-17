@@ -1,4 +1,4 @@
-<h1 align="top">Tikitoko<br/>Frontend with React.js</h1>
+<h1 align="center">Tikitoko<br/>Frontend with React.js</h1>
 
 <!-- Logo -->
 
@@ -83,7 +83,7 @@ Create .env file in your root project folder.
 
 ```env
 # app
-REACT_APP_API_BACKEND = [API_URL]
+BACKEND_APP_API_URL = [API_URL]
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
