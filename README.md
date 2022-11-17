@@ -1,4 +1,4 @@
-<h1 align="center">Tikitoko<br/>Frontend with React.js</h1>
+# Tikitoko (Frontend)
 
 <!-- Logo -->
 
@@ -106,7 +106,7 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- Related Projects -->
 ## Related Project
-:rocket: [`Whirlpool (Backend)`](https://github.com/brndnwjy/tikitoko-api)
+:rocket: [`Tikitoko (Backend)`](https://github.com/brndnwjy/tikitoko-api)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
