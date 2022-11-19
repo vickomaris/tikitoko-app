@@ -327,6 +327,7 @@ const ProfileSeller = () => {
                               </div>
                               <div className="col">
                                 <input
+                                className={styles.inputStoreProfile}
                                   type="text"
                                   placeholder="Johanes Mikael"
                                 />
@@ -340,6 +341,7 @@ const ProfileSeller = () => {
                               </div>
                               <div className="col">
                                 <input
+                                 className={styles.inputStoreProfile}
                                   type="email"
                                   placeholder="johanesmikael@gmail.com"
                                 />
@@ -355,6 +357,7 @@ const ProfileSeller = () => {
                               </div>
                               <div className="col">
                                 <input
+                                 className={styles.inputStoreProfile}
                                   type="phone"
                                   placeholder="085618219271"
                                 />
