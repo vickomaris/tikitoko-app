@@ -1,1 +1,55 @@
 /* CSS Profile Page - Buyer */
+.customNewAdd{
+    border: dashed 2px #e0e0e0;
+    border-radius: 10px;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.customAddBtn{
+    border: none !important; 
+    background: none   !important;
+}
+
+.customAdd{
+    border: solid 1px red;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.bgBlue{
+    background-color:#456BF3;
+}
+.bgOrange{
+    background-color: #F36F45;
+}
+.bgPink{
+    background-color: #F3456F;
+}
+.customContainer{
+    height: 100%;
+}
+.customBtnAdd{
+    background-color: #F36F45;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+.accent{
+    accent-color: #F3456F !important;
+    cursor: pointer;
+    margin-left: -20px;
+}
+
+.customMobileSection{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+@media screen and (max-width: 768px) {
+    .customMobileSection{
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
