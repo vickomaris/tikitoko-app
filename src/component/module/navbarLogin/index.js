@@ -1,16 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from "./navbar.module.css"
+import styles from './navbarlogin.module.css'
 
 import icLogo from '../../../assets/logo.svg'
 import icSearch from '../../../assets/search-icon.svg'
 import icFilter from '../../../assets/filter-icon.svg'
 import icCart from '../../../assets/cart-icon.svg'
+import icBell from '../../../assets/bell-icon.svg'
+import icMail from '../../../assets/mail-icon.svg'
+import icAva from '../../../assets/icAva.png'
 
-const Navbar = () => {
+const NavbarLogin = () => {
   return (
     <>
-      <nav className={`navbar navbar-expand-lg fixed-top ${styles.navbar}`}>
+        <nav className={`navbar navbar-expand-lg fixed-top ${styles.navbar}`}>
         <div className="container g-0">
           <Link className='navbar-brand' to="#">
             <div className=" d-flex flex-row">
@@ -42,15 +45,24 @@ const Navbar = () => {
                 </button></Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#"> <button className={`ms-3 px-4 py-1 ${styles.btnLogin}`}>
-                  Login
+                <Link className="nav-link" to="#"><button className={`px-2 ${styles.btnCart}`}>
+                  <img src={icBell} alt='icBell' />
                 </button></Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#"> <button className={`ms-3 px-3 py-1 ${styles.btnSignup}`}>
-                  Signup
+                <Link className="nav-link" to="#"><button className={`px-2 ${styles.btnCart}`}>
+                  <img src={icMail} alt='icMail' />
                 </button></Link>
               </li>
+              <div class="dropdown">
+                <button className={`px-2 mt-1 ${styles.btnAva}`} type="button" data-bs-toggle="dropdown">
+                  <img src={icAva} alt='icCart' className={styles.cstmAva} />
+                </button>
+                <ul class="dropdown-menu">
+                  <li><Link class="dropdown-item" to={'/profile'}>Profile</Link></li>
+                  <li><Link class="dropdown-item" to="#">Logout</Link></li>
+                </ul>
+              </div>
             </ul>
           </div>
         </div>
@@ -59,4 +71,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default NavbarLogin

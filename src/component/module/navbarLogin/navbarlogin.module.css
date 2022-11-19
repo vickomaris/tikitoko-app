@@ -1,4 +1,3 @@
-/* CSS Navbar Component */
 
 .navbar{
     background-color: #ffff;
@@ -41,26 +40,18 @@
     border: none;
 }
 
-.btnLogin{
-    background-color: #DB3022;
-    font-size: 14px;
-    font-weight: 500;
-    color:white ;
+.btnAva{
     border: none;
-    border-radius: 30px;
+    background-color: transparent;
 }
 
-.btnSignup{
-    background-color: white;
-    font-size: 14px;
-    font-weight: 500;
-    color:#9B9B9B ;
-    border: 1px solid #9B9B9B;
-    border-radius: 30px;
+.cstmAva{
+    border-radius: 100%;
 }
 
 @media only screen and (max-width: 720px) {
     .cstmSearch{
         width: 200px;
     }
+
 }
