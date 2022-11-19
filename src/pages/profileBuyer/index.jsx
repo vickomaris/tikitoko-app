@@ -5,6 +5,7 @@ import pencil from "../../assets/pencil-icon.svg";
 import user from "../../assets/user-icon.svg";
 import location from "../../assets/location-icon.svg";
 import order from "../../assets/order-icon.svg";
+import Navbar from "../../component/module/navbar";
 
 const ProfileBuyer = () => {
   const hiddenFileInput = useRef(null);
@@ -24,6 +25,7 @@ const ProfileBuyer = () => {
   ];
   return (
     <>
+      <Navbar />
       <div className={`container-fluid bg-light ${styles.customContainer}`}>
         <div className="row">
           <div className={`col-md-3 bg-white py-4 px-5`}>
@@ -58,7 +60,9 @@ const ProfileBuyer = () => {
                     alt="usericon"
                     className={`rounded-circle ${styles.bgBlue} text-white p-2`}
                   ></img>
-                  <span className="ms-2" onClick={() => setViewPage(0)}>
+                  <span className="ms-2" onClick={() => setViewPage(0)}
+                  style={{cursor: 'pointer'}}
+                  >
                     My Account
                   </span>
                 </small>
@@ -70,7 +74,9 @@ const ProfileBuyer = () => {
                     alt="locationIcon"
                     className={`rounded-circle ${styles.bgOrange} text-white p-2`}
                   ></img>
-                  <span className="ms-2" onClick={() => setViewPage(1)}>
+                  <span className="ms-2" onClick={() => setViewPage(1)}
+                  style={{cursor: 'pointer'}}
+                  >
                     Shipping Address
                   </span>
                 </small>
@@ -82,7 +88,9 @@ const ProfileBuyer = () => {
                     alt="orderIcon"
                     className={`rounded-circle ${styles.bgPink} text-white p-2`}
                   ></img>
-                  <span className="ms-2" onClick={() => setViewPage(2)}>
+                  <span className="ms-2" onClick={() => setViewPage(2)}
+                  style={{cursor: 'pointer'}}
+                  >
                     My Order
                   </span>
                 </small>
@@ -255,7 +263,7 @@ const ProfileBuyer = () => {
                   >
                     Add new address
                   </button>
-                  <div class="modal p-3" id="myModal">
+                  <div class="modal p-3 " id="myModal">
                     <div class="modal-dialog">
                       <div class="modal-content p-4">
                         <div class="modal-header">
