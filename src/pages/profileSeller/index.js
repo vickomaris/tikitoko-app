@@ -369,7 +369,11 @@ const ProfileSeller = () => {
                                 </label>
                               </div>
                               <div className="col">
-                                <textarea placeholder="Description :"></textarea>
+                                <textarea
+                                  className={styles.textareaDescriptionProfile}
+                                  type="text"
+                                  placeholder="Description"
+                                />
                               </div>
                             </div>
                           </div>
@@ -388,9 +392,18 @@ const ProfileSeller = () => {
                           <img className={styles.img} src={pictureUser} />
                         </div>
                         <div className="mt-3">
-                          <button className={styles.choicePicture}>
+                          <input
+                            id="addImageProfile"
+                            className={styles.inputPhoto}
+                            type="file"
+                          />
+                          <label
+                            style={{ cursor: "pointer" }}
+                            htmlFor="addImageProfile"
+                            className={styles.buttonUploadPhoto}
+                          >
                             Select Image
-                          </button>
+                          </label>
                         </div>
                       </div>
                     </div>
@@ -403,15 +416,15 @@ const ProfileSeller = () => {
                       <h5>My Product</h5>
                     </div>
                     <div>
-                      <p
+                      <button
+                        className={styles.btnStore}
                         style={{
                           borderBottom: "2px solid red",
                           color: "red",
-                          width: "7%",
                         }}
                       >
                         All items
-                      </p>
+                      </button>
                     </div>
                     <hr />
                   </div>
@@ -438,15 +451,21 @@ const ProfileSeller = () => {
                         <div>
                           <div className="row">
                             <div className="col" style={{ textAlign: "left" }}>
-                              <span>Product name</span>
+                              <span className="text-secondary">
+                                Product name <i class="fa fa-sort"></i>
+                              </span>
                             </div>
                             <div className="col" style={{ textAlign: "right" }}>
                               <div className="row">
                                 <div className="col">
-                                  <span>Price</span>
+                                  <span className="text-secondary">
+                                    Price <i class="fa fa-sort"></i>
+                                  </span>
                                 </div>
                                 <div className="col-auto">
-                                  <span>Stock</span>
+                                  <span className="text-secondary">
+                                    Stock <i class="fa fa-sort"></i>
+                                  </span>
                                 </div>
                               </div>
                             </div>
@@ -625,7 +644,13 @@ const ProfileSeller = () => {
                       </div>
                       <hr />
                     </div>
-                    <div className={styles.containerMainDescription}></div>
+                    <div className={styles.containerMainDescription}>
+                      <textarea
+                        className={styles.descriptionTextarea}
+                        type="text"
+                        placeholder="Description"
+                      />
+                    </div>
                   </div>
                   <div className="mt-5" style={{ textAlign: "right" }}>
                     <button className={styles.buttonJual}>Jual</button>
