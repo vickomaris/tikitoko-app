@@ -6,6 +6,7 @@ import user from "../../assets/user-icon.svg";
 import location from "../../assets/location-icon.svg";
 import order from "../../assets/order-icon.svg";
 import Navbar from "../../component/module/navbar";
+import Card from "../../component/module/card";
 
 const ProfileBuyer = () => {
   const hiddenFileInput = useRef(null);
@@ -98,7 +99,8 @@ const ProfileBuyer = () => {
             </div>
           </div>
           {/* my accout */}
-          {viewPage === 0 ? (
+          {
+          viewPage === 0 ? (
             <div
               className={`col-md-8 bg-white p-5 my-5 border rounded ${styles.customMobileSection}`}
               id="account"
@@ -264,9 +266,9 @@ const ProfileBuyer = () => {
                     Add new address
                   </button>
                   <div class="modal p-3 " id="myModal">
-                    <div class="modal-dialog">
-                      <div class="modal-content p-4">
-                        <div class="modal-header">
+                    <div class={`modal-dialog`}>
+                      <div class={`modal-content p-4 ${styles.customCollapse}`}>
+                        <div class={`modal-header`}>
                           <h4 class="modal-title">Add New Address</h4>
                           <button
                             type="button"
@@ -287,7 +289,7 @@ const ProfileBuyer = () => {
                               type="text"
                               name="rumah"
                               id="rumah"
-                              className="form-control"
+                              className="p-2 form-control"
                               placeholder="Rumah"
                             />
                           </div>
@@ -303,7 +305,7 @@ const ProfileBuyer = () => {
                                   type="text"
                                   name="nama"
                                   id="nama"
-                                  className="form-control"
+                                  className="p-2 form-control"
                                   placeholder="Masukkan nama"
                                 />
                               </div>
@@ -319,14 +321,14 @@ const ProfileBuyer = () => {
                                   type="text"
                                   name="phone"
                                   id="phone"
-                                  className="form-control"
+                                  className="p-2 form-control"
                                   placeholder="Masukkan nomor telepon"
                                 />
                               </div>
                             </div>
                           </div>
                           <div className="row my-2">
-                            <div className="col-md-6 my-2">
+                            <div className="col-md-8 my-2">
                               <div className="col-md-12">
                                 <label htmlFor="address" className="text-muted">
                                   Address
@@ -337,12 +339,12 @@ const ProfileBuyer = () => {
                                   type="text"
                                   name="address"
                                   id="address"
-                                  className="form-control"
+                                  className="p-2 form-control"
                                   placeholder="Masukkan alamat"
                                 />
                               </div>
                             </div>
-                            <div className="col-md-6 my-2">
+                            <div className="col-md-4 my-2">
                               <div className="col-md-12">
                                 <label
                                   htmlFor="postalCode"
@@ -356,7 +358,7 @@ const ProfileBuyer = () => {
                                   type="text"
                                   name="postalCode"
                                   id="postalCode"
-                                  className="form-control"
+                                  className="p-2 form-control"
                                   placeholder="Masukkan kode pos"
                                 />
                               </div>
@@ -374,7 +376,7 @@ const ProfileBuyer = () => {
                                   type="text"
                                   name="city"
                                   id="city"
-                                  className="form-control"
+                                  className="p-2 form-control"
                                   placeholder="Masukkan kota"
                                 />
                               </div>
@@ -500,68 +502,22 @@ const ProfileBuyer = () => {
               </p>
               <hr />
                   <div className="collapse multi-collapse" id="allItem">
-                    <div className="container mt-5">
-                      <div className="card mb-3 border-0 my-4">
-                        <div className="row g-0">
-                          <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img
-                              src={require("../../assets/dummy.jpg")}
-                              width={150}
-                              className="img-fluid rounded-circle"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col-md-8">
-                            <div className="card-body">
-                              <h5 className="card-title">Software Engineer</h5>
-                              <p className="card-text text-muted">Tokopedia</p>
-
-                              <p className="card-text text-muted">
-                                Januari 2021 - Sekarang
-                              </p>
-                              <p className="card-text text-muted">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore perferendis
-                                repellendus corrupti nostrum{" "}
-                              </p>
+                  <div className="mt-3">
+                    <div className={styles["card"]}>
+                        <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                                <div className="d-flex align-items-center">
+                                    <img className={styles["product-img"]} src={require('../../assets/Mask Group.png')} alt="suite" />
+                                    <div className={styles["brand"]}>
+                                        <h5>Men's formal suit - Black</h5>
+                                        <p>Zalora</p>
+                                    </div>
+                                </div>
+                                <p className={styles["price"]}>$ 20.0</p>
                             </div>
-                          </div>
-                          <hr />
                         </div>
-                        <div className="card mb-3 border-0 my-4">
-                          <div className="row g-0">
-                            <div className="col-md-2 d-flex align-items-center justify-content-center">
-                              <img
-                                src={require("../../assets/dummy.jpg")}
-                                width={150}
-                                className="img-fluid rounded-circle"
-                                alt="..."
-                              />
-                            </div>
-                            <div className="col-md-8">
-                              <div className="card-body">
-                                <h5 className="card-title">
-                                  Software Engineer
-                                </h5>
-                                <p className="card-text text-muted">
-                                  Tokopedia
-                                </p>
-
-                                <p className="card-text text-muted">
-                                  Januari 2021 - Sekarang
-                                </p>
-                                <p className="card-text text-muted">
-                                  Lorem, ipsum dolor sit amet consectetur
-                                  adipisicing elit. Tempore perferendis
-                                  repellendus corrupti nostrum{" "}
-                                </p>
-                              </div>
-                            </div>
-                            <hr />
-                          </div>
-                        </div>
-                      </div>
                     </div>
+                </div>
                   </div>
                 </div>
               ) : viewCollapse === 1 ? (
@@ -630,61 +586,19 @@ const ProfileBuyer = () => {
               <hr />
                 <div className="collapse multi-collapse" id="notPaid">
                   <div className="container mt-5">
-                    <div className="card mb-3 border-0 my-4">
-                      <div className="row g-0">
-                        <div className="col-md-2 d-flex align-items-center justify-content-center">
-                          <img
-                            src={require("../../assets/dummy.jpg")}
-                            width={150}
-                            className="img-fluid rounded-circle"
-                            alt="..."
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <div className="card-body">
-                            <h5 className="card-title">Software Engineer</h5>
-                            <p className="card-text text-muted">Tokopedia</p>
-
-                            <p className="card-text text-muted">
-                              Januari 2021 - Sekarang
-                            </p>
-                            <p className="card-text text-muted">
-                              Lorem, ipsum dolor sit amet consectetur
-                              adipisicing elit. Tempore perferendis repellendus
-                              corrupti nostrum{" "}
-                            </p>
-                          </div>
-                        </div>
-                        <hr />
-                      </div>
-                      <div className="card mb-3 border-0 my-4">
-                        <div className="row g-0">
-                          <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img
-                              src={require("../../assets/dummy.jpg")}
-                              width={150}
-                              className="img-fluid rounded-circle"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col-md-8">
-                            <div className="card-body">
-                              <h5 className="card-title">Software Engineer</h5>
-                              <p className="card-text text-muted">Tokopedia</p>
-
-                              <p className="card-text text-muted">
-                                Januari 2021 - Sekarang
-                              </p>
-                              <p className="card-text text-muted">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore perferendis
-                                repellendus corrupti nostrum{" "}
-                              </p>
+                  <div className={styles["card"]}>
+                        <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                                <div className="d-flex align-items-center">
+                                    <img className={styles["product-img"]} src={require('../../assets/Mask Group.png')} alt="suite" />
+                                    <div className={styles["brand"]}>
+                                        <h5>Men's formal suit - Black</h5>
+                                        <p>Zalora</p>
+                                    </div>
+                                </div>
+                                <p className={styles["price"]}>$ 20.0</p>
                             </div>
-                          </div>
-                          <hr />
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -755,61 +669,19 @@ const ProfileBuyer = () => {
               <hr />
                 <div className="collapse multi-collapse" id="packed">
                   <div className="container mt-5">
-                    <div className="card mb-3 border-0 my-4">
-                      <div className="row g-0">
-                        <div className="col-md-2 d-flex align-items-center justify-content-center">
-                          <img
-                            src={require("../../assets/dummy.jpg")}
-                            width={150}
-                            className="img-fluid rounded-circle"
-                            alt="..."
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <div className="card-body">
-                            <h5 className="card-title">Software Engineer</h5>
-                            <p className="card-text text-muted">Tokopedia</p>
-
-                            <p className="card-text text-muted">
-                              Januari 2021 - Sekarang
-                            </p>
-                            <p className="card-text text-muted">
-                              Lorem, ipsum dolor sit amet consectetur
-                              adipisicing elit. Tempore perferendis repellendus
-                              corrupti nostrum{" "}
-                            </p>
-                          </div>
-                        </div>
-                        <hr />
-                      </div>
-                      <div className="card mb-3 border-0 my-4">
-                        <div className="row g-0">
-                          <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img
-                              src={require("../../assets/dummy.jpg")}
-                              width={150}
-                              className="img-fluid rounded-circle"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col-md-8">
-                            <div className="card-body">
-                              <h5 className="card-title">Software Engineer</h5>
-                              <p className="card-text text-muted">Tokopedia</p>
-
-                              <p className="card-text text-muted">
-                                Januari 2021 - Sekarang
-                              </p>
-                              <p className="card-text text-muted">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore perferendis
-                                repellendus corrupti nostrum{" "}
-                              </p>
+                  <div className={styles["card"]}>
+                        <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                                <div className="d-flex align-items-center">
+                                    <img className={styles["product-img"]} src={require('../../assets/Mask Group.png')} alt="suite" />
+                                    <div className={styles["brand"]}>
+                                        <h5>Men's formal suit - Black</h5>
+                                        <p>Zalora</p>
+                                    </div>
+                                </div>
+                                <p className={styles["price"]}>$ 20.0</p>
                             </div>
-                          </div>
-                          <hr />
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -880,61 +752,19 @@ const ProfileBuyer = () => {
               <hr />
                 <div className="collapse multi-collapse" id="sent">
                   <div className="container mt-5">
-                    <div className="card mb-3 border-0 my-4">
-                      <div className="row g-0">
-                        <div className="col-md-2 d-flex align-items-center justify-content-center">
-                          <img
-                            src={require("../../assets/dummy.jpg")}
-                            width={150}
-                            className="img-fluid rounded-circle"
-                            alt="..."
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <div className="card-body">
-                            <h5 className="card-title">Software Engineer</h5>
-                            <p className="card-text text-muted">Tokopedia</p>
-
-                            <p className="card-text text-muted">
-                              Januari 2021 - Sekarang
-                            </p>
-                            <p className="card-text text-muted">
-                              Lorem, ipsum dolor sit amet consectetur
-                              adipisicing elit. Tempore perferendis repellendus
-                              corrupti nostrum{" "}
-                            </p>
-                          </div>
-                        </div>
-                        <hr />
-                      </div>
-                      <div className="card mb-3 border-0 my-4">
-                        <div className="row g-0">
-                          <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img
-                              src={require("../../assets/dummy.jpg")}
-                              width={150}
-                              className="img-fluid rounded-circle"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col-md-8">
-                            <div className="card-body">
-                              <h5 className="card-title">Software Engineer</h5>
-                              <p className="card-text text-muted">Tokopedia</p>
-
-                              <p className="card-text text-muted">
-                                Januari 2021 - Sekarang
-                              </p>
-                              <p className="card-text text-muted">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore perferendis
-                                repellendus corrupti nostrum{" "}
-                              </p>
+                  <div className={styles["card"]}>
+                        <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                                <div className="d-flex align-items-center">
+                                    <img className={styles["product-img"]} src={require('../../assets/Mask Group.png')} alt="suite" />
+                                    <div className={styles["brand"]}>
+                                        <h5>Men's formal suit - Black</h5>
+                                        <p>Zalora</p>
+                                    </div>
+                                </div>
+                                <p className={styles["price"]}>$ 20.0</p>
                             </div>
-                          </div>
-                          <hr />
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1005,61 +835,19 @@ const ProfileBuyer = () => {
               <hr />
                 <div className="collapse multi-collapse" id="completed">
                   <div className="container mt-5">
-                    <div className="card mb-3 border-0 my-4">
-                      <div className="row g-0">
-                        <div className="col-md-2 d-flex align-items-center justify-content-center">
-                          <img
-                            src={require("../../assets/dummy.jpg")}
-                            width={150}
-                            className="img-fluid rounded-circle"
-                            alt="..."
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <div className="card-body">
-                            <h5 className="card-title">Software Engineer</h5>
-                            <p className="card-text text-muted">Tokopedia</p>
-
-                            <p className="card-text text-muted">
-                              Januari 2021 - Sekarang
-                            </p>
-                            <p className="card-text text-muted">
-                              Lorem, ipsum dolor sit amet consectetur
-                              adipisicing elit. Tempore perferendis repellendus
-                              corrupti nostrum{" "}
-                            </p>
-                          </div>
-                        </div>
-                        <hr />
-                      </div>
-                      <div className="card mb-3 border-0 my-4">
-                        <div className="row g-0">
-                          <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img
-                              src={require("../../assets/dummy.jpg")}
-                              width={150}
-                              className="img-fluid rounded-circle"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col-md-8">
-                            <div className="card-body">
-                              <h5 className="card-title">Software Engineer</h5>
-                              <p className="card-text text-muted">Tokopedia</p>
-
-                              <p className="card-text text-muted">
-                                Januari 2021 - Sekarang
-                              </p>
-                              <p className="card-text text-muted">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore perferendis
-                                repellendus corrupti nostrum{" "}
-                              </p>
+                  <div className={styles["card"]}>
+                        <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                                <div className="d-flex align-items-center">
+                                    <img className={styles["product-img"]} src={require('../../assets/Mask Group.png')} alt="suite" />
+                                    <div className={styles["brand"]}>
+                                        <h5>Men's formal suit - Black</h5>
+                                        <p>Zalora</p>
+                                    </div>
+                                </div>
+                                <p className={styles["price"]}>$ 20.0</p>
                             </div>
-                          </div>
-                          <hr />
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1130,61 +918,19 @@ const ProfileBuyer = () => {
               <hr />
                 <div className="collapse multi-collapse" id="cancel">
                   <div className="container mt-5">
-                    <div className="card mb-3 border-0 my-4">
-                      <div className="row g-0">
-                        <div className="col-md-2 d-flex align-items-center justify-content-center">
-                          <img
-                            src={require("../../assets/dummy.jpg")}
-                            width={150}
-                            className="img-fluid rounded-circle"
-                            alt="..."
-                          />
-                        </div>
-                        <div className="col-md-8">
-                          <div className="card-body">
-                            <h5 className="card-title">Software Engineer</h5>
-                            <p className="card-text text-muted">Tokopedia</p>
-
-                            <p className="card-text text-muted">
-                              Januari 2021 - Sekarang
-                            </p>
-                            <p className="card-text text-muted">
-                              Lorem, ipsum dolor sit amet consectetur
-                              adipisicing elit. Tempore perferendis repellendus
-                              corrupti nostrum{" "}
-                            </p>
-                          </div>
-                        </div>
-                        <hr />
-                      </div>
-                      <div className="card mb-3 border-0 my-4">
-                        <div className="row g-0">
-                          <div className="col-md-2 d-flex align-items-center justify-content-center">
-                            <img
-                              src={require("../../assets/dummy.jpg")}
-                              width={150}
-                              className="img-fluid rounded-circle"
-                              alt="..."
-                            />
-                          </div>
-                          <div className="col-md-8">
-                            <div className="card-body">
-                              <h5 className="card-title">Software Engineer</h5>
-                              <p className="card-text text-muted">Tokopedia</p>
-
-                              <p className="card-text text-muted">
-                                Januari 2021 - Sekarang
-                              </p>
-                              <p className="card-text text-muted">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Tempore perferendis
-                                repellendus corrupti nostrum{" "}
-                              </p>
+                  <div className={styles["card"]}>
+                        <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                                <div className="d-flex align-items-center">
+                                    <img className={styles["product-img"]} src={require('../../assets/Mask Group.png')} alt="suite" />
+                                    <div className={styles["brand"]}>
+                                        <h5>Men's formal suit - Black</h5>
+                                        <p>Zalora</p>
+                                    </div>
+                                </div>
+                                <p className={styles["price"]}>$ 20.0</p>
                             </div>
-                          </div>
-                          <hr />
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
