@@ -15,6 +15,7 @@ const ProfileSeller = () => {
   const [icondown, setIconDown] = useState(0);
   const [iconDownOrder, setIconDownOrder] = useState(0);
   const [iconDownStore, setIconDownStore] = useState(0);
+  const [disableEdit, setDisableEdit] = useState(0);
   const [viewPage, setViwPage] = useState(0);
   return (
     <section>
@@ -67,7 +68,7 @@ const ProfileSeller = () => {
                     <h6>Johanes Mikael</h6>
                   </div>
                   <div className={styles.buttonEditProfile}>
-                    <button>
+                    <button onClick={(e) => setDisableEdit(1)}>
                       <img src={iconPensil} alt="" /> Ubah profile
                     </button>
                   </div>
@@ -312,105 +313,220 @@ const ProfileSeller = () => {
                     </div>
                     <hr />
                   </div>
-                  <div className={styles.containerMain}>
-                    <div className="row">
-                      <div
-                        className={`col-md-8  ${styles.containerStoreProduct}`}
-                      >
-                        <form>
-                          <div className="group-input mb-3">
+                  {disableEdit == 0 ? (
+                    <div className={styles.containerMain}>
+                      <div className="row">
+                        <div
+                          className={`col-md-8  ${styles.containerStoreProduct}`}
+                        >
+                          <form>
+                            <div className="group-input mb-3">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Store Name
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <input
+                                    className={styles.inputStoreProfile}
+                                    type="text"
+                                    placeholder="Johanes Mikael"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="group-input mb-3">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Email
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <input
+                                    className={styles.inputStoreProfile}
+                                    type="email"
+                                    placeholder="johanesmikael@gmail.com"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="group-input mb-3">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Phone Number
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <input
+                                    className={styles.inputStoreProfile}
+                                    type="phone"
+                                    placeholder="085618219271"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="group-input">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Store Description
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <textarea
+                                    className={
+                                      styles.textareaDescriptionProfile
+                                    }
+                                    type="text"
+                                    placeholder="Description"
+                                    disabled
+                                  />
+                                </div>
+                              </div>
+                            </div>
                             <div className="row">
-                              <div className="col-md-3">
-                                <label className="text-secondary">
-                                  Store Name
-                                </label>
-                              </div>
-                              <div className="col">
-                                <input
-                                className={styles.inputStoreProfile}
-                                  type="text"
-                                  placeholder="Johanes Mikael"
-                                />
+                              <div className="col-md-3"></div>
+                              <div className="col-md-4 mt-3">
+                                <button className={styles.buttonSaveProfile}>
+                                  Save
+                                </button>
                               </div>
                             </div>
-                          </div>
-                          <div className="group-input mb-3">
-                            <div className="row">
-                              <div className="col-md-3">
-                                <label className="text-secondary">Email</label>
-                              </div>
-                              <div className="col">
-                                <input
-                                 className={styles.inputStoreProfile}
-                                  type="email"
-                                  placeholder="johanesmikael@gmail.com"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="group-input mb-3">
-                            <div className="row">
-                              <div className="col-md-3">
-                                <label className="text-secondary">
-                                  Phone Number
-                                </label>
-                              </div>
-                              <div className="col">
-                                <input
-                                 className={styles.inputStoreProfile}
-                                  type="phone"
-                                  placeholder="085618219271"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="group-input">
-                            <div className="row">
-                              <div className="col-md-3">
-                                <label className="text-secondary">
-                                  Store Description
-                                </label>
-                              </div>
-                              <div className="col">
-                                <textarea
-                                  className={styles.textareaDescriptionProfile}
-                                  type="text"
-                                  placeholder="Description"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-3"></div>
-                            <div className="col-md-4 mt-3">
-                              <button className={styles.buttonSaveProfile}>
-                                Save
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div className="col-md-4 text-center">
-                        <div className={styles.containePictureUser}>
-                          <img className={styles.img} src={pictureUser} />
+                          </form>
                         </div>
-                        <div className="mt-3">
-                          <input
-                            id="addImageProfile"
-                            className={styles.inputPhoto}
-                            type="file"
-                          />
-                          <label
-                            style={{ cursor: "pointer" }}
-                            htmlFor="addImageProfile"
-                            className={styles.buttonUploadPhoto}
-                          >
-                            Select Image
-                          </label>
+                        <div className="col-md-4 text-center">
+                          <div className={styles.containePictureUser}>
+                            <img className={styles.img} src={pictureUser} />
+                          </div>
+                          <div className="mt-3">
+                            <input
+                              id="addImageProfile"
+                              className={styles.inputPhoto}
+                              type="file"
+                              disabled
+                            />
+                            <label
+                              style={{ cursor: "pointer" }}
+                              htmlFor="addImageProfile"
+                              className={styles.buttonUploadPhoto}
+                            >
+                              Select Image
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className={styles.containerMain}>
+                      <div className="row">
+                        <div
+                          className={`col-md-8  ${styles.containerStoreProduct}`}
+                        >
+                          <form>
+                            <div className="group-input mb-3">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Store Name
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <input
+                                    className={styles.inputStoreProfile}
+                                    type="text"
+                                    placeholder="Johanes Mikael"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="group-input mb-3">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Email
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <input
+                                    className={styles.inputStoreProfile}
+                                    type="email"
+                                    placeholder="johanesmikael@gmail.com"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="group-input mb-3">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Phone Number
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <input
+                                    className={styles.inputStoreProfile}
+                                    type="phone"
+                                    placeholder="085618219271"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="group-input">
+                              <div className="row">
+                                <div className="col-md-3">
+                                  <label className="text-secondary">
+                                    Store Description
+                                  </label>
+                                </div>
+                                <div className="col">
+                                  <textarea
+                                    className={
+                                      styles.textareaDescriptionProfile
+                                    }
+                                    type="text"
+                                    placeholder="Description"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-md-3"></div>
+                              <div className="col-md-4 mt-3">
+                                <button className={styles.buttonSaveProfile}>
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div className="col-md-4 text-center">
+                          <div className={styles.containePictureUser}>
+                            <img className={styles.img} src={pictureUser} />
+                          </div>
+                          <div className="mt-3">
+                            <input
+                              id="addImageProfile"
+                              className={styles.inputPhoto}
+                              type="file"
+                            />
+                            <label
+                              style={{ cursor: "pointer" }}
+                              htmlFor="addImageProfile"
+                              className={styles.buttonUploadPhoto}
+                            >
+                              Select Image
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : viewPage == 1 ? (
                 <div className={styles.containerCardMyProduct}>
@@ -565,7 +681,7 @@ const ProfileSeller = () => {
                                     <div className="col-auto">
                                       <input
                                         className={styles.radioStock}
-                                        type="checkbox"
+                                        type="radio"
                                         value="0"
                                       />
                                     </div>
@@ -583,7 +699,7 @@ const ProfileSeller = () => {
                                     <div className="col-auto">
                                       <input
                                         className={styles.radioStock}
-                                        type="checkbox"
+                                        type="radio"
                                         value="1"
                                       />
                                     </div>
