@@ -34,19 +34,19 @@ const Home = () => {
     <>
       <Navbar />
       {/* <!-- Modal --> */}
-      {/* <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Filter</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      {/* <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">Filter</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               ...
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-              <button type="button" class="btn btn-primary">Apply</button>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+              <button type="button" className="btn btn-primary">Apply</button>
             </div>
           </div>
         </div>
@@ -114,112 +114,112 @@ const Home = () => {
               <div className={`d-flex flex-column mt-5 ${styles.newSide}`}>
                 <p className={styles.textTitlemain}> New </p>
                 <p className={styles.textSubmain}>You’ve never seen it before!</p>
-                <div class="row row-cols-1 row-cols-md-5 g-4">
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class={styles.cardTitle}>Men's formal suit - Black & White</h5>
-                        <p class={styles.textPricecard}>$ 40.0</p>
-                        <p class={styles.textBrand}>Zalora Cloth</p>
+                <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className={styles.cardTitle}>Men's formal suit - Black & White</h5>
+                        <p className={styles.textPricecard}>$ 40.0</p>
+                        <p className={styles.textBrand}>Zalora Cloth</p>
                         <div className="d-flex flex-row">
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
-                          <div class={`ms-2 ${styles.textStar}`}>(10)</div>
+                          <div className={`ms-2 ${styles.textStar}`}>(10)</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class={styles.cardTitle}>Men's formal suit - Black & White</h5>
-                        <p class={styles.textPricecard}>$ 40.0</p>
-                        <p class={styles.textBrand}>Zalora Cloth</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className={styles.cardTitle}>Men's formal suit - Black & White</h5>
+                        <p className={styles.textPricecard}>$ 40.0</p>
+                        <p className={styles.textBrand}>Zalora Cloth</p>
                         <div className="d-flex flex-row">
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
                           <img src={icStar} alt="icStar" />
-                          <div class={`ms-2 ${styles.textStar}`}>(10)</div>
+                          <div className={`ms-2 ${styles.textStar}`}>(10)</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a short card.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a short card.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a short card.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a short card.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a short card.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a short card.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a short card.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="card h-100">
-                      <img src={mensuit} class="card-img-top" alt="imgNew" />
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <div className="col">
+                    <div className="card h-100 mx-1">
+                      <img src={mensuit} className="card-img-top" alt="imgNew" />
+                      <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                       </div>
                     </div>
                   </div>
@@ -232,7 +232,7 @@ const Home = () => {
               <div className={`d-flex flex-column mt-5 ${styles.popularSide}`}>
                 <p className={styles.textTitlemain}> Popular </p>
                 <p className={styles.textSubmain}>Find clothes that are trending recently</p>
-                <div class="row row-cols-1 row-cols-md-5 g-4">
+                <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
                   <CardProduct />
                   <CardProduct />
                   <CardProduct />

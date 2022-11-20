@@ -54,13 +54,13 @@ const NavbarLogin = () => {
                   <img src={icMail} alt='icMail' />
                 </button></Link>
               </li>
-              <div class="dropdown">
+              <div className="dropdown">
                 <button className={`px-2 mt-1 ${styles.btnAva}`} type="button" data-bs-toggle="dropdown">
                   <img src={icAva} alt='icCart' className={styles.cstmAva} />
                 </button>
-                <ul class="dropdown-menu">
-                  <li><Link class="dropdown-item" to={'/profile'}>Profile</Link></li>
-                  <li><Link class="dropdown-item" to="#">Logout</Link></li>
+                <ul className="dropdown-menu">
+                  <li><Link className="dropdown-item" to={'/profile'}>Profile</Link></li>
+                  <li><Link className="dropdown-item" to="#">Logout</Link></li>
                 </ul>
               </div>
             </ul>

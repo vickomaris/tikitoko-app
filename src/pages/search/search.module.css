@@ -1,10 +1,9 @@
 /* CSS Search Page */
-
-
 .main{
     background-color: #FFFFFF;
     height: max-content;
     padding-bottom: 50px;
+    padding-top: 50px;
 }
 
 .textInfocategory{

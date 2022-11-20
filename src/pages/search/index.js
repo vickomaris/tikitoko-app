@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from "./search.module.css"
 
-import Navbar from '../../component/module/navbarLogin'
+import NavbarLogin from '../../component/module/navbarLogin'
 import CardProduct from '../../component/module/cardProduct'
 
 const Search = () => {
   return (
     <>
-      <Navbar/>
+      <NavbarLogin/>
       <section className={`mt-5 ${styles.main}`}>
         <div className="container">
           <div className="row">
@@ -21,7 +21,7 @@ const Search = () => {
               </div>
             </div>
             <p className={`mt-3 ${styles.textTitleCategory}`}> T-Shirt </p>
-            <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
               <CardProduct/>
               <CardProduct/>
               <CardProduct/>

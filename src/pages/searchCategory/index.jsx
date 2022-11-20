@@ -23,7 +23,7 @@ const SearchCategory = () => {
               </div>
             </div>
             <p className={`mt-3 ${styles.textTitleCategory}`}> T-Shirt </p>
-            <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
               <CardProduct/>
               <CardProduct/>
               <CardProduct/>
