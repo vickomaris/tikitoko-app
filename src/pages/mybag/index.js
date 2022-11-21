@@ -1,9 +1,12 @@
 import React from 'react'
 import styles from "./mybag.module.css"
+import Navbar from '../../component/module/navbar'
 
 const Mybag = () => {
   return (
-    <div className={styles["main"]}>
+    <>
+    <Navbar/>
+    <div className={`${styles['main']}`}>
                 <div className="container">
                     <h1 className={styles["title"]}>My Bag</h1>
                     <div className="row">
@@ -62,6 +65,7 @@ const Mybag = () => {
                 </div>
             </div>
         </div>
+        </>
   )
 }
 

@@ -24,11 +24,17 @@
 .btn-seller {
     border-left: none;
     text-align: center;
-    color: white;
     border-radius: 0px 4px 4px 0px;
+    padding: 10px 40px 10px 40px;
+    color: #9B9B9B;
+    background-color: white;
+    border: solid 1px #9B9B9B;
+}
+
+.active {
+    color: white;
     border: solid 1px #DB3022;
     background-color: #DB3022;
-    padding: 10px 40px 10px 40px;
 }
 
 .form-group {
