@@ -1,1 +1,52 @@
 /* CSS Chat Page */
+
+.chat-session {
+    padding: 10px 10px 10px 10px;
+    border: solid 1px #8E8E93;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.chat-title {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.chat-list {
+    padding: 10px 10px 10px 10px;
+    border: solid 1px #8E8E93;
+    border-radius: 0px 0px 4px 4px;
+    height: 400px;
+}
+
+.name-chat {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chat-value {
+    font-size: 14px;
+    font-weight: 400;
+    color: #9B9B9B;
+    margin-top: -15px;
+}
+
+.chat-direction {
+    border: solid 1px #8E8E93;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.chat-box {
+    padding: 10px 10px 10px 10px;
+    border: solid 1px #8E8E93;
+    border-radius: 0px 0px 4px 4px;
+    height: 400px;
+}
+
+.input-chat {
+    margin-top: 250px;
+}
+
+.input-chat input {
+    padding-left: 10px;
+    width: 95vh;
+}
