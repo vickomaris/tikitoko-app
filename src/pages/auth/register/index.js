@@ -52,7 +52,7 @@ const Register = () => {
     const onSubmit2 =  (e) => {
         e.preventDefault();
         // console.log(form)
-        if(form2.name == "" || form2.phone == "" || form2.password == "" || form2.email == ""){
+        if(form2.name == "" || form2.email == "" || form2.password == "" || form2.phone == ""){
             alert('Semua input wajib diisi')}
         // }else {
         //     if (form2.password !== form2.password2) {

@@ -14,6 +14,11 @@ const Login = () => {
         password: '',
     })
 
+    const [form2, setform2] = useState({
+        email: '',
+        password: '',
+    })
+
     const onSubmit1 = (e) => {
         e.preventDefault();
         console.log(form)
@@ -29,7 +34,7 @@ const Login = () => {
               localStorage.setItem("email", JSON.stringify(response.data.data.buyer.email));
               console.log(response)
               alert ("Login Success")
-              // return navigate ("/")
+              return navigate ("/")
             }
         })
         .catch((err) => {
@@ -40,9 +45,9 @@ const Login = () => {
 
     const onSubmit2 = (e) => {
         e.preventDefault();
-        console.log(form)
+        console.log(form2)
 
-        axios.post(`http://localhost:4000/v1/seller/login`, form)
+        axios.post(`http://localhost:4000/v1/seller/login`, form2)
         .then((response) => {
             console.log(response)
             if (response.data.status !== "success") {
@@ -53,7 +58,7 @@ const Login = () => {
               localStorage.setItem("email", JSON.stringify(response.data.data.seller.email));
               console.log(response)
               alert ("Login Success")
-              // return navigate ("/")
+              return navigate ("/")
             }
         })
         .catch((err) => {
@@ -91,7 +96,7 @@ const Login = () => {
         </div>
         {
           role === "Buyer" ?
-          <form onSubmit={(e) => onSubmit1(e)}>
+          <form onSubmit={onSubmit1}>
           <div className="mt-5">
           <div className={`mb-3 ${styles['form-group']}`}>
             <input name='email' type="email" id='email' onChange={(e) => setform({...form, email: e.target.value})} placeholder='Email'/>
@@ -112,13 +117,13 @@ const Login = () => {
         </form>
         :
         role === "Seller" ?
-        <form onSubmit={(e) => onSubmit2(e)}>
+        <form onSubmit={onSubmit2}>
           <div className="mt-5">
           <div className={`mb-3 ${styles['form-group']}`}>
-            <input name='email' type="email" id='email' onChange={(e) => setform({...form, email: e.target.value})} placeholder='Email'/>
+            <input name='email' type="email" id='email' onChange={(e) => setform2({...form2, email: e.target.value})} placeholder='Email'/>
           </div>
           <div className={`${styles['form-group']}`}>
-            <input name='password' type="password" id='password' onChange={(e) => setform({...form, password: e.target.value})} placeholder='Password'/>
+            <input name='password' type="password" id='password' onChange={(e) => setform2({...form2, password: e.target.value})} placeholder='Password'/>
           </div>
           <div className="mt-3 justify-content-center align-items-center flex d-flex">
             <button className={`${styles['form-button']}`}>Forgot Password?</button>
