@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./profilebuyer.module.css";
 import pencil from "../../assets/pencil-icon.svg";
@@ -6,7 +6,7 @@ import user from "../../assets/user-icon.svg";
 import location from "../../assets/location-icon.svg";
 import order from "../../assets/order-icon.svg";
 import Navbar from "../../component/module/navbar";
-import Card from "../../component/module/card";
+// import Card from "../../component/module/card";
 
 const ProfileBuyer = () => {
   const hiddenFileInput = useRef(null);
