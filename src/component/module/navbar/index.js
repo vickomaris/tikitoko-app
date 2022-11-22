@@ -1,13 +1,41 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from "./navbar.module.css"
 
 import icLogo from '../../../assets/logo.svg'
 import icSearch from '../../../assets/search-icon.svg'
 import icFilter from '../../../assets/filter-icon.svg'
 import icCart from '../../../assets/cart-icon.svg'
+import axios from 'axios'
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  // const [search, setSearch] = useState("");
+
+  //   const onSubmitHandler = () => {
+  //       // e.preventDefault();
+  //       if (search != "") {
+  //           axios
+  //               .get(`http://localhost:3001/v1/product?search=${search}`)
+  //               .then((res) => {
+  //                   if (res.data.length > 0) {
+  //                     //console.log(name)
+  //                       navigate(`/search?search=${search}`);
+  //                   } else {
+  //                       alert("Items not found");
+  //                   }
+  //               });
+  //       }
+  //   };
+
+  const [search, setSearch] = useState()
+
+  const handleSearch = (e) => {
+    if(e.key === "Enter"){
+      navigate(`/search?q=${search}`)
+    }
+  }
+
   return (
     <>
       <nav className={`navbar navbar-expand-lg fixed-top ${styles.navbar}`}>
@@ -24,8 +52,8 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form className="d-flex ms-5" role="search">
-              <input type="text" className={`px-4 py-2 ${styles.cstmSearch}`} placeholder="Search" aria-label="Search" aria-describedby="button-addon2" />
+            <form  className="d-flex ms-5">
+              <input type="text" className={`px-4 py-2 ${styles.cstmSearch}`} placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={(e) => setSearch(e.target.value)}  onKeyDown={handleSearch} />
               <button className={`px-4 ${styles.btnSearch}`} type="button" id="button-addon2"><img src={icSearch} alt='icSearch' /></button>
             </form>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
