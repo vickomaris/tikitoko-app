@@ -188,6 +188,7 @@ textarea {
 /* PRODUCT */
 .containerCardMyProduct {
   height: auto;
+  width: 100%;
   background: #ffffff;
   padding: 20px;
   padding-bottom: 40px !important;
@@ -229,7 +230,90 @@ textarea {
   padding: 12px;
 }
 
+.deleteProduct {
+  border: none;
+  background-color: red;
+  box-shadow: 1px 1px 1px 1px rgb(230, 230, 230);
+  color: white;
+  border-radius: 7px;
+  height: 35px;
+}
+
+.updateProduct{
+  border: none;
+  background-color: yellow;
+  box-shadow: 1px 1px 1px 1px rgb(230, 230, 230);
+  color: black;
+  border-radius: 7px;
+  height: 35px;
+}
+
+.bgPaid{
+  border: none;
+  background-color: rgb(12, 255, 4);
+  box-shadow: 1px 1px 1px 1px rgb(230, 230, 230);
+  color: white;
+  border-radius: 7px;
+  height: 35px;
+}
+
+.containerMainAllItem{
+  width: 100%;
+}
+
+.containerMainMyProduct{
+  width: 100%;
+}
+
+.inputUpdateProduct{
+  border: 1px solid #9b9b9b;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+}
+
+.containerStockUpdate {
+  border: 1px solid #9b9b9b;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 100%;
+  background: #ffffff;
+}
+
+.inputStockUpdate {
+  border: none;
+  background: #ffffff;
+  width: 380px;
+  border-radius: 4px;
+  height: 50px;
+}
+
+.buttonFilter{
+  border: none;
+  background-color: rgb(5, 197, 255);
+  box-shadow: 1px 1px 1px 1px rgb(230, 230, 230);
+  color: white;
+  border-radius: 7px;
+  width: 100px;
+  height: 35px;
+}
+
 /* SELLING PRODUCT */
+
+.selectCategory{
+  border: 1px solid #9b9b9b;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 400px;
+  height: 50px;
+  padding: 10px;
+}
+
 .containerCardInventory {
   height: auto;
   background: #ffffff;
@@ -407,7 +491,6 @@ textarea {
     width: 120px;
     background-color: #9b9b9b;
     border-radius: 100%;
-    margin-left: 85px;
     margin-top: 30px;
   }
 
@@ -449,5 +532,20 @@ textarea {
     border-radius: 23px;
     width: 100%;
     margin: 0px !important;
+  }
+
+  .selectCategory{
+    border: 1px solid #9b9b9b;
+    filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+  }
+
+  .table{
+    width: 100% !important;
+    height: auto !important;
   }
 }

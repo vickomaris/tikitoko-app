@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import styles from "./profileSeller.module.css";
 import pictureUser from "../../assets/user-icon.svg";
 import iconHome from "../../assets/home-icon.svg";
@@ -11,12 +14,292 @@ import iconBell from "../../assets/bell-icon.svg";
 import iconMail from "../../assets/mail-icon.svg";
 import searchIcon from "../../assets/search-icon.svg";
 import logo from "../../assets/logo.svg";
+// import { getDetailSeller } from "../../redux/action/user.action";
+
 const ProfileSeller = () => {
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //get ID from parameter URL
+  // const { id } = useParams();
+
   const [icondown, setIconDown] = useState(0);
   const [iconDownOrder, setIconDownOrder] = useState(0);
   const [iconDownStore, setIconDownStore] = useState(0);
   const [disableEdit, setDisableEdit] = useState(0);
   const [viewPage, setViwPage] = useState(0);
+  const [profile, setProfile] = useState({});
+  const [updateImage, setUpdateImage] = useState();
+  const [category, setCategory] = useState([]);
+  const [imageProduct, setImageProduct] = useState();
+  const [query, setQuery] = useState("");
+  const [queryOrder, setQueryOrder] = useState("");
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState("product_id");
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  // const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    // dispatch(getDetailSeller(id));
+    getDataProfile();
+    getDataCategory();
+    getOwnProduct(query, sort, sortOrder, 3, page);
+    getOwnOrder(queryOrder);
+  }, [query, sort, sortOrder, page]);
+
+  const [preview, setPreview] = useState();
+  const getDataProfile = () => {
+    const data = JSON.parse(localStorage.getItem("data"));
+    const id = data.seller_id;
+    axios
+      .get(`http://localhost:4000/v1/seller/${id}`)
+      .then((res) => {
+        setProfile(res.data.data);
+        if (res.data.data.avatar) {
+          setPreview(res.data.data.avatar);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [updateProfile, setUpdateProfile] = useState({});
+
+  const handleInput = (e) => {
+    setUpdateProfile({
+      ...updateProfile,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleChange = (event) => {
+    const fileUploaded = event.target.files[0];
+    document.getElementById("addImageProfile").innerHTML = fileUploaded.name;
+    setUpdateImage(fileUploaded);
+    setPreview([URL.createObjectURL(event.target.files[0])]);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const id = profile.seller_id;
+    let inputForm = new FormData();
+    if (updateProfile.name) {
+      inputForm.append("name", updateProfile.name);
+    }
+    if (updateProfile.email) {
+      inputForm.append("email", updateProfile.email);
+    }
+    if (updateProfile.phone) {
+      inputForm.append("phone", updateProfile.phone);
+    }
+    if (updateProfile.description) {
+      inputForm.append("description", updateProfile.description);
+    }
+    inputForm.append("avatar", updateImage);
+    axios
+      .put(`http://localhost:4000/v1/seller/${id}`, inputForm)
+      .then((res) => {
+        console.log(res.data);
+        alert("Update Success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [insertProduct, setInsertProduct] = useState({
+    cid: "",
+    name: "",
+    stock: "",
+    price: "",
+    condition: "",
+    description: "",
+  });
+
+  const [previewImage, setPreviewImage] = useState();
+  const handleChangeProduct = (event) => {
+    const fileUploaded = event.target.files[0];
+    document.getElementById("addImage").innerHTML = fileUploaded.name;
+    setImageProduct(fileUploaded);
+    setPreviewImage([URL.createObjectURL(event.target.files[0])]);
+  };
+
+  const onSubmitInsertProduct = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    let inputForm = new FormData();
+    inputForm.append("cid", insertProduct.cid);
+    inputForm.append("name", insertProduct.name);
+    inputForm.append("stock", insertProduct.stock);
+    inputForm.append("price", insertProduct.price);
+    inputForm.append("condition", insertProduct.condition);
+    inputForm.append("description", insertProduct.description);
+    inputForm.append("image", imageProduct);
+    axios
+      .post(`http://localhost:4000/v1/product`, inputForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert("Insert Product Success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getDataCategory = () => {
+    axios
+      .get(`http://localhost:4000/v1/category`)
+      .then((res) => {
+        setCategory(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [ownProduct, setOwnProduct] = useState([]);
+  const getOwnProduct = (query, sort, sortOrder, limit, page) => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(
+        `http://localhost:4000/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
+          page ? `&page=${page}` : ""
+        }`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setOwnProduct(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const NextPage = () => {
+    setPage(page + 1);
+    getOwnProduct(query, sort, sortOrder, 3, page);
+  };
+
+  const PreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      getOwnProduct(query, sort, sortOrder, 3, page - 1);
+    }
+  };
+
+  //SORTING
+  const handleSorting = () => {
+    if (sort == "product_id") {
+      setSort("name");
+    } else {
+      setSort("product_id");
+    }
+    getOwnProduct(query, sort, sortOrder, 3, page);
+  };
+
+  // ASCENDING
+  const handleSortingAsc = () => {
+    if (sortOrder == "asc") {
+      setSortOrder("desc");
+    } else {
+      setSortOrder("asc");
+    }
+    getOwnProduct(query, sort, sortOrder, 3, page);
+  };
+
+  const deleteProduct = (product_id) => {
+    axios
+      .delete(`http://localhost:4000/v1/product/${product_id}`)
+      .then((res) => {
+        console.log(res);
+        alert("Delete Success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [detailProduct, setDetailProduct] = useState([]);
+  const getDetailProduct = (product_id) => {
+    axios
+      .get(`http://localhost:4000/v1/product/${product_id}`)
+      .then((res) => {
+        console.log(res.data);
+        setDetailProduct(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [productUpdate, setProductUpdate] = useState({});
+  const handleInputProduct = (e) => {
+    setProductUpdate({
+      ...productUpdate,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onUpdateProduct = (e) => {
+    e.preventDefault();
+    const id = detailProduct.product_id;
+    let inputForm = new FormData();
+    if (productUpdate.name) {
+      inputForm.append("name", productUpdate.name);
+    }
+    if (productUpdate.stock) {
+      inputForm.append("stock", productUpdate.stock);
+    }
+    if (productUpdate.price) {
+      inputForm.append("price", productUpdate.price);
+    }
+    if (productUpdate.description) {
+      inputForm.append("description", productUpdate.description);
+    }
+    axios
+      .put(`http://localhost:4000/v1/product/${id}`, inputForm)
+      .then((res) => {
+        console.log(res.data);
+        alert("Update Success");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const [ownOrder, setOwnOrder] = useState([]);
+  const getOwnOrder = (queryOrder) => {
+    const token = localStorage.getItem("token");
+    axios
+      .get(`http://localhost:4000/v1/order/myorder?search=${queryOrder}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setOwnOrder(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <section>
       <div className="container-fluid-custom fixed-top">
@@ -60,12 +343,16 @@ const ProfileSeller = () => {
               <div className="row">
                 <div className="col-auto">
                   <div className={`${styles.bgImgLeft}`}>
-                    <img className={styles.imgLeft} src={pictureUser} alt="" />
+                    <img
+                      className={styles.imgLeft}
+                      src={profile.avatar}
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div className="col-auto">
                   <div>
-                    <h6>Johanes Mikael</h6>
+                    <h6>{profile.name}</h6>
                   </div>
                   <div className={styles.buttonEditProfile}>
                     <button onClick={(e) => setDisableEdit(1)}>
@@ -285,6 +572,22 @@ const ProfileSeller = () => {
                         My Order
                       </button>
                     </div>
+                    <div className="mb-2">
+                      <button
+                        className={styles.btnStore}
+                        onClick={(e) => setViwPage(5)}
+                      >
+                        Get Paid
+                      </button>
+                    </div>
+                    <div className="mb-2">
+                      <button
+                        className={styles.btnStore}
+                        onClick={(e) => setViwPage(6)}
+                      >
+                        Not Yet Paid
+                      </button>
+                    </div>
                     <div>
                       <button
                         className={styles.btnStore}
@@ -331,7 +634,7 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStoreProfile}
                                     type="text"
-                                    placeholder="Johanes Mikael"
+                                    defaultValue={profile.name}
                                     disabled
                                   />
                                 </div>
@@ -348,7 +651,7 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStoreProfile}
                                     type="email"
-                                    placeholder="johanesmikael@gmail.com"
+                                    defaultValue={profile.email}
                                     disabled
                                   />
                                 </div>
@@ -365,7 +668,7 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStoreProfile}
                                     type="phone"
-                                    placeholder="085618219271"
+                                    defaultValue={profile.phone}
                                     disabled
                                   />
                                 </div>
@@ -384,7 +687,7 @@ const ProfileSeller = () => {
                                       styles.textareaDescriptionProfile
                                     }
                                     type="text"
-                                    placeholder="Description"
+                                    defaultValue={profile.description}
                                     disabled
                                   />
                                 </div>
@@ -393,7 +696,10 @@ const ProfileSeller = () => {
                             <div className="row">
                               <div className="col-md-3"></div>
                               <div className="col-md-4 mt-3">
-                                <button className={styles.buttonSaveProfile}>
+                                <button
+                                  disabled
+                                  className={styles.buttonSaveProfile}
+                                >
                                   Save
                                 </button>
                               </div>
@@ -402,7 +708,7 @@ const ProfileSeller = () => {
                         </div>
                         <div className="col-md-4 text-center">
                           <div className={styles.containePictureUser}>
-                            <img className={styles.img} src={pictureUser} />
+                            <img className={styles.img} src={profile.avatar} />
                           </div>
                           <div className="mt-3">
                             <input
@@ -440,7 +746,11 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStoreProfile}
                                     type="text"
-                                    placeholder="Johanes Mikael"
+                                    name="name"
+                                    placeholder={
+                                      profile.name ? profile.name : ""
+                                    }
+                                    onChange={handleInput}
                                   />
                                 </div>
                               </div>
@@ -456,7 +766,9 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStoreProfile}
                                     type="email"
-                                    placeholder="johanesmikael@gmail.com"
+                                    name="email"
+                                    placeholder={profile.email}
+                                    onChange={handleInput}
                                   />
                                 </div>
                               </div>
@@ -472,7 +784,9 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStoreProfile}
                                     type="phone"
-                                    placeholder="085618219271"
+                                    name="phone"
+                                    placeholder={profile.phone}
+                                    onChange={handleInput}
                                   />
                                 </div>
                               </div>
@@ -490,7 +804,9 @@ const ProfileSeller = () => {
                                       styles.textareaDescriptionProfile
                                     }
                                     type="text"
-                                    placeholder="Description"
+                                    name="description"
+                                    placeholder={profile.description}
+                                    onChange={handleInput}
                                   />
                                 </div>
                               </div>
@@ -498,7 +814,10 @@ const ProfileSeller = () => {
                             <div className="row">
                               <div className="col-md-3"></div>
                               <div className="col-md-4 mt-3">
-                                <button className={styles.buttonSaveProfile}>
+                                <button
+                                  onClick={onSubmit}
+                                  className={styles.buttonSaveProfile}
+                                >
                                   Save
                                 </button>
                               </div>
@@ -507,13 +826,18 @@ const ProfileSeller = () => {
                         </div>
                         <div className="col-md-4 text-center">
                           <div className={styles.containePictureUser}>
-                            <img className={styles.img} src={pictureUser} />
+                            <img
+                              className={styles.img}
+                              src={preview ? preview : profile.avatar}
+                            />
                           </div>
                           <div className="mt-3">
                             <input
                               id="addImageProfile"
                               className={styles.inputPhoto}
+                              src={preview ? preview : profile.avatar}
                               type="file"
+                              onChange={handleChange}
                             />
                             <label
                               style={{ cursor: "pointer" }}
@@ -548,25 +872,61 @@ const ProfileSeller = () => {
                     <hr />
                   </div>
                   <div className={styles.containerMainMyProduct}>
-                    <div className="mt-1">
-                      <div className={`row ${styles.containerSearch}`}>
-                        <div
-                          className="col-auto"
-                          style={{ paddingTop: "12px" }}
-                        >
-                          <img src={searchIcon} alt="" />
+                    <div className="row">
+                      <div className="col mt-1">
+                        <div className={`row ${styles.containerSearch}`}>
+                          <div
+                            className="col-auto"
+                            style={{ paddingTop: "12px" }}
+                          >
+                            <img src={searchIcon} alt="" />
+                          </div>
+                          <div className="col-auto">
+                            <input
+                              className={styles.searchMyProduct}
+                              type="text"
+                              placeholder="Search"
+                              onChange={(e) => setQuery(e.target.value)}
+                            />
+                          </div>
                         </div>
-                        <div className="col-auto">
-                          <input
-                            className={styles.searchMyProduct}
-                            type="text"
-                            placeholder="Search"
-                          />
+                      </div>
+                      <div className="col mt-2" style={{ textAlign: "right" }}>
+                        <div className="btn-group">
+                          <button
+                            type="button"
+                            className={styles.buttonFilter}
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            <span>
+                              <i className="fa fa-caret-down" /> Filter
+                            </span>
+                          </button>
+                          <ul className="dropdown-menu">
+                            <li>
+                              <a
+                                className="dropdown-item"
+                                onClick={() => handleSorting()}
+                              >
+                                Filter Berdasarkan {sort.toUpperCase()}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                className="dropdown-item"
+                                onClick={() => handleSortingAsc()}
+                              >
+                                Filter Berdasarkan {sortOrder.toUpperCase()}
+                              </a>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
-                    <div className={styles.containerAllItem}>
-                      <div className={styles.TitleAllItem}>
+
+                    <div>
+                      {/* <div className={styles.TitleAllItem}>
                         <div>
                           <div className="row">
                             <div className="col" style={{ textAlign: "left" }}>
@@ -590,11 +950,226 @@ const ProfileSeller = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                       <div className={styles.containerMainAllItem}>
-                        <div className="mt-4 text-center">
-                          <img src={iconEmpety} alt="" />
+                        {ownProduct == "" ? (
+                          <div className="mt-4 text-center">
+                            <img src={iconEmpety} alt="" />
+                          </div>
+                        ) : (
+                          <table className="mt-4 table table-hover table-responsive">
+                            <thead>
+                              <tr>
+                                <th scope="col">No</th>
+                                <th>Name Product</th>
+                                <th>Stock</th>
+                                <th>Price</th>
+                                <th>Condition</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            {ownProduct.map((data, index) => (
+                              <tbody>
+                                <tr>
+                                  <td>{index + 1}</td>
+                                  <td>{data.name}</td>
+                                  <td>{data.stock}</td>
+                                  <td>Rp. {data.price}</td>
+                                  <td>
+                                    {data.condition == 0 ? "Baru" : "Bekas"}
+                                  </td>
+                                  <td>{data.description}</td>
+                                  <td>
+                                    <div className="row">
+                                      <div className="col-auto">
+                                        <button
+                                          className={styles.updateProduct}
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#staticBackdrop"
+                                          onClick={(e) =>
+                                            getDetailProduct(data.product_id, e)
+                                          }
+                                        >
+                                          <i className="fa fa-pencil" />
+                                        </button>
+                                      </div>
+                                      <div className="col-auto">
+                                        <button
+                                          onClick={(e) =>
+                                            deleteProduct(data.product_id, e)
+                                          }
+                                          className={styles.deleteProduct}
+                                        >
+                                          <i class="fa fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            ))}
+                          </table>
+                        )}
+                        {/* MODAL UPDATE */}
+                        <div>
+                          <div
+                            className="modal fade"
+                            id="staticBackdrop"
+                            data-bs-backdrop="static"
+                            data-bs-keyboard="false"
+                            tabIndex={-1}
+                            aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true"
+                          >
+                            <div className="modal-dialog">
+                              <div className="modal-content">
+                                <div className="modal-header">
+                                  <h1
+                                    className="modal-title fs-5"
+                                    id="staticBackdropLabel"
+                                  >
+                                    Update Product
+                                  </h1>
+                                  <button
+                                    type="button"
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  />
+                                </div>
+                                <div className="modal-body">
+                                  <form>
+                                    <div className="form-group">
+                                      <label className="text-secondary">
+                                        Name Product
+                                      </label>
+                                      <div>
+                                        <input
+                                          className={styles.inputUpdateProduct}
+                                          type="text"
+                                          defaultValue={detailProduct.name}
+                                          name="name"
+                                          onChange={handleInputProduct}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="form-group mt-3">
+                                      <label className="text-secondary">
+                                        Stock
+                                      </label>
+                                      <div>
+                                        <div
+                                          className={`${styles.containerStockUpdate}`}
+                                        >
+                                          <div className="row">
+                                            <div className="col-auto">
+                                              <input
+                                                className={
+                                                  styles.inputStockUpdate
+                                                }
+                                                type="text"
+                                                defaultValue={
+                                                  detailProduct.stock
+                                                }
+                                                name="stock"
+                                                onChange={handleInputProduct}
+                                              />
+                                            </div>
+                                            <div
+                                              className="col-auto"
+                                              style={{
+                                                textAlign: "right",
+                                                paddingTop: "10px",
+                                              }}
+                                            >
+                                              <span className="text-secondary">
+                                                buah
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="form-group mt-3">
+                                      <label className="text-secondary">
+                                        Price
+                                      </label>
+                                      <div>
+                                        <input
+                                          className={styles.inputUpdateProduct}
+                                          type="text"
+                                          defaultValue={detailProduct.price}
+                                          name="price"
+                                          onChange={handleInputProduct}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="form-group mt-3">
+                                      <label className="text-secondary">
+                                        Description
+                                      </label>
+                                      <div>
+                                        <input
+                                          className={styles.inputUpdateProduct}
+                                          type="text"
+                                          defaultValue={
+                                            detailProduct.description
+                                          }
+                                          name="description"
+                                          onChange={handleInputProduct}
+                                        />
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div className="modal-footer">
+                                  <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                  >
+                                    Close
+                                  </button>
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={onUpdateProduct}
+                                  >
+                                    Save
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                      </div>
+                      {/* END MODAL UPDATE */}
+                      <div className="d-flex justify-content-center mt-3">
+                        <ul className="pagination">
+                          <li className="page-item">
+                            <button
+                              className="btn btn-warning-custom page-link"
+                              disabled={page == 1}
+                              onClick={() => PreviousPage()}
+                            >
+                              <i class="fa fa-backward"></i>
+                            </button>
+                          </li>
+                          <li style={{ marginLeft: 3 }}>
+                            <button className="btn btn-warning-custom page-link">
+                              {page}
+                            </button>
+                          </li>
+                          <li style={{ marginLeft: 3 }} className="page-item">
+                            <button
+                              className="btn btn-warning-custom page-link"
+                              disabled={ownProduct == 0}
+                              onClick={() => NextPage()}
+                            >
+                              <i class="fa fa-forward"></i>
+                            </button>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -602,6 +1177,43 @@ const ProfileSeller = () => {
               ) : viewPage == 2 ? (
                 <div>
                   <div className={styles.containerSellingProduct}>
+                    <div className={styles.containerCardInventory}>
+                      <div>
+                        <h5>Category</h5>
+                      </div>
+                      <hr />
+                      <div>
+                        <form>
+                          <div className="form-group">
+                            <label className="text-secondary">
+                              Type category
+                            </label>
+                            <div>
+                              <select
+                                className={styles.selectCategory}
+                                onChange={(e) =>
+                                  setInsertProduct({
+                                    ...insertProduct,
+                                    cid: e.target.value,
+                                  })
+                                }
+                              >
+                                <option className="text-secondary" value="">
+                                  --Choice Category--
+                                </option>
+                                {category.map((data) => (
+                                  <option value={data.category_id}>
+                                    {data.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={`mt-3 ${styles.containerSellingProduct}`}>
                     <div className={styles.containerCardInventory}>
                       <div>
                         <h5>Inventory</h5>
@@ -617,6 +1229,12 @@ const ProfileSeller = () => {
                               <input
                                 className={styles.inputInventory}
                                 type="text"
+                                onChange={(e) => {
+                                  setInsertProduct({
+                                    ...insertProduct,
+                                    name: e.target.value,
+                                  });
+                                }}
                               />
                             </div>
                           </div>
@@ -639,6 +1257,12 @@ const ProfileSeller = () => {
                             <input
                               className={styles.inputInventory}
                               type="text"
+                              onChange={(e) => {
+                                setInsertProduct({
+                                  ...insertProduct,
+                                  price: e.target.value,
+                                });
+                              }}
                             />
                           </div>
                         </div>
@@ -651,6 +1275,12 @@ const ProfileSeller = () => {
                                   <input
                                     className={styles.inputStock}
                                     type="text"
+                                    onChange={(e) => {
+                                      setInsertProduct({
+                                        ...insertProduct,
+                                        stock: e.target.value,
+                                      });
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -672,7 +1302,7 @@ const ProfileSeller = () => {
                               style={{ color: "#696f79" }}
                               className="form-label"
                             >
-                              Stock
+                              Condition
                             </label>
                             <div className="row">
                               <div className="col-md-2">
@@ -683,6 +1313,12 @@ const ProfileSeller = () => {
                                         className={styles.radioStock}
                                         type="radio"
                                         value="0"
+                                        onChange={(e) => {
+                                          setInsertProduct({
+                                            ...insertProduct,
+                                            condition: e.target.value,
+                                          });
+                                        }}
                                       />
                                     </div>
                                     <div className="col-auto">
@@ -701,6 +1337,12 @@ const ProfileSeller = () => {
                                         className={styles.radioStock}
                                         type="radio"
                                         value="1"
+                                        onChange={(e) => {
+                                          setInsertProduct({
+                                            ...insertProduct,
+                                            condition: e.target.value,
+                                          });
+                                        }}
                                       />
                                     </div>
                                     <div className="col-auto">
@@ -730,7 +1372,7 @@ const ProfileSeller = () => {
                           <label className={styles.bgPreviewPhoto}>
                             <img
                               className={styles.cardPreviewPhoto}
-                              src={packageIcon}
+                              src={previewImage ? previewImage : packageIcon}
                               alt=""
                             />
                           </label>
@@ -738,6 +1380,8 @@ const ProfileSeller = () => {
                             id="addImage"
                             className={styles.inputPhoto}
                             type="file"
+                            src={previewImage ? previewImage : packageIcon}
+                            onChange={handleChangeProduct}
                           />
                         </div>
                         <div className="mt-3">
@@ -768,11 +1412,22 @@ const ProfileSeller = () => {
                         className={styles.descriptionTextarea}
                         type="text"
                         placeholder="Description"
+                        onChange={(e) => {
+                          setInsertProduct({
+                            ...insertProduct,
+                            description: e.target.value,
+                          });
+                        }}
                       />
                     </div>
                   </div>
                   <div className="mt-5" style={{ textAlign: "right" }}>
-                    <button className={styles.buttonJual}>Jual</button>
+                    <button
+                      onClick={onSubmitInsertProduct}
+                      className={styles.buttonJual}
+                    >
+                      Jual
+                    </button>
                   </div>
                 </div>
               ) : viewPage == 3 ? (
@@ -803,6 +1458,30 @@ const ProfileSeller = () => {
                               color: "grey",
                               width: "100%",
                             }}
+                            onClick={(e) => setViwPage(5)}
+                          >
+                            Get Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(6)}
+                          >
+                            Not Yet Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
                             onClick={(e) => setViwPage(4)}
                           >
                             Order Cancel
@@ -826,12 +1505,54 @@ const ProfileSeller = () => {
                             className={styles.searchMyProduct}
                             type="text"
                             placeholder="Search"
+                            onChange={(e) => setQueryOrder(e.target.value)}
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="text-center mt-5">
-                      <img src={iconMyOrderEmpty} alt="" />
+                    <div className="text-center mt-3">
+                      {ownOrder == "" ? (
+                        <img src={iconMyOrderEmpty} alt="" />
+                      ) : (
+                        <table className="table table-hover table-responsive">
+                          <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th>Name Product</th>
+                              <th>Quantity</th>
+                              <th>Price</th>
+                              <th>Total</th>
+                              <th>Buyer</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          {ownOrder.map((data, index) => (
+                            <tbody>
+                              <tr>
+                                <td>{index + 1}</td>
+                                <td>{data.name}</td>
+                                <td>{data.qty}</td>
+                                <td>Rp. {data.price}</td>
+                                <td>Rp. {data.total}</td>
+                                <td>{data.buyer_name}</td>
+                                <td>
+                                  {data.status == 0 ? (
+                                    <div
+                                      className={`p-1 ${styles.deleteProduct}`}
+                                    >
+                                      <span>Belum bayar</span>
+                                    </div>
+                                  ) : (
+                                    <div className={`p-1 ${styles.bgPaid}`}>
+                                      <span>Sudah bayar</span>
+                                    </div>
+                                  )}
+                                </td>
+                              </tr>
+                            </tbody>
+                          ))}
+                        </table>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -853,6 +1574,30 @@ const ProfileSeller = () => {
                             onClick={(e) => setViwPage(3)}
                           >
                             All items
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(5)}
+                          >
+                            Get Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(6)}
+                          >
+                            Not Yet Paid
                           </button>
                         </div>
                         <div className="col-auto">
@@ -890,8 +1635,307 @@ const ProfileSeller = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="text-center mt-5">
-                      <img src={iconMyOrderEmpty} alt="" />
+                    <div className="text-center mt-3">
+                      {ownOrder == "" ? (
+                        <img src={iconMyOrderEmpty} alt="" />
+                      ) : (
+                        <table className="table table-hover table-responsive">
+                          <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th>Name Product</th>
+                              <th>Quantity</th>
+                              <th>Price</th>
+                              <th>Total</th>
+                              <th>Buyer</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          {ownOrder.map((data, index) => (
+                            <tbody>
+                              <tr>
+                                <td>{index + 1}</td>
+                                <td>{data.name}</td>
+                                <td>{data.qty}</td>
+                                <td>Rp. {data.price}</td>
+                                <td>Rp. {data.total}</td>
+                                <td>{data.buyer_name}</td>
+                                <td>
+                                  {data.status == 0 ? (
+                                    <div
+                                      className={`p-1 ${styles.deleteProduct}`}
+                                    >
+                                      <span>Belum bayar</span>
+                                    </div>
+                                  ) : (
+                                    <div className={`p-1 ${styles.bgPaid}`}>
+                                      <span>Sudah bayar</span>
+                                    </div>
+                                  )}
+                                </td>
+                              </tr>
+                            </tbody>
+                          ))}
+                        </table>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : viewPage == 5 ? (
+                <div className={styles.containerCardOrderCancel}>
+                  <div className={styles.TitleOrderCancel}>
+                    <div>
+                      <h5>My Order</h5>
+                    </div>
+                    <div>
+                      <div className="row">
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(3)}
+                          >
+                            All items
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              borderBottom: "2px solid red",
+                              color: "red",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(5)}
+                          >
+                            Get Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(6)}
+                          >
+                            Not Yet Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(4)}
+                          >
+                            Order Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                  <div className={styles.containerMainMyOrder}>
+                    <div className="mt-1">
+                      <div className={`row ${styles.containerSearch}`}>
+                        <div
+                          className="col-auto"
+                          style={{ paddingTop: "12px" }}
+                        >
+                          <img src={searchIcon} alt="" />
+                        </div>
+                        <div className="col-auto">
+                          <input
+                            className={styles.searchMyProduct}
+                            type="text"
+                            placeholder="Search"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center mt-3">
+                      {ownOrder == "" ? (
+                        <img src={iconMyOrderEmpty} alt="" />
+                      ) : (
+                        <table className="table table-hover table-responsive">
+                          <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th>Name Product</th>
+                              <th>Quantity</th>
+                              <th>Price</th>
+                              <th>Total</th>
+                              <th>Buyer</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          {ownOrder.map((data, index) =>
+                            data.status == 1 ? (
+                              <tbody>
+                                <tr>
+                                  <td>{index + 1}</td>
+                                  <td>{data.name}</td>
+                                  <td>{data.qty}</td>
+                                  <td>Rp. {data.price}</td>
+                                  <td>Rp. {data.total}</td>
+                                  <td>{data.buyer_name}</td>
+                                  <td>
+                                    {data.status == 0 ? (
+                                      <div
+                                        className={`p-1 ${styles.deleteProduct}`}
+                                      >
+                                        <span>Belum bayar</span>
+                                      </div>
+                                    ) : (
+                                      <div className={`p-1 ${styles.bgPaid}`}>
+                                        <span>Sudah bayar</span>
+                                      </div>
+                                    )}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            ) : (
+                              ""
+                            )
+                          )}
+                        </table>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : viewPage == 6 ? (
+                <div className={styles.containerCardOrderCancel}>
+                  <div className={styles.TitleOrderCancel}>
+                    <div>
+                      <h5>My Order</h5>
+                    </div>
+                    <div>
+                      <div className="row">
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(3)}
+                          >
+                            All items
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(5)}
+                          >
+                            Get Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              borderBottom: "2px solid red",
+                              color: "red",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(6)}
+                          >
+                            Not Yet Paid
+                          </button>
+                        </div>
+                        <div className="col-auto">
+                          <button
+                            className={styles.btnStore}
+                            style={{
+                              color: "grey",
+                              width: "100%",
+                            }}
+                            onClick={(e) => setViwPage(4)}
+                          >
+                            Order Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                  <div className={styles.containerMainMyOrder}>
+                    <div className="mt-1">
+                      <div className={`row ${styles.containerSearch}`}>
+                        <div
+                          className="col-auto"
+                          style={{ paddingTop: "12px" }}
+                        >
+                          <img src={searchIcon} alt="" />
+                        </div>
+                        <div className="col-auto">
+                          <input
+                            className={styles.searchMyProduct}
+                            type="text"
+                            placeholder="Search"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center mt-3">
+                    {ownOrder == "" ? (
+                        <img src={iconMyOrderEmpty} alt="" />
+                      ) : (
+                        <table className="table table-hover table-responsive">
+                          <thead>
+                            <tr>
+                              <th scope="col">No</th>
+                              <th>Name Product</th>
+                              <th>Quantity</th>
+                              <th>Price</th>
+                              <th>Total</th>
+                              <th>Buyer</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          {ownOrder.map((data, index) =>
+                            data.status == 0 ? (
+                              <tbody>
+                                <tr>
+                                  <td>{index + 1}</td>
+                                  <td>{data.name}</td>
+                                  <td>{data.qty}</td>
+                                  <td>Rp. {data.price}</td>
+                                  <td>Rp. {data.total}</td>
+                                  <td>{data.buyer_name}</td>
+                                  <td>
+                                    {data.status == 0 ? (
+                                      <div
+                                        className={`p-1 ${styles.deleteProduct}`}
+                                      >
+                                        <span>Belum bayar</span>
+                                      </div>
+                                    ) : (
+                                      <div className={`p-1 ${styles.bgPaid}`}>
+                                        <span>Sudah bayar</span>
+                                      </div>
+                                    )}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            ) : (
+                              ""
+                            )
+                          )}
+                        </table>
+                      )}
                     </div>
                   </div>
                 </div>
