@@ -27,11 +27,11 @@ import "./coba.css";
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
-
-
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const ProductDetail = () => {
+  const navigate = useNavigate()
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const [data, setData] = useState([])
@@ -47,6 +47,39 @@ const ProductDetail = () => {
         // router.push('/login')
       })
   }, [])
+
+  const [update, setUpdate] = useState({
+    pid: id,
+    qty: 10
+  })
+
+  const handlePostBag = (e) => {
+    // const data = JSON.parse(localStorage.getItem("data"))
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjYmFkZTUxLWExODktNGRjNC1hNzZiLWUxZWY1Yzc1OTkxYiIsIm5hbWUiOiJCcmFuZG9uIiwiaWF0IjoxNjY5MTc3MzI1fQ.WQjgIzbON2vn6q0f2fUYPAnJ0FdZqPSvYQ2Ai6C7aNQ'
+    e.preventDefault();
+    const form = {
+        pid: id,
+        qty: update.qty
+    }
+    
+    axios
+        .post(`http://localhost:3001/v1/cart`, form, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+            console.log(res);
+            // setImage("");
+            alert("Success");
+            return navigate('/mybag');
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("Failed");
+        })
+  }
+
   return (
     <>
       <Navbar />
@@ -141,7 +174,7 @@ const ProductDetail = () => {
                 <button className={`me-3 ${styles.colorBlue}`}> </button>
                 <button className={`me-3 ${styles.colorGreen}`}> </button>
               </div>
-              <p className={`mt-5 ${styles.quantity}`}>Jumlah</p>
+              <p className={`mt-5 ${styles.quantity} `}>Jumlah</p>
               <div className="d-flex flex-row">
                 <button className={styles.icMinus}>
                   <img src={icMinus} alt="icMinus" />
@@ -158,7 +191,7 @@ const ProductDetail = () => {
                   </button>
                 </Link>
                 <Link to={`/mybag`}>
-                  <button className={`mx-3 py-2 ${styles.btnaddBag}`}>
+                  <button className={`mx-3 py-2 ${styles.btnaddBag}`} onClick={(e) => handlePostBag(e)}>
                     Add Bag
                   </button>
                 </Link>

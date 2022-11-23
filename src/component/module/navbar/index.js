@@ -32,7 +32,7 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     if(e.key === "Enter"){
-      navigate(`/search?q=${search}`)
+      return navigate(`/search?q=${search}`)
     }
   }
 

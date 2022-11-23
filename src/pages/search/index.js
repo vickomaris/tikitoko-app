@@ -9,7 +9,7 @@ import {Link, useNavigate, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
 const Search = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   // const [search, setSearch] = useState()
 
@@ -33,7 +33,9 @@ const Search = () => {
     .catch((err) => {
       console.log(err)
     })
-  }, []);
+  }, [titleSearch]);
+
+  console.log(titleSearch)
   // const navigate = useNavigate()
 
   // const queryParams = new URLSearchParams(window.location.search);
