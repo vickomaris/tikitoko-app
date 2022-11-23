@@ -3,13 +3,11 @@ import styles from "./mybag.module.css"
 import Navbar from '../../component/module/navbar'
 import axios from 'axios';
 import { useState } from 'react';
-import Button from '../../component/button';
 
 const Mybag = () => {
     const [bagState, setBagState] = useState([]);
     // const token = JSON.parse(localStorage.getItem("token"))
     const token = localStorage.getItem("token")
-    const [sumarry, setSumarry] = useState([]);
     
 
     useEffect(() => {
