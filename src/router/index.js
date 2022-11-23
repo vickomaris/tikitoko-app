@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 import swal from "sweetalert";
 import {
   BrowserRouter,
@@ -50,12 +51,26 @@ const Auth = ({ children }) => {
 };
 
 const Router = () => {
+  const [socket, setSocket] = useState(null);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!socket && token) {
+      const res = io("http://localhost:4000", {
+        query: {
+          token: token,
+        },
+      });
+      setSocket(res);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
+
   return (
     <BrowserRouter>
       <ScrollToTop>
         <Routes>
           {/* Auth Routes  */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setSocket={setSocket} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/reset" element={<Reset />} />
@@ -67,7 +82,7 @@ const Router = () => {
           <Route path="/v1/product/:id" element={<ProductDetail />} />
           <Route path="/mybag" element={<Mybag />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat" element={<Chat socket={socket} />} />
 
           {/* Profile Routes */}
           <Route path="/profile" element={<ProfileBuyer />} />
