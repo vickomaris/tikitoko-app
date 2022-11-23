@@ -137,9 +137,9 @@ const Home = () => {
                 <p className={styles.textTitlemain}> New </p>
                 <p className={styles.textSubmain}>You’ve never seen it before!</p>
                 {/* {JSON.stringify(data)} */}
-                <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
+                
                   <CardProduct />
-                </div>
+                
               </div>
             </div>
           </div>
@@ -148,9 +148,9 @@ const Home = () => {
               <div className={`d-flex flex-column mt-5 ${styles.popularSide}`}>
                 <p className={styles.textTitlemain}> Popular </p>
                 <p className={styles.textSubmain}>Find clothes that are trending recently</p>
-                <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
+               
                   <CardProduct />
-                </div>
+                
               </div>
             </div>
           </div>

@@ -202,8 +202,6 @@ const ProductDetail = () => {
                 </Link>
               </div>
             </div>
-
-
           </div>
           <div className={`row py-5 ${styles.pageTwo}`}>
             <p className={styles.textTitlepagetwo}>Informasi Produk</p>
@@ -211,7 +209,6 @@ const ProductDetail = () => {
             <p className={styles.textNew}>New</p>
             <p className={`mt-4 ${styles.textSubtitle}`}>Description</p>
             <p className={`pe-5 ${styles.textDescription}`}>{data.description}</p>
-
             <p className={`mt-5 ${styles.textTitlepagetwo}`}>Product Review</p>
             <div className="d-flex flex-row">
               <div className="d-flex flex-column">
