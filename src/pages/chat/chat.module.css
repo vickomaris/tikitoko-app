@@ -1,52 +1,122 @@
 /* CSS Chat Page */
 
+.main-content {
+  margin-top: 150px;
+}
+
 .chat-session {
-    padding: 10px 10px 10px 10px;
-    border: solid 1px #8E8E93;
-    border-radius: 4px 4px 0px 0px;
+  padding: 10px;
+  border: solid 1px #8e8e93;
+  border-bottom: none;
+  border-radius: 4px 4px 0px 0px;
 }
 
 .chat-title {
-    margin-top: 5px;
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .chat-list {
-    padding: 10px 10px 10px 10px;
-    border: solid 1px #8E8E93;
-    border-radius: 0px 0px 4px 4px;
-    height: 400px;
+  border: solid 1px #8e8e93;
+  border-radius: 0px 0px 4px 4px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.chat-room {
+  padding: 10px;
+  padding-right: 0;
+  border-bottom: 1px solid #8e8e93;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: 0.5s;
+}
+
+.chat-room:hover {
+  background-color: #e5e5e5;
+  transition: 0.5s;
 }
 
 .name-chat {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .chat-value {
-    font-size: 14px;
-    font-weight: 400;
-    color: #9B9B9B;
-    margin-top: -15px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #9b9b9b;
+  margin: 0;
 }
 
 .chat-direction {
-    border: solid 1px #8E8E93;
-    border-radius: 4px 4px 0px 0px;
+  display: flex;
+  align-items: center;
+  border: solid 1px #8e8e93;
+  border-bottom: none;
+  border-radius: 4px 4px 0px 0px;
 }
 
 .chat-box {
-    padding: 10px 10px 10px 10px;
-    border: solid 1px #8E8E93;
-    border-radius: 0px 0px 4px 4px;
-    height: 400px;
+  border: solid 1px #8e8e93;
+  border-radius: 0px 0px 4px 4px;
+  height: 400px;
+}
+
+.chat-body {
+  height: 86%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.chat-body p {
+  padding: 5px 10px;
 }
 
 .input-chat {
-    margin-top: 250px;
+  margin: 10px 0;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .input-chat input {
-    padding-left: 10px;
-    width: 95vh;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #8e8e93;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.chat-left {
+  min-width: 80px;
+  width: max-content;
+  max-width: 500px;
+  background-color: #db3022;
+  color: #ffffff;
+  border: none;
+  border-radius: 2px 10px 10px 10px;
+}
+
+.chat-left sub {
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+.chat-right {
+  min-width: 80px;
+  width: max-content;
+  max-width: 500px;
+  background-color: #ffffff;
+  color: #252525;
+  align-self: end;
+  text-align: end;
+  border: 1px solid #db3022;
+  border-radius: 10px 2px 10px 10px;
+}
+
+.chat-right sub {
+  font-size: 10px;
+  margin-right: 10px;
 }
