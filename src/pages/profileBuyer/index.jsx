@@ -456,7 +456,7 @@ const ProfileBuyer = () => {
                           // type="text"
                           name="birthdate"
                           id="date"
-                          className="form-control text-muted"
+                          className="form-control"
                           defaultValue={dateBirth}
                         />
                       </div>
@@ -1144,9 +1144,7 @@ const ProfileBuyer = () => {
                   </p>
                   <hr />
                   {allItem
-                    ? // allItem.map((item, index) => {
-                      //   if (item.status === "not yet paid") {
-
+                    ? 
                       allItem.map((item, index) => {
                         if (item.status === 0) {
                           return (
