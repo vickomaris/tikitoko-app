@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from "./productDetail.module.css"
 import Navbar from '../../component/module/navbar'
 
@@ -26,14 +26,64 @@ import "./coba.css";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper";
-
-
+import axios from 'axios'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const ProductDetail = () => {
+  const navigate = useNavigate()
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
+  const [data, setData] = useState([])
+  const { id } = useParams();
+  useEffect(() => {
+    axios.get(`http://localhost:3001/v1/product/${id}`)
+      .then((response) => {
+        console.log(response.data.data)
+        setData(response.data.data)
+      })
+      .catch((error) => {
+        console.error(error)
+        // router.push('/login')
+      })
+  }, [])
+
+  const [update, setUpdate] = useState({
+    pid: id,
+    qty: 10
+  })
+
+  const handlePostBag = (e) => {
+    // const data = JSON.parse(localStorage.getItem("data"))
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjYmFkZTUxLWExODktNGRjNC1hNzZiLWUxZWY1Yzc1OTkxYiIsIm5hbWUiOiJCcmFuZG9uIiwiaWF0IjoxNjY5MTc3MzI1fQ.WQjgIzbON2vn6q0f2fUYPAnJ0FdZqPSvYQ2Ai6C7aNQ'
+    e.preventDefault();
+    const form = {
+        pid: id,
+        qty: update.qty
+    }
+    
+    axios
+        .post(`http://localhost:3001/v1/cart`, form, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+            console.log(res);
+            // setImage("");
+            alert("Success");
+            return navigate('/mybag');
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("Failed");
+        })
+  }
+
   return (
     <>
       <Navbar />
+
       <section className={`mt-5 ${styles.main}`}>
         <div className="container">
           <div className="row">
@@ -62,9 +112,9 @@ const ProductDetail = () => {
                 className="mySwiper2"
               >
                 <SwiperSlide>
-                  <img src={shirtone} alt='gambar' />
+                  <img src={data.image} alt='gambar' />
                 </SwiperSlide>
-                <SwiperSlide>
+                {/* <SwiperSlide>
                   <img src={shirttwo} alt='gambar' />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -75,22 +125,22 @@ const ProductDetail = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <img src={shirtfive} alt='gambar' />
-                </SwiperSlide>
+                </SwiperSlide> */}
               </Swiper>
               <Swiper
                 onSwiper={setThumbsSwiper}
                 loop={true}
                 spaceBetween={10}
-                slidesPerView={4}
+                slidesPerView={data.image} //ini 4 harusnya
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
               >
-                <SwiperSlide>
-                  <img src={shirtone} alt='gambar' />
-                </SwiperSlide>
-                <SwiperSlide>
+                {/* <SwiperSlide>
+                  <img src={data.image} alt='gambar' />
+                </SwiperSlide> */}
+                {/* <SwiperSlide>
                   <img src={shirttwo} alt='gambar' />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -101,12 +151,12 @@ const ProductDetail = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                   <img src={shirtfive} alt='gambar' />
-                </SwiperSlide>
+                </SwiperSlide> */}
               </Swiper>
             </div>
             <div className={`col-md-8 ${styles.rightsideInformation}`}>
-              <p className={styles.textTitleproduct}>Baju Muslim Pria</p>
-              <p className={styles.textBrandproduct}>Zalora Cloth</p>
+              <p className={styles.textTitleproduct}>{data.name}</p>
+              <p className={styles.textBrandproduct}>{data.seller_name}</p>
               <div className="d-flex flex-row">
                 <img src={icStar} alt="icStar" />
                 <img src={icStar} alt="icStar" />
@@ -116,7 +166,7 @@ const ProductDetail = () => {
                 <div className={`ms-2 ${styles.textStar}`}>(10)</div>
               </div>
               <p className={`mt-4 ${styles.textPrice}`}>Price</p>
-              <p className={styles.textPricetag}>$ 20.0</p>
+              <p className={styles.textPricetag}>{data.price}</p>
               <p className={`mt-5 ${styles.textColor}`}>Color</p>
               <div className="d-flex flex-row">
                 <button className={`me-3 ${styles.colorBlack}`}> </button>
@@ -124,7 +174,7 @@ const ProductDetail = () => {
                 <button className={`me-3 ${styles.colorBlue}`}> </button>
                 <button className={`me-3 ${styles.colorGreen}`}> </button>
               </div>
-              <p className={`mt-5 ${styles.quantity}`}>Jumlah</p>
+              <p className={`mt-5 ${styles.quantity} `}>Jumlah</p>
               <div className="d-flex flex-row">
                 <button className={styles.icMinus}>
                   <img src={icMinus} alt="icMinus" />
@@ -135,15 +185,21 @@ const ProductDetail = () => {
                 </button>
               </div>
               <div className="d-flex flex-row mt-5">
-                <button className={` py-2 ${styles.btnChat}`}>
-                  Chat
-                </button>
-                <button className={`mx-3 py-2 ${styles.btnaddBag}`}>
-                  Add Bag
-                </button>
-                <button className={`py-2 ${styles.btnbuyNow}`}>
-                  Buy Now
-                </button>
+                <Link to={`/chat`}>
+                  <button className={` py-2 ${styles.btnChat}`}>
+                    Chat
+                  </button>
+                </Link>
+                <Link to={`/mybag`}>
+                  <button className={`mx-3 py-2 ${styles.btnaddBag}`} onClick={(e) => handlePostBag(e)}>
+                    Add Bag
+                  </button>
+                </Link>
+                <Link to={`/chat`}>
+                  <button className={`py-2 ${styles.btnbuyNow}`}>
+                    Buy Now
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -152,21 +208,13 @@ const ProductDetail = () => {
             <p className={`mt-4 ${styles.textSubtitle}`}>Condition</p>
             <p className={styles.textNew}>New</p>
             <p className={`mt-4 ${styles.textSubtitle}`}>Description</p>
-            <p className={`pe-5 ${styles.textDescription}`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-              Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis. Etiam tincidunt tristique placerat. Pellentesque a consequat mauris, vel suscipit ipsum.
-              Donec ac mauris vitae diam commodo vehicula. Donec quam elit, sollicitudin eu nisl at, ornare suscipit magna.
-
-              Donec non magna rutrum, pellentesque augue eu, sagittis velit. Phasellus quis laoreet dolor. Fusce nec pharetra quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent sed enim vel turpis blandit imperdiet ac ac felis.
-
-              In ultricies rutrum tempus. Mauris vel molestie orci.</p>
-
+            <p className={`pe-5 ${styles.textDescription}`}>{data.description}</p>
             <p className={`mt-5 ${styles.textTitlepagetwo}`}>Product Review</p>
             <div className="d-flex flex-row">
               <div className="d-flex flex-column">
                 <div className="d-flex flex-row">
-                  <p className={styles.textBigratingleft}> 5.0 </p> 
-                  <p className={styles.textRatingleft}> /10 </p> 
+                  <p className={styles.textBigratingleft}> 5.0 </p>
+                  <p className={styles.textRatingleft}> /10 </p>
                 </div>
                 <div className="d-flex flex-row">
                   <img src={icBigstar} alt="icbigStar" />
@@ -215,11 +263,6 @@ const ProductDetail = () => {
             <p className={styles.Titlepagethree}>You can also like this</p>
             <p className={styles.Subtitlepagethree}>You’ve never seen it before!</p>
             <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
-              <CardProduct />
               <CardProduct />
             </div>
           </div>
