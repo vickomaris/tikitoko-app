@@ -5,7 +5,7 @@ import pencil from "../../assets/pencil-icon.svg";
 import user from "../../assets/user-icon.svg";
 import location from "../../assets/location-icon.svg";
 import order from "../../assets/order-icon.svg";
-import Navbar from "../../component/module/navbar";
+import Navbar from "../../component/module/navbarLogin";
 import axios from "axios";
 
 const ProfileBuyer = () => {
@@ -29,14 +29,15 @@ const ProfileBuyer = () => {
   }, []);
   const [users, setUsers] = useState({});
 
-  const data = JSON.parse(localStorage.getItem("data"));
+  const data = JSON.parse(localStorage.getItem("buyer"));
   const buyer_id = data.buyer_id;
 
   const [dateBirth, setDateBirth] = useState("");
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/v1/buyer/${buyer_id}`)
+      .get(`http://localhost:4000/v1/buyer/${buyer_id}`)
       .then((res) => {
+        console.log(res.data);
         setUsers(res.data.data);
         convertDateBirthday(res.data.data.birthdate);
       })
@@ -80,10 +81,7 @@ const ProfileBuyer = () => {
     let formData = new FormData(e.target);
     formData.append("buyer_id", buyer_id);
     axios
-      .put(
-        `${process.env.REACT_APP_BACKEND_URL}/v1/buyer/${buyer_id}`,
-        formData
-      )
+      .put(`http://localhost:4000/v1/buyer/${buyer_id}`, formData)
       .then((res) => {
         alert("Update Success");
       })
@@ -95,7 +93,7 @@ const ProfileBuyer = () => {
   // const deleteUser = (e) => {
   //   e.preventDefault();
   //   axios
-  //   .delete(`${process.env.REACT_APP_BACKEND_URL}/user/delete/${buyer_id}`)
+  //   .delete(`http://localhost:4000/user/delete/${buyer_id}`)
   //   .then((res) => {
   //     // console.log(res);
   //     alert("Delete Success");
@@ -122,7 +120,7 @@ const ProfileBuyer = () => {
   const [editAddress, setEditAddress] = useState({});
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/v1/address`, {
+      .get(`http://localhost:4000/v1/address`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -165,7 +163,7 @@ const ProfileBuyer = () => {
         city: addressForm.city,
       };
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/v1/address`, body, {
+        .post(`http://localhost:4000/v1/address`, body, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -183,7 +181,7 @@ const ProfileBuyer = () => {
 
   const deleteAddress = (address_id) => {
     axios
-      .delete(`${process.env.REACT_APP_BACKEND_URL}/v1/address/${address_id}`, {
+      .delete(`http://localhost:4000/v1/address/${address_id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -200,7 +198,7 @@ const ProfileBuyer = () => {
 
   const prepareDataAddress = (address_id) => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/v1/address/${address_id}`, {
+      .get(`http://localhost:4000/v1/address/${address_id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -217,7 +215,7 @@ const ProfileBuyer = () => {
     e.preventDefault();
     axios
       .put(
-        `${process.env.REACT_APP_BACKEND_URL}/v1/address/${editAddress.address_id}`,
+        `http://localhost:4000/v1/address/${editAddress.address_id}`,
         editAddress,
         {
           headers: {
@@ -741,7 +739,11 @@ const ProfileBuyer = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#myModal2"
                               // button none decor
-                              style={{border: 'none', background: 'none', color: 'red'}}
+                              style={{
+                                border: "none",
+                                background: "none",
+                                color: "red",
+                              }}
                               onClick={() =>
                                 prepareDataAddress(item.address_id)
                               }
@@ -1144,8 +1146,7 @@ const ProfileBuyer = () => {
                   </p>
                   <hr />
                   {allItem
-                    ? 
-                      allItem.map((item, index) => {
+                    ? allItem.map((item, index) => {
                         if (item.status === 0) {
                           return (
                             <div

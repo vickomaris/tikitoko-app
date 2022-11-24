@@ -78,15 +78,15 @@ const Router = () => {
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/search/" element={<Search />} />
-          <Route path="/v1/category/:id" element={<SearchCategory />} />
+          <Route path="/v1/category/:id" element={<Auth><SearchCategory /></Auth>} />
           <Route path="/v1/product/:id" element={<ProductDetail />} />
-          <Route path="/mybag" element={<Mybag />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/chat" element={<Chat socket={socket} />} />
+          <Route path="/mybag" element={<Auth><Mybag /></Auth>} />
+          <Route path="/checkout" element={<Auth><Checkout /></Auth>} />
+          <Route path="/chat" element={<Auth><Chat socket={socket} /></Auth>} />
 
           {/* Profile Routes */}
-          <Route path="/profile" element={<ProfileBuyer />} />
-          <Route path="/store" element={<ProfileSeller />} />
+          <Route path="/profile" element={<Auth><ProfileBuyer /></Auth>} />
+          <Route path="/store" element={<Auth><ProfileSeller /></Auth>} />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>

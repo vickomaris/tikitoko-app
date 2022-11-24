@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import styles from "./checkout.module.css"
 import Card from '../../component/module/card'
-import Navbar from '../../component/module/navbar'
+import Navbar from '../../component/module/navbarLogin'
 import { useState } from 'react'
 import axios from 'axios'
 
 const Checkout = () => {
     const [checkoutState, setCheckoutState] = useState([]);
     const token = localStorage.getItem("token")
-    const [bagState, setBagState] = useState([]);
     const [address, setAddress] = useState([]);
 
     useEffect(() => {

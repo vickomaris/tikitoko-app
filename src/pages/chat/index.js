@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./chat.module.css";
-import Navbar from "../../component/module/navbar"
+import Navbar from "../../component/module/navbarLogin"
 
 const Chat = ({ socket }) => {
   const navigate = useNavigate();

@@ -1,18 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import styles from "./productDetail.module.css"
-import Navbar from '../../component/module/navbar'
+import React, { useEffect, useState } from "react";
+import styles from "./productDetail.module.css";
+import Navbar from "../../component/module/navbar";
+import NavbarLogin from "../../component/module/navbarLogin";
 
-import icStar from '../../assets/icStar.svg'
-import icMinus from '../../assets/minus-icon.svg'
-import icPlus from '../../assets/plus-icon.svg'
-import icBigstar from '../../assets/Star.svg'
-import shirtone from '../../assets/bajusatu.png'
-import shirttwo from '../../assets/bajudua.png'
-import shirtthree from '../../assets/baju3.png'
-import shirtfour from '../../assets/baju4.png'
-import shirtfive from '../../assets/baju5.png'
+import icStar from "../../assets/icStar.svg";
+import icMinus from "../../assets/minus-icon.svg";
+import icPlus from "../../assets/plus-icon.svg";
+import icBigstar from "../../assets/Star.svg";
 
-import CardProduct from '../../component/module/cardProduct'
+import CardProduct from "../../component/module/cardProduct";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -26,63 +22,64 @@ import "./coba.css";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper";
-import axios from 'axios'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ProductDetail = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    axios.get(`http://localhost:3001/v1/product/${id}`)
+    axios
+      .get(`http://localhost:4000/v1/product/${id}`)
       .then((response) => {
-        console.log(response.data.data)
-        setData(response.data.data)
+        console.log(response.data.data);
+        setData(response.data.data);
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error);
         // router.push('/login')
-      })
-  }, [])
+      });
+  }, []);
 
   const [update, setUpdate] = useState({
     pid: id,
-    qty: 10
-  })
+    qty: 10,
+  });
 
   const handlePostBag = (e) => {
-    // const data = JSON.parse(localStorage.getItem("data"))
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjYmFkZTUxLWExODktNGRjNC1hNzZiLWUxZWY1Yzc1OTkxYiIsIm5hbWUiOiJCcmFuZG9uIiwiaWF0IjoxNjY5MTc3MzI1fQ.WQjgIzbON2vn6q0f2fUYPAnJ0FdZqPSvYQ2Ai6C7aNQ'
     e.preventDefault();
+    // const data = JSON.parse(localStorage.getItem("data"))
+    const token = localStorage.getItem("token");
     const form = {
-        pid: id,
-        qty: update.qty
-    }
-    
+      pid: id,
+      qty: update.qty,
+    };
+
     axios
-        .post(`http://localhost:3001/v1/cart`, form, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-            console.log(res);
-            // setImage("");
-            alert("Success");
-            return navigate('/mybag');
-        })
-        .catch((err) => {
-            console.log(err);
-            alert("Failed");
-        })
-  }
+      .post(`http://localhost:3001/v1/cart`, form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        // setImage("");
+        alert("Success");
+        return navigate("/mybag");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Failed");
+      });
+  };
 
   return (
     <>
-      <Navbar />
+      {localStorage.token ? <NavbarLogin /> : <Navbar />}
 
       <section className={`mt-5 ${styles.main}`}>
         <div className="container">
@@ -90,9 +87,9 @@ const ProductDetail = () => {
             <div className="col-md-12 py-5">
               <div className={`d-flex flex-row ${styles.sideInfocategory}`}>
                 <p className={`me-3 ${styles.textInfocategory}`}>Home</p>
-                <p className={`me-3 ${styles.textInfocategory}`}> > </p>
+                <p className={`me-3 ${styles.textInfocategory}`}> &gt; </p>
                 <p className={`me-3 ${styles.textInfocategory}`}>Category</p>
-                <p className={`me-3 ${styles.textInfocategory}`}> > </p>
+                <p className={`me-3 ${styles.textInfocategory}`}> &gt; </p>
                 <p className={`me-3 ${styles.textInfocategory}`}>T-Shirt</p>
               </div>
             </div>
@@ -107,12 +104,17 @@ const ProductDetail = () => {
                 loop={true}
                 spaceBetween={10}
                 navigation={true}
-                thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                thumbs={{
+                  swiper:
+                    thumbsSwiper && !thumbsSwiper.destroyed
+                      ? thumbsSwiper
+                      : null,
+                }}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
               >
                 <SwiperSlide>
-                  <img src={data.image} alt='gambar' />
+                  <img src={data.image} alt="gambar" />
                 </SwiperSlide>
                 {/* <SwiperSlide>
                   <img src={shirttwo} alt='gambar' />
@@ -186,12 +188,13 @@ const ProductDetail = () => {
               </div>
               <div className="d-flex flex-row mt-5">
                 <Link to={`/chat`}>
-                  <button className={` py-2 ${styles.btnChat}`}>
-                    Chat
-                  </button>
+                  <button className={` py-2 ${styles.btnChat}`}>Chat</button>
                 </Link>
                 <Link to={`/mybag`}>
-                  <button className={`mx-3 py-2 ${styles.btnaddBag}`} onClick={(e) => handlePostBag(e)}>
+                  <button
+                    className={`mx-3 py-2 ${styles.btnaddBag}`}
+                    onClick={(e) => handlePostBag(e)}
+                  >
                     Add Bag
                   </button>
                 </Link>
@@ -208,7 +211,9 @@ const ProductDetail = () => {
             <p className={`mt-4 ${styles.textSubtitle}`}>Condition</p>
             <p className={styles.textNew}>New</p>
             <p className={`mt-4 ${styles.textSubtitle}`}>Description</p>
-            <p className={`pe-5 ${styles.textDescription}`}>{data.description}</p>
+            <p className={`pe-5 ${styles.textDescription}`}>
+              {data.description}
+            </p>
             <p className={`mt-5 ${styles.textTitlepagetwo}`}>Product Review</p>
             <div className="d-flex flex-row">
               <div className="d-flex flex-column">
@@ -226,31 +231,31 @@ const ProductDetail = () => {
               </div>
               <div className="d-flex flex-column ms-5">
                 <div className="d-flex flex-row">
-                  <img src={icStar} alt="icStar" style={{ height: '20px' }} />
+                  <img src={icStar} alt="icStar" style={{ height: "20px" }} />
                   <p className={styles.textRating}>5</p>
                   <div className={`mx-3 mt-2 ${styles.linered}`}></div>
                   <p className={styles.textRating}>4</p>
                 </div>
                 <div className="d-flex flex-row">
-                  <img src={icStar} alt="icStar" style={{ height: '20px' }} />
+                  <img src={icStar} alt="icStar" style={{ height: "20px" }} />
                   <p className={styles.textRating}>4</p>
                   <div className={`mx-3 mt-2 ${styles.linewhite}`}></div>
                   <p className={styles.textRating}>0</p>
                 </div>
                 <div className="d-flex flex-row">
-                  <img src={icStar} alt="icStar" style={{ height: '20px' }} />
+                  <img src={icStar} alt="icStar" style={{ height: "20px" }} />
                   <p className={styles.textRating}>3</p>
                   <div className={`mx-3 mt-2 ${styles.linewhite}`}></div>
                   <p className={styles.textRating}>0</p>
                 </div>
                 <div className="d-flex flex-row">
-                  <img src={icStar} alt="icStar" style={{ height: '20px' }} />
+                  <img src={icStar} alt="icStar" style={{ height: "20px" }} />
                   <p className={styles.textRating}>2</p>
                   <div className={`mx-3 mt-2 ${styles.linewhite}`}></div>
                   <p className={styles.textRating}>0</p>
                 </div>
                 <div className="d-flex flex-row">
-                  <img src={icStar} alt="icStar" style={{ height: '20px' }} />
+                  <img src={icStar} alt="icStar" style={{ height: "20px" }} />
                   <p className={styles.textRating}>1</p>
                   <div className={`mx-3 mt-2 ${styles.linewhite}`}></div>
                   <p className={styles.textRatingbtm}>0</p>
@@ -261,7 +266,9 @@ const ProductDetail = () => {
           <hr />
           <div className={`row ${styles.pageThree}`}>
             <p className={styles.Titlepagethree}>You can also like this</p>
-            <p className={styles.Subtitlepagethree}>You’ve never seen it before!</p>
+            <p className={styles.Subtitlepagethree}>
+              You’ve never seen it before!
+            </p>
             <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
               <CardProduct />
             </div>
@@ -269,7 +276,8 @@ const ProductDetail = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default ProductDetail
+export default ProductDetail;
+  

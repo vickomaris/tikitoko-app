@@ -14,6 +14,7 @@ import iconBell from "../../assets/bell-icon.svg";
 import iconMail from "../../assets/mail-icon.svg";
 import searchIcon from "../../assets/search-icon.svg";
 import logo from "../../assets/logo.svg";
+import swal from "sweetalert";
 // import { getDetailSeller } from "../../redux/action/user.action";
 
 const ProfileSeller = () => {
@@ -300,6 +301,37 @@ const ProfileSeller = () => {
       });
   };
 
+  // Logout Handling
+  const [isLogout, setIsLogout] = useState(false);
+
+  const handleLogout = () => {
+    swal({
+      title: "Logging Out",
+      text: `Are you sure want to leave?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (confirm) => {
+      if (confirm) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("buyer");
+        localStorage.removeItem("persist:data");
+        setIsLogout(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (isLogout) {
+      swal({
+        title: "Logged Out",
+        text: `You have been logged out`,
+        icon: "success",
+      });
+      navigate("/login");
+    }
+  }, [isLogout, navigate]);
+
   return (
     <section>
       <div className="container-fluid-custom fixed-top">
@@ -310,7 +342,11 @@ const ProfileSeller = () => {
                 <div>
                   <div className="row">
                     <div className="col-auto">
-                      <img src={logo} />
+                      <img
+                        onClick={() => navigate("/store")}
+                        src={logo}
+                        alt=""
+                      />
                     </div>
                     <div className="col-auto">
                       <h5 className={styles.nameLogo}>Blanja</h5>
@@ -319,15 +355,20 @@ const ProfileSeller = () => {
                 </div>
                 <div className="row">
                   <div className="col-auto">
-                    <img src={iconBell} />
+                    <img
+                      src={iconBell}
+                      alt=""
+                      onClick={() => navigate("/chat")}
+                    />
                   </div>
                   <div className="col-auto">
-                    <img src={iconMail} />
+                    <img src={iconMail} alt="" />
                   </div>
                   <div className="col">
                     <img
                       className={styles.imgProfileNavbar}
                       src={pictureUser}
+                      alt=""
                     />
                   </div>
                 </div>
@@ -1890,7 +1931,7 @@ const ProfileSeller = () => {
                       </div>
                     </div>
                     <div className="text-center mt-3">
-                    {ownOrder == "" ? (
+                      {ownOrder == "" ? (
                         <img src={iconMyOrderEmpty} alt="" />
                       ) : (
                         <table className="table table-hover table-responsive">
