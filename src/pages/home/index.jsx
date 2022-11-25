@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import mensuit from "../../assets/mensuit.png";
 import icStar from "../../assets/icStar.svg";
@@ -29,24 +29,100 @@ import "./test.css";
 // import required modules
 import { Pagination, Navigation } from "swiper";
 import axios from "axios";
+// import { isHtmlElement } from "react-router-dom/dist/dom";
 
 const Home = () => {
-  // const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const [search, setSearch] = useState();
 
-  // useEffect(() => {
-  //   axios.get(`http://localhost:3001/v1/category`)
-  //     .then((response) => {
-  //       console.log(response.data.data)
-  //       setData(response.data.data)
-  //     })
-  //     .catch((error) => {
-  //       console.error(error)
-  //     })
-  // }, [])
+  const handleSearch = (e) => {
+    if (e.key === "Enter") { 
+      e.preventDefault()
+      return navigate(`/search?q=${search}`);
+    }
+  };
+
+  // const [query, setQuery] = useState();
+
+  // const handleSearch = (e) => {
+  //   // e.preventDefault()
+  //   if(e.key === "Enter"){
+  //     if(query !== null){
+  //       return navigate(`/search?search=${query}`)
+  //     }alert('please input any character')
+  //   }
+  // }
+  
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/v1/product`)
+      .then((response) => {
+        console.log(response.data.data);
+        setData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        // router.push('/login')
+      });
+  }, []);
+
+  const [sort, setSort] = useState("product_id");
+  const [asc, setAsc] = useState("asc");
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    getDataProduct(sort, asc, 3, page);
+  }, [sort, asc, page]);
+  const getDataProduct = (sort, asc, limit, page) => {
+    axios
+      .get(
+        `http://localhost:4000/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${page ? `&page=${page}` : ""
+        }`
+      )
+      .then((response) => {
+        console.log(response.data.data);
+        setData(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        // router.push('/login')
+      });
+  };
+
+  const handleSorting = () => {
+    if (sort == "product_id") {
+      setSort("name");
+    } else {
+      setSort("product_id");
+    }
+    getDataProduct(sort, asc, 3, page);
+  };
+
+  const handleSortasc = () => {
+    if (asc == "asc") {
+      setAsc("desc");
+    } else {
+      setAsc("asc");
+    }
+    getDataProduct(sort, asc, 3, page);
+  };
+
+  const NextPage = () => {
+    setPage(page + 1);
+    getDataProduct(sort, asc, 3, page);
+    console.log(page);
+  };
+  const PreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      console.log(page);
+      getDataProduct(sort, asc, 3, page - 1);
+    }
+  };
 
   return (
     <>
-      {localStorage.token ? <NavbarLogin /> : <Navbar />}
+      {localStorage.token ? <NavbarLogin /> : <Navbar tergetClick={(e) => setSearch(e.target.value)} searchData={handleSearch}/>}
 
       {/* <!-- Modal --> */}
       {/* <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,35 +234,35 @@ const Home = () => {
                       <div key={index}> */}
                   <SwiperSlide>
                     {" "}
-                    <Link to={`/v1/category/2`}>
+                    <Link to={`/v1/category/1`}>
                       {" "}
                       <img src={icCardTshirt} alt="icCard" />{" "}
                     </Link>{" "}
                   </SwiperSlide>
                   <SwiperSlide>
                     {" "}
-                    <Link to={`/v1/category/6`}>
+                    <Link to={`/v1/category/2`}>
                       {" "}
                       <img src={icCardShorts} alt="icCard" />{" "}
                     </Link>
                   </SwiperSlide>
                   <SwiperSlide>
                     {" "}
-                    <Link to={`/v1/category/5`}>
+                    <Link to={`/v1/category/3`}>
                       {" "}
                       <img src={icCardJacket} alt="icCard" />{" "}
                     </Link>{" "}
                   </SwiperSlide>
                   <SwiperSlide>
                     {" "}
-                    <Link to={`/v1/category/3`}>
+                    <Link to={`/v1/category/4`}>
                       {" "}
                       <img src={icCardPants} alt="icCard" />{" "}
                     </Link>
                   </SwiperSlide>
                   <SwiperSlide>
                     {" "}
-                    <Link to={`/v1/category/4`}>
+                    <Link to={`/v1/category/5`}>
                       {" "}
                       <img src={icCardShoes} alt="icCard" />{" "}
                     </Link>
@@ -205,11 +281,38 @@ const Home = () => {
                 <p className={styles.textSubmain}>
                   You’ve never seen it before!
                 </p>
-                {/* {JSON.stringify(data)} */}
-
-                <CardProduct />
+                <div className="dropdown mb-5">
+                  <button className={`btn btn-secondary dropdown-toggle ${styles.spanCostumsort}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li><Link className="dropdown-item" href="#" onClick={() => handleSortasc()}>Sortir berdasarkan{asc}</Link></li>
+                    <li><Link className="dropdown-item" href="#" onClick={() => handleSorting()}>Sortir berdasarkan {sort}</Link></li>
+                  </ul>
+                </div>
+                <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
+                  {/* {JSON.stringify(data)} */}
+                  {data.length === 0 ? (
+                    <h3> Data sudah habis </h3>
+                  ) : (
+                    data.map((item) => (
+                      <CardProduct
+                        byId={`/v1/product/${item.product_id}`}
+                        linkImage={item.image}
+                        nameProduct={item.name}
+                        priceProduct={item.price}
+                        sellerProduct={item.seller}
+                      />
+                    ))
+                  )}
+                </div>
               </div>
             </div>
+          </div>
+          <div className='row'>
+            <button className="btn btn-primary my-5 col-md-2  mx-auto" onClick={() => PreviousPage()}> Prev </button>
+            <button className="btn btn-primary my-5 col-md-2  mx-auto">{page}</button>
+            <button className="btn btn-primary my-5 col-md-2  mx-auto" disabled={data <= 0} onClick={() => NextPage()}>Next</button>
           </div>
           <div className="row">
             <div className="col-md-12 g-0">
@@ -218,8 +321,31 @@ const Home = () => {
                 <p className={styles.textSubmain}>
                   Find clothes that are trending recently
                 </p>
-
-                <CardProduct />
+                <div className="dropdown mb-5">
+                  <button className={`btn btn-secondary dropdown-toggle ${styles.spanCostumsort}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort
+                  </button>
+                  <ul className="dropdown-menu">
+                    <li><Link className="dropdown-item" href="#" onClick={() => handleSortasc()}>Sortir berdasarkan{asc}</Link></li>
+                    <li><Link className="dropdown-item" href="#" onClick={() => handleSorting()}>Sortir berdasarkan {sort}</Link></li>
+                  </ul>
+                </div>
+                <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
+                  {/* {JSON.stringify(data)} */}
+                  {data.length === 0 ? (
+                    <h3> Data sudah habis </h3>
+                  ) : (
+                    data.map((item) => (
+                      <CardProduct
+                        byId={`/v1/product/${item.product_id}`}
+                        linkImage={item.image}
+                        nameProduct={item.name}
+                        priceProduct={item.price}
+                        sellerProduct={item.seller}
+                      />
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           </div>
