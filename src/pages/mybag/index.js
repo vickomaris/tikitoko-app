@@ -6,8 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Mybag = () => {
-  const [bagState, setBagState] = useState([]); 
-  // const token = JSON.parse(localStorage.getItem("token"))
+  const [bagState, setBagState] = useState([]);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
