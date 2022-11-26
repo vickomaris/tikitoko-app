@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       return navigate(`/search?q=${search}`);
     }
   };
