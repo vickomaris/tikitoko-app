@@ -122,7 +122,7 @@ const Register = () => {
             <button className={`${styles['form-login']}`}>REGISTER</button>
           </div>
           <div className="mt-3 justify-content-center align-items-center flex d-flex">
-          <p>Already have a Tokopedia account? <button className={`${styles['button-register-now']}`}>Login</button></p>
+          <p>Already have a Tokopedia account? <button type="button" onClick={() => navigate("/login")} className={`${styles['button-register-now']}`}>Login</button></p>
           </div>
           </div>
         </form>
@@ -146,7 +146,7 @@ const Register = () => {
             <button className={`${styles['form-login']}`}>REGISTER</button>
           </div>
           <div className="mt-3 justify-content-center align-items-center flex d-flex">
-          <p>Already have a Tokopedia account? <button className={`${styles['button-register-now']}`}>Login</button></p>
+          <p>Already have a Tokopedia account? <button type="button" onClick={() => navigate("/login")} className={`${styles['button-register-now']}`}>Login</button></p>
           </div>
           </div>
         </form>

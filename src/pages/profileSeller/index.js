@@ -51,8 +51,8 @@ const ProfileSeller = () => {
 
   const [preview, setPreview] = useState();
   const getDataProfile = () => {
-    const data = JSON.parse(localStorage.getItem("data"));
-    const id = data.seller_id;
+    const seller = JSON.parse(localStorage.getItem("seller"));
+    const id = seller.seller_id;
     axios
       .get(`http://localhost:4000/v1/seller/${id}`)
       .then((res) => {

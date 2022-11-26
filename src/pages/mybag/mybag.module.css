@@ -155,3 +155,23 @@
     color: #222222;
     margin-top: 1px;
 }
+
+.delete-button {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    border: none;
+    padding-bottom: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background: red;
+    font-size: 15px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #FFFFFF;
+    position: relative;
+    top: -63px;
+    left: 35px;
+}

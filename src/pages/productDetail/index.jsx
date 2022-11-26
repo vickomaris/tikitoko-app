@@ -60,7 +60,7 @@ const ProductDetail = () => {
     };
 
     axios
-      .post(`http://localhost:3001/v1/cart`, form, {
+      .post(`http://localhost:4000/v1/cart`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -3,11 +3,13 @@ import styles from "./mybag.module.css";
 import Navbar from "../../component/module/navbarLogin";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Mybag = () => {
-  const [bagState, setBagState] = useState([]);
+  const [bagState, setBagState] = useState([]); 
   // const token = JSON.parse(localStorage.getItem("token"))
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   let sum = 0;
 
@@ -33,6 +35,26 @@ const Mybag = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const deleteItem = (id) => {
+    // e.preventDefault();
+    axios
+      .delete(`http://localhost:4000/v1/cart/${id}`)
+      .then( async () => {
+
+        // const posts = bagState.filter((token) => token.id !== id);
+        // setBagState({ data: posts });
+        alert('Data berhasil dihapus')
+        const result = await axios
+      .get(`http://localhost:4000/v1/cart/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setBagState (result.data.data)
+        return navigate("/mybag")
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -41,32 +63,6 @@ const Mybag = () => {
           <h1 className={styles["title"]}>My Bag</h1>
           <div className="row">
             <div className="col-sm-7 mb-4">
-              <div className={styles["card"]}>
-                <div className="card-body px-4 py-3">
-                  <div className="flex d-flex align-items-center">
-                    <div className={styles["select"]}>
-                      <input className={styles["check"]} type="checkbox" />
-                    </div>
-                    <div className="row">
-                      <div className="flex d-flex">
-                        <div className="col-10">
-                          <h1 className={`${styles["selectall"]}`}>
-                            Select all items{" "}
-                            <span className={styles["selected"]}>
-                              (2 items selected)
-                            </span>
-                          </h1>
-                        </div>
-                        <div className="col-2 flex d-flex align-items-right">
-                          <button className={`${styles["delete"]}`}>
-                            Delete
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="mt-3">
                 {bagState
                   ? bagState.map((item, index) => (
@@ -74,10 +70,6 @@ const Mybag = () => {
                         <div className="card-body px-4 py-4">
                           <div className={styles["product"]}>
                             <div className="d-flex align-items-center">
-                              <input
-                                className={styles["check"]}
-                                type="checkbox"
-                              />
                               <img
                                 className={styles["product-img"]}
                                 src={item.image}
@@ -96,6 +88,10 @@ const Mybag = () => {
                               <button className={styles["circle"]}>+</button>
                             </div>
                             <p className={styles["price"]}>Rp{item.price}</p>
+                            <div className="float-item absolute">
+                            <button type="button" onClick={() => deleteItem(item.cart_id)} className={`${styles["delete-button"]}`}>x</button>
+                            </div>
+                            
                           </div>
                         </div>
                       </div>
@@ -111,7 +107,7 @@ const Mybag = () => {
                     Total price
                     <span className="d-flex justify-content-end">Rp {sum}</span>
                   </h5>
-                  <button className={`${styles["buy"]}`}>Buy</button>
+                  <button onClick={() => navigate("/checkout")} className={`${styles["buy"]}`}>Buy</button>
                 </div>
               </div>
             </div>

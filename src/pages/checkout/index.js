@@ -9,15 +9,30 @@ const Checkout = () => {
     const [checkoutState, setCheckoutState] = useState([]);
     const token = localStorage.getItem("token")
     const [address, setAddress] = useState([]);
+    const payment = (e) => {
+        e.preventDefault();
+        try {
+            for (let i = 0; i < checkoutState.length; i++) {
+            //  let result = await axios.get(`http://localhost:4000/v1/cart/${checkoutState[i].cart_id}`)
+            //  console.log(result)
+            console.log(checkoutState[i])
+            //     .then((response) => {
+            //        console.log(response.data)
+            //    })
+               }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/v1/order/`,{
+        axios.get(`http://localhost:4000/v1/cart/`,{
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
         .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             setCheckoutState(response.data)
         })
         .catch((err) => {
@@ -34,7 +49,7 @@ const Checkout = () => {
             },
           })
         .then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             setAddress(response.data)
         })
         .catch((err) => {
@@ -89,7 +104,7 @@ const Checkout = () => {
                     <h5 className={styles["delivery"]}>Delivery<span className="d-flex justify-content-end">$ 5.0</span></h5>
                     <hr />
                     <h3 className={styles["card-summary-bottom"]}>Shopping summary<span className="d-flex justify-content-end">$ 45.0</span></h3>
-                    <button className={`${styles['buy']}`}>Select payment</button>
+                    <button type="button" onClick={(e) => payment(e)} className={`${styles['buy']}`}>Select payment</button>
                 </div>
             </div>
         </div>

@@ -187,7 +187,7 @@ const Login = ({ setSocket }) => {
               <div className="mt-3 justify-content-center align-items-center flex d-flex">
                 <p>
                   Don't have a Tikitoko account?{" "}
-                  <button className={`${styles["button-register-now"]}`}>
+                  <button type="button" onClick={() => navigate("/register")} className={`${styles["button-register-now"]}`}>
                     Register
                   </button>
                 </p>
@@ -230,10 +230,10 @@ const Login = ({ setSocket }) => {
               <div className="mt-3 justify-content-center align-items-center flex d-flex">
                 <p>
                   Don't have a Tikitoko account?{" "}
-                  <button className={`${styles["button-register-now"]}`}>
+                  <button type="button" onClick={() => navigate("/register")} className={`${styles["button-register-now"]}`}>
                     Register
-                  </button>
-                </p>
+                  </button>    
+                  </p>         
               </div>
             </div>
           </form>
