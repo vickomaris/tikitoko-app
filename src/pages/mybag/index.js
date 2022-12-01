@@ -4,6 +4,8 @@ import Navbar from "../../component/module/navbarLogin";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "bootstrap";
+import swal from "sweetalert";
 
 const Mybag = () => {
   const [bagState, setBagState] = useState([]);
@@ -13,7 +15,17 @@ const Mybag = () => {
   let sum = 0;
 
   for (let i = 0; i < bagState.length; i++) {
-    sum += bagState[i].price * bagState[i].qty;
+    if (bagState[i].status === 0) {
+      sum += bagState[i].price * bagState[i].qty;
+    }
+  }
+
+  let cart = 0;
+
+  for (let i = 0; i < bagState.length; i++) {
+    if (bagState[i].status === 0) {
+      cart++;
+    }
   }
 
   useEffect(() => {
@@ -31,27 +43,32 @@ const Mybag = () => {
         alert("Account not found");
         console.log(err);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteItem = (id) => {
     // e.preventDefault();
-    axios
-      .delete(`http://localhost:4000/v1/cart/${id}`)
-      .then( async () => {
-
-        // const posts = bagState.filter((token) => token.id !== id);
-        // setBagState({ data: posts });
-        alert('Data berhasil dihapus')
-        const result = await axios
-      .get(`http://localhost:4000/v1/cart/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      setBagState (result.data.data)
-        return navigate("/mybag")
-      });
+    swal({
+      title: "Remove Item",
+      text: `Are you sure want to remove this item?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (confirm) => {
+      if (confirm) {
+        axios.delete(`http://localhost:4000/v1/cart/${id}`).then(async () => {
+          // const posts = bagState.filter((token) => token.id !== id);
+          // setBagState({ data: posts });
+          const result = await axios.get(`http://localhost:4000/v1/cart/`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setBagState(result.data.data);
+          return navigate("/mybag");
+        });
+      }
+    });
   };
 
   return (
@@ -63,39 +80,52 @@ const Mybag = () => {
           <div className="row">
             <div className="col-sm-7 mb-4">
               <div className="mt-3">
-                {bagState
-                  ? bagState.map((item, index) => (
-                      <div className={`mb-3 ${styles["card"]}`}>
-                        <div className="card-body px-4 py-4">
-                          <div className={styles["product"]}>
-                            <div className="d-flex align-items-center">
-                              <img
-                                className={styles["product-img"]}
-                                src={item.image}
-                                alt="suite"
-                              />
-                              <div className={styles["brand"]}>
-                                <h5>{item.name}</h5>
-                                <p>{item.seller_name}</p>
+                {bagState && cart > 0 ? (
+                  bagState.map(
+                    (item, index) =>
+                      item.status === 0 && (
+                        <div className={`mb-3 ${styles["card"]}`}>
+                          <div className="card-body px-4 py-4">
+                            <div className={styles["product"]}>
+                              <div className="d-flex align-items-center">
+                                <img
+                                  className={styles["product-img"]}
+                                  src={item.image}
+                                  alt="suite"
+                                  onClick={() =>
+                                    navigate(`/v1/product/${item.product_id}`)
+                                  }
+                                />
+                                <div className={styles["brand"]}>
+                                  <h5>{item.name}</h5>
+                                  <p>{item.seller_name}</p>
+                                </div>
+                              </div>
+                              <div
+                                className={`flex d-flex justify-content-center ${styles["count-product"]}`}
+                              >
+                                <button className={styles["circle"]}>-</button>
+                                <p className={styles["sum"]}>{item.qty}</p>
+                                <button className={styles["circle"]}>+</button>
+                              </div>
+                              <p className={styles["price"]}>Rp{item.price}</p>
+                              <div className="float-item absolute">
+                                <button
+                                  type="button"
+                                  onClick={() => deleteItem(item.cart_id)}
+                                  className={`${styles["delete-button"]}`}
+                                >
+                                  x
+                                </button>
                               </div>
                             </div>
-                            <div
-                              className={`flex d-flex justify-content-center ${styles["count-product"]}`}
-                            >
-                              <button className={styles["circle"]}>-</button>
-                              <p className={styles["sum"]}>{item.qty}</p>
-                              <button className={styles["circle"]}>+</button>
-                            </div>
-                            <p className={styles["price"]}>Rp{item.price}</p>
-                            <div className="float-item absolute">
-                            <button type="button" onClick={() => deleteItem(item.cart_id)} className={`${styles["delete-button"]}`}>x</button>
-                            </div>
-                            
                           </div>
                         </div>
-                      </div>
-                    ))
-                  : ""}
+                      )
+                  )
+                ) : (
+                  <h3>You have nothing to buy at the moment!</h3>
+                )}
               </div>
             </div>
             <div className="col-sm-5 mb-4">
@@ -106,7 +136,16 @@ const Mybag = () => {
                     Total price
                     <span className="d-flex justify-content-end">Rp {sum}</span>
                   </h5>
-                  <button onClick={() => navigate("/checkout")} className={`${styles["buy"]}`}>Buy</button>
+                  <button
+                    onClick={() => {
+                      sum = 0
+                        ? alert("Add something to cart first")
+                        : navigate("/checkout");
+                    }}
+                    className={`${styles["buy"]}`}
+                  >
+                    Buy
+                  </button>
                 </div>
               </div>
             </div>

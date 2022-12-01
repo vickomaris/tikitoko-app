@@ -103,7 +103,11 @@ const ProfileSeller = () => {
       .put(`http://localhost:4000/v1/seller/${id}`, inputForm)
       .then((res) => {
         console.log(res.data);
-        alert("Update Success");
+        swal({
+          title: "Store Updated",
+          text: `Your store have been updated`,
+          icon: "success",
+        });
         window.location.reload();
       })
       .catch((err) => {
@@ -147,7 +151,11 @@ const ProfileSeller = () => {
       })
       .then((res) => {
         console.log(res.data);
-        alert("Insert Product Success");
+        swal({
+          title: "Product Added",
+          text: `New product have been added`,
+          icon: "success",
+        });
         window.location.reload();
       })
       .catch((err) => {
@@ -275,7 +283,11 @@ const ProfileSeller = () => {
       .put(`http://localhost:4000/v1/product/${id}`, inputForm)
       .then((res) => {
         console.log(res.data);
-        alert("Update Success");
+        swal({
+          title: "Product Updated",
+          text: `Your product have been updated`,
+          icon: "success",
+        });
         window.location.reload();
       })
       .catch((err) => {

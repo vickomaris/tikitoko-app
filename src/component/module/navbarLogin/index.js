@@ -15,7 +15,6 @@ const NavbarLogin = () => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState();
-  const [isLogout, setIsLogout] = useState(false);
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -23,34 +22,6 @@ const NavbarLogin = () => {
       return navigate(`/search?q=${search}`);
     }
   };
-
-  const handleLogout = () => {
-    swal({
-      title: "Logging Out",
-      text: `Are you sure want to leave?`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then(async (confirm) => {
-      if (confirm) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("buyer");
-        localStorage.removeItem("persist:data");
-        setIsLogout(true);
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (isLogout) {
-      swal({
-        title: "Logged Out",
-        text: `You have been logged out`,
-        icon: "success",
-      });
-      navigate("/login");
-    }
-  }, [isLogout, navigate]);
 
   return (
     <>
@@ -129,31 +100,16 @@ const NavbarLogin = () => {
                   </button>
                 </Link>
               </li>
-              <div className="dropdown">
+              <li className="dropdown">
                 <button
                   className={`px-2 mt-1 ${styles.btnAva}`}
                   type="button"
                   data-bs-toggle="dropdown"
+                  onClick={() => navigate("/profile")}
                 >
                   <img src={icAva} alt="icCart" className={styles.cstmAva} />
                 </button>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item" to={"/profile"}>
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={handleLogout}
-                      className="dropdown-item"
-                      to="#"
-                    >
-                      Logout
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              </li>
             </ul>
           </div>
         </div>

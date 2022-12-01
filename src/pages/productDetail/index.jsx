@@ -24,6 +24,7 @@ import "./coba.css";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import swal from "sweetalert";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -31,7 +32,9 @@ const ProductDetail = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const [data, setData] = useState([]);
+  const [recommend, setRecommend] = useState([]);
   const { id } = useParams();
+
   useEffect(() => {
     axios
       .get(`http://localhost:4000/v1/product/${id}`)
@@ -43,20 +46,37 @@ const ProductDetail = () => {
         console.error(error);
         // router.push('/login')
       });
+  }, [id]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/v1/product`)
+      .then((response) => {
+        console.log(response.data.data);
+        setRecommend(response.data.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        // router.push('/login')
+      });
   }, []);
 
-  const [update, setUpdate] = useState({
-    pid: id,
-    qty: 10,
-  });
+  const [qty, setQty] = useState(1);
+
+  const handleIncrement = () => {
+    setQty(qty + 1);
+  };
+
+  const handleDecrement = () => {
+    setQty(qty - 1);
+  };
 
   const handlePostBag = (e) => {
     e.preventDefault();
-    // const data = JSON.parse(localStorage.getItem("data"))
     const token = localStorage.getItem("token");
     const form = {
       pid: id,
-      qty: update.qty,
+      qty: qty,
     };
 
     axios
@@ -68,8 +88,11 @@ const ProductDetail = () => {
       .then((res) => {
         console.log(res);
         // setImage("");
-        alert("Success");
-        return navigate("/mybag");
+        swal({
+          title: "Success",
+          text: `Item added to mybag!`,
+          icon: "success",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -94,6 +117,7 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+
           <div className={`row ${styles.pageOne}`}>
             <div className={`col-md-4 ${styles.leftsideImage}`}>
               <Swiper
@@ -168,7 +192,7 @@ const ProductDetail = () => {
                 <div className={`ms-2 ${styles.textStar}`}>(10)</div>
               </div>
               <p className={`mt-4 ${styles.textPrice}`}>Price</p>
-              <p className={styles.textPricetag}>{data.price}</p>
+              <p className={styles.textPricetag}>Rp {data.price}</p>
               <p className={`mt-5 ${styles.textColor}`}>Color</p>
               <div className="d-flex flex-row">
                 <button className={`me-3 ${styles.colorBlack}`}> </button>
@@ -176,19 +200,29 @@ const ProductDetail = () => {
                 <button className={`me-3 ${styles.colorBlue}`}> </button>
                 <button className={`me-3 ${styles.colorGreen}`}> </button>
               </div>
-              <p className={`mt-5 ${styles.quantity} `}>Jumlah</p>
+              <p className={`mt-5 ${styles.quantity} `}>
+                Jumlah (Sisa : {data.stock})
+              </p>
               <div className="d-flex flex-row">
-                <button className={styles.icMinus}>
+                <button
+                  onClick={() => handleDecrement()}
+                  className={styles.icMinus}
+                  disabled={qty <= 1}
+                >
                   <img src={icMinus} alt="icMinus" />
                 </button>
-                <div className={`mx-3 mt-1 ${styles.textCount}`}>10</div>
-                <button className={styles.icPlus}>
+                <div className={`mx-3 mt-1 ${styles.textCount}`}>{qty}</div>
+                <button
+                  onClick={() => handleIncrement()}
+                  className={styles.icPlus}
+                  disabled={qty >= data.stock}
+                >
                   <img src={icPlus} alt="icPlus" />
                 </button>
               </div>
               <div className="d-flex flex-row mt-5">
                 <Link to={`/chat`}>
-                  <button className={` py-2 ${styles.btnChat}`}>Chat</button>
+                  <button className={`py-2 ${styles.btnChat}`}>Chat</button>
                 </Link>
                 <Link to={`/mybag`}>
                   <button
@@ -198,7 +232,7 @@ const ProductDetail = () => {
                     Add Bag
                   </button>
                 </Link>
-                <Link to={`/chat`}>
+                <Link to="#">
                   <button className={`py-2 ${styles.btnbuyNow}`}>
                     Buy Now
                   </button>
@@ -206,6 +240,7 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+
           <div className={`row py-5 ${styles.pageTwo}`}>
             <p className={styles.textTitlepagetwo}>Informasi Produk</p>
             <p className={`mt-4 ${styles.textSubtitle}`}>Condition</p>
@@ -264,13 +299,23 @@ const ProductDetail = () => {
             </div>
           </div>
           <hr />
+
           <div className={`row ${styles.pageThree}`}>
             <p className={styles.Titlepagethree}>You can also like this</p>
             <p className={styles.Subtitlepagethree}>
               You’ve never seen it before!
             </p>
             <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
-              <CardProduct />
+              {recommend &&
+                recommend.map((item) => (
+                  <CardProduct
+                    byId={`/v1/product/${item.product_id}`}
+                    linkImage={item.image}
+                    nameProduct={item.name}
+                    priceProduct={item.price}
+                    sellerProduct={item.seller}
+                  />
+                ))}
             </div>
           </div>
         </div>
@@ -280,4 +325,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-  

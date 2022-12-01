@@ -37,8 +37,8 @@ const Home = () => {
   const [search, setSearch] = useState();
 
   const handleSearch = (e) => {
-    if (e.key === "Enter") { 
-      e.preventDefault()
+    if (e.key === "Enter") {
+      e.preventDefault();
       return navigate(`/search?q=${search}`);
     }
   };
@@ -53,7 +53,7 @@ const Home = () => {
   //     }alert('please input any character')
   //   }
   // }
-  
+
   useEffect(() => {
     axios
       .get(`http://localhost:4000/v1/product`)
@@ -71,12 +71,13 @@ const Home = () => {
   const [asc, setAsc] = useState("asc");
   const [page, setPage] = useState(1);
   useEffect(() => {
-    getDataProduct(sort, asc, 3, page);
+    getDataProduct(sort, asc, 5, page);
   }, [sort, asc, page]);
   const getDataProduct = (sort, asc, limit, page) => {
     axios
       .get(
-        `http://localhost:4000/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${page ? `&page=${page}` : ""
+        `http://localhost:4000/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
+          page ? `&page=${page}` : ""
         }`
       )
       .then((response) => {
@@ -122,7 +123,14 @@ const Home = () => {
 
   return (
     <>
-      {localStorage.token ? <NavbarLogin /> : <Navbar tergetClick={(e) => setSearch(e.target.value)} searchData={handleSearch}/>}
+      {localStorage.token ? (
+        <NavbarLogin />
+      ) : (
+        <Navbar
+          tergetClick={(e) => setSearch(e.target.value)}
+          searchData={handleSearch}
+        />
+      )}
 
       {/* <!-- Modal --> */}
       {/* <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -282,12 +290,33 @@ const Home = () => {
                   You’ve never seen it before!
                 </p>
                 <div className="dropdown mb-5">
-                  <button className={`btn btn-secondary dropdown-toggle ${styles.spanCostumsort}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button
+                    className={`btn btn-secondary dropdown-toggle ${styles.spanCostumsort}`}
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
                     Sort
                   </button>
                   <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" href="#" onClick={() => handleSortasc()}>Sortir berdasarkan{asc}</Link></li>
-                    <li><Link className="dropdown-item" href="#" onClick={() => handleSorting()}>Sortir berdasarkan {sort}</Link></li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSortasc()}
+                      >
+                        Sortir berdasarkan{asc}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSorting()}
+                      >
+                        Sortir berdasarkan {sort}
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
@@ -309,10 +338,24 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className='row'>
-            <button className="btn btn-primary my-5 col-md-2  mx-auto" onClick={() => PreviousPage()}> Prev </button>
-            <button className="btn btn-primary my-5 col-md-2  mx-auto">{page}</button>
-            <button className="btn btn-primary my-5 col-md-2  mx-auto" disabled={data <= 0} onClick={() => NextPage()}>Next</button>
+          <div className="row">
+            <button
+              className="btn btn-primary my-5 col-md-2  mx-auto"
+              onClick={() => PreviousPage()}
+            >
+              {" "}
+              Prev{" "}
+            </button>
+            <button className="btn btn-primary my-5 col-md-2  mx-auto">
+              {page}
+            </button>
+            <button
+              className="btn btn-primary my-5 col-md-2  mx-auto"
+              disabled={data <= 0}
+              onClick={() => NextPage()}
+            >
+              Next
+            </button>
           </div>
           <div className="row">
             <div className="col-md-12 g-0">
@@ -322,12 +365,33 @@ const Home = () => {
                   Find clothes that are trending recently
                 </p>
                 <div className="dropdown mb-5">
-                  <button className={`btn btn-secondary dropdown-toggle ${styles.spanCostumsort}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button
+                    className={`btn btn-secondary dropdown-toggle ${styles.spanCostumsort}`}
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
                     Sort
                   </button>
                   <ul className="dropdown-menu">
-                    <li><Link className="dropdown-item" href="#" onClick={() => handleSortasc()}>Sortir berdasarkan{asc}</Link></li>
-                    <li><Link className="dropdown-item" href="#" onClick={() => handleSorting()}>Sortir berdasarkan {sort}</Link></li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSortasc()}
+                      >
+                        Sortir berdasarkan{asc}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => handleSorting()}
+                      >
+                        Sortir berdasarkan {sort}
+                      </Link>
+                    </li>
                   </ul>
                 </div>
                 <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">

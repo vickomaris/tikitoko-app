@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../../../assets/logo.svg";
 import io from "socket.io-client";
+import swal from "sweetalert";
 import styles from "../auth.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -51,14 +52,20 @@ const Login = ({ setSocket }) => {
           });
 
           setSocket(socket);
-          console.log(response);
-          alert("Login Success");
+          swal({
+            title: "Logged In",
+            text: `Welcome Back!`,
+            icon: "success",
+          });
           return navigate("/");
         }
       })
-      .catch((err) => {
-        alert("Account not found");
-        console.log(err);
+      .catch(() => {
+        swal({
+          title: "Login Failed",
+          text: `Make sure your data is correct!`,
+          icon: "warning",
+        });
       });
   };
 
@@ -93,14 +100,20 @@ const Login = ({ setSocket }) => {
           });
 
           setSocket(socket);
-          console.log(response);
-          alert("Login Success");
-          return navigate("/");
+          swal({
+            title: "Logged In",
+            text: `Welcome Back!`,
+            icon: "success",
+          });
+          return navigate("/store");
         }
       })
-      .catch((err) => {
-        alert("Account not found");
-        console.log(err);
+      .catch(() => {
+        swal({
+          title: "Login Failed",
+          text: `Make sure your data is correct!`,
+          icon: "warning",
+        });
       });
   };
 
@@ -162,6 +175,7 @@ const Login = ({ setSocket }) => {
                   onChange={(e) =>
                     setFormBuyer({ ...formBuyer, email: e.target.value })
                   }
+                  value={formBuyer.email}
                   placeholder="Email"
                 />
               </div>
@@ -173,6 +187,7 @@ const Login = ({ setSocket }) => {
                   onChange={(e) =>
                     setFormBuyer({ ...formBuyer, password: e.target.value })
                   }
+                  value={formBuyer.password}
                   placeholder="Password"
                 />
               </div>
@@ -187,7 +202,11 @@ const Login = ({ setSocket }) => {
               <div className="mt-3 justify-content-center align-items-center flex d-flex">
                 <p>
                   Don't have a Tikitoko account?{" "}
-                  <button type="button" onClick={() => navigate("/register")} className={`${styles["button-register-now"]}`}>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/register")}
+                    className={`${styles["button-register-now"]}`}
+                  >
                     Register
                   </button>
                 </p>
@@ -205,6 +224,7 @@ const Login = ({ setSocket }) => {
                   onChange={(e) =>
                     setFormSeller({ ...formSeller, email: e.target.value })
                   }
+                  value={formSeller.email}
                   placeholder="Email"
                 />
               </div>
@@ -216,6 +236,7 @@ const Login = ({ setSocket }) => {
                   onChange={(e) =>
                     setFormSeller({ ...formSeller, password: e.target.value })
                   }
+                  value={formSeller.password}
                   placeholder="Password"
                 />
               </div>
@@ -230,10 +251,14 @@ const Login = ({ setSocket }) => {
               <div className="mt-3 justify-content-center align-items-center flex d-flex">
                 <p>
                   Don't have a Tikitoko account?{" "}
-                  <button type="button" onClick={() => navigate("/register")} className={`${styles["button-register-now"]}`}>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/register")}
+                    className={`${styles["button-register-now"]}`}
+                  >
                     Register
-                  </button>    
-                  </p>         
+                  </button>
+                </p>
               </div>
             </div>
           </form>

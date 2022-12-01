@@ -1,18 +1,18 @@
 /* CSS Product Detail Page */
 .main {
-    background-color: #FFFFFF;
-    height: max-content;
-    padding-bottom: 50px;
+  background-color: #ffffff;
+  height: max-content;
+  padding-bottom: 50px;
 }
 
 .textInfocategory {
-    color: #9B9B9B;
-    font-size: 14px;
-    font-weight: 500;
+  color: #9b9b9b;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .sideInfocategory {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 /* .pageOne {
@@ -22,284 +22,283 @@
 } */
 
 .leftsideImage {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .rightsideInformation {
-    background-color: transparent;
-    height: max-content;
-    padding-bottom: 100px;
+  background-color: transparent;
+  height: max-content;
+  padding-bottom: 100px;
 }
 
-.textTitleproduct{
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 0;
+.textTitleproduct {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 0;
 }
 
-.textBrandproduct{
-    color: #9B9B9B;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 0;
+.textBrandproduct {
+  color: #9b9b9b;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
-.textStar{
-    color: #9B9B9B;
-    font-size: 12px;
-    font-weight: 400;
+.textStar {
+  color: #9b9b9b;
+  font-size: 12px;
+  font-weight: 400;
 }
 
-.textPrice{
-    color: #9B9B9B;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 0;
+.textPrice {
+  color: #9b9b9b;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
-.textPricetag{
-    font-size: 33px;
-    font-weight: 700;
+.textPricetag {
+  font-size: 33px;
+  font-weight: 700;
 }
 
-.textColor{
-    font-size: 16px;
-    font-weight: 600;
+.textColor {
+  font-size: 16px;
+  font-weight: 600;
 }
-
-
 
 .colorBlack {
-    border-radius: 50%;
-    background-color: #1A1A1A;
-    border: none;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+  border-radius: 50%;
+  background-color: #1a1a1a;
+  border: none;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.colorBlack:focus{
-    /* outline: thick double red !important; */
-    outline: 3px solid red !important;
-    outline-offset: 2px;
+.colorBlack:focus {
+  /* outline: thick double red !important; */
+  outline: 3px solid red !important;
+  outline-offset: 2px;
 }
 
 .colorRed {
-    border-radius: 50%;
-    background-color:#D84242;
-    border: none;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+  border-radius: 50%;
+  background-color: #d84242;
+  border: none;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.colorRed:focus{
-    outline: 3px solid red !important;
-    outline-offset: 2px;
+.colorRed:focus {
+  outline: 3px solid red !important;
+  outline-offset: 2px;
 }
 
 .colorBlue {
-    border-radius: 50%;
-    background-color: #4290D8;
-    border: none;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+  border-radius: 50%;
+  background-color: #4290d8;
+  border: none;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.colorBlue:focus{
-    outline: 3px solid red !important;
-    outline-offset: 2px;
+.colorBlue:focus {
+  outline: 3px solid red !important;
+  outline-offset: 2px;
 }
-
 
 .colorGreen {
-    border-radius: 50%;
-    background-color:#42D86C;
-    border: none;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
+  border-radius: 50%;
+  background-color: #42d86c;
+  border: none;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.colorGreen:focus{
-    outline: 3px solid red !important;
-    outline-offset: 2px;
+.colorGreen:focus {
+  outline: 3px solid red !important;
+  outline-offset: 2px;
 }
 
-.quantity{
-    font-size: 16px;
-    font-weight: 600;
+.quantity {
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.icMinus{
-    background-color: #D4D4D4;
-    border: none;
-    border-radius: 100%;
-    padding: 10px;
+.icMinus {
+  background-color: #d4d4d4;
+  border: none;
+  border-radius: 100%;
+  padding: 10px;
 }
 
-.textCount{
-    font-size: 23px;
-    font-weight: 500;
+.textCount {
+  font-size: 23px;
+  font-weight: 500;
 }
 
-.icPlus{
-    background-color:#FFFFFF;
-    border: none;
-    border-radius: 100%;
-    padding: 8px;
-    box-shadow: 5px 6px 40px rgba(142, 142, 142, 0.25);
+.icPlus {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 100%;
+  padding: 8px;
+  box-shadow: 5px 6px 40px rgba(142, 142, 142, 0.25);
 }
 
-.btnChat{
-    padding-left: 50px;
-    padding-right: 50px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
+.btnChat,
+.btnaddBag {
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.5s;
+  outline: none;
 }
 
-.btnaddBag{
-    padding-left: 50px;
-    padding-right: 50px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
+.btnChat:hover,
+.btnaddBag:hover {
+  border-color: #db3022;
+  background-color: #db3022;
+  color: white;
+  transition: 0.5s;
 }
 
-.btnbuyNow{
-    padding-left: 100px;
-    padding-right: 100px;
-    border-radius: 50px;
-    border-color: #DB3022 ;
-    background-color: #DB3022;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
+.btnbuyNow {
+  padding-left: 100px;
+  padding-right: 100px;
+  border-radius: 50px;
+  border-color: #db3022;
+  background-color: #db3022;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
 }
 
 .pageTwo {
-    height: max-content;
-    padding-bottom: 100px;
-    background-color: transparent;
+  height: max-content;
+  padding-bottom: 100px;
+  background-color: transparent;
 }
 
-.textTitlepagetwo{
-    font-size: 28px;
-    font-weight: 600;
+.textTitlepagetwo {
+  font-size: 28px;
+  font-weight: 600;
 }
 
-.textSubtitle{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 0;
+.textSubtitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0;
 }
 
-.textNew{
-    font-size: 20px;
-    font-weight: 500;
-    color: #DB3022;
+.textNew {
+  font-size: 20px;
+  font-weight: 500;
+  color: #db3022;
 }
 
-.textDescription{
-    color: #9B9B9B;
-    font-size: 14px;
-    font-weight: 500;
+.textDescription {
+  color: #9b9b9b;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.textTitlepagetwo{
-    font-size: 28px;
-    font-weight: 600;
+.textTitlepagetwo {
+  font-size: 28px;
+  font-weight: 600;
 }
 
-.textBigratingleft{
-    font-size: 60px;
-    font-weight: 500;
+.textBigratingleft {
+  font-size: 60px;
+  font-weight: 500;
 }
 
-.textRatingleft{
-    color: #9B9B9B;
-    font-size: 20px;
-    font-weight: 400;
-    margin-top: 45px;
+.textRatingleft {
+  color: #9b9b9b;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 45px;
 }
 
-.textRating{
-    color: #9B9B9B;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 5px;
+.textRating {
+  color: #9b9b9b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
 }
 
-.textRatingbtm{
-    color: #9B9B9B;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 5px;
-    margin-left: 2px;
+.textRatingbtm {
+  color: #9b9b9b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  margin-left: 2px;
 }
 
-.linered{
-    background-color: #DB3022;
-    width: 100px;
-    height: 5px;
-    border-radius: 50px;
+.linered {
+  background-color: #db3022;
+  width: 100px;
+  height: 5px;
+  border-radius: 50px;
 }
 
-.linewhite{
-    background-color: transparent;
-    width: 100px;
-    height: 5px;
-    border-radius: 50px;
+.linewhite {
+  background-color: transparent;
+  width: 100px;
+  height: 5px;
+  border-radius: 50px;
 }
 
-.pageThree{
-    background-color: transparent;
-    padding-bottom: 50px;
+.pageThree {
+  background-color: transparent;
+  padding-bottom: 50px;
 }
 
-.Titlepagethree{
-    font-size: 34px;
-    font-weight: 700;
-    margin-bottom: 0;
+.Titlepagethree {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
-.Subtitlepagethree{
-    color: #9B9B9B;
-    font-size: 12px;
-    font-weight: 400;
-    margin-bottom: 0;
+.Subtitlepagethree {
+  color: #9b9b9b;
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 0;
 }
-
 
 @media only screen and (max-width: 720px) {
-    .btnChat{
-        padding-left: 25px;
-        padding-right: 25px;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-        border-radius: 35px;
-    }
+  .btnChat {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-radius: 35px;
+  }
 
-    .btnaddBag{
-        padding-left: 25px;
-        padding-right: 25px;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-        border-radius: 35px;
-    }
+  .btnaddBag {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-radius: 35px;
+  }
 
-    .btnbuyNow{
-        padding-left: 25px;
-        padding-right: 25px;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-        border-radius: 35px;
-    }
-
+  .btnbuyNow {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-radius: 35px;
+  }
 }

@@ -7,6 +7,7 @@ import location from "../../assets/location-icon.svg";
 import order from "../../assets/order-icon.svg";
 import Navbar from "../../component/module/navbarLogin";
 import axios from "axios";
+import swal from "sweetalert";
 
 const ProfileBuyer = () => {
   const navigate = useNavigate();
@@ -30,12 +31,12 @@ const ProfileBuyer = () => {
   const [users, setUsers] = useState({});
 
   const data = JSON.parse(localStorage.getItem("buyer"));
-  const buyer_id = data.buyer_id;
+  const id = data.buyer_id;
 
   const [dateBirth, setDateBirth] = useState("");
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/v1/buyer/${buyer_id}`)
+      .get(`http://localhost:4000/v1/buyer/${id}`)
       .then((res) => {
         console.log(res.data);
         setUsers(res.data.data);
@@ -44,7 +45,7 @@ const ProfileBuyer = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const convertDateBirthday = (date) => {
     const newDate = new Date(date);
@@ -75,15 +76,19 @@ const ProfileBuyer = () => {
   };
 
   const handleUpdate = (e) => {
-    const data = JSON.parse(localStorage.getItem("data"));
-    const buyer_id = data.buyer_id;
     e.preventDefault();
     let formData = new FormData(e.target);
-    formData.append("buyer_id", buyer_id);
+    formData.append("buyer_id", id);
     axios
-      .put(`http://localhost:4000/v1/buyer/${buyer_id}`, formData)
+      .put(`http://localhost:4000/v1/buyer/${id}`, formData)
       .then((res) => {
-        alert("Update Success");
+        swal({
+          title: "Update Success",
+          text: `Your account have been updated`,
+          icon: "success",
+        }).then(() => {
+          navigate("/profile");
+        });
       })
       .catch((err) => {
         alert("Update Failed");
@@ -118,6 +123,7 @@ const ProfileBuyer = () => {
   const [viewCollapse, setViewCollapse] = useState(0);
   const [address, setAddress] = useState([]);
   const [editAddress, setEditAddress] = useState({});
+
   useEffect(() => {
     axios
       .get(`http://localhost:4000/v1/address`, {
@@ -170,30 +176,57 @@ const ProfileBuyer = () => {
         })
         .then((res) => {
           setAddressForm(res.data.data);
-          alert("Add Address Success");
+          swal({
+            title: "Address Added",
+            text: `New address have been added`,
+            icon: "success",
+          }).then(() => {
+            navigate("/profile");
+          });
         })
         .catch((err) => {
           console.log(err);
-          alert("Add Address Failed");
+          swal({
+            title: "Failed",
+            text: `Make sure your address data is correct!`,
+            icon: "warning",
+          });
         });
     }
   };
 
   const deleteAddress = (address_id) => {
-    axios
-      .delete(`http://localhost:4000/v1/address/${address_id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        setAddressForm(res.data.data);
-        alert("Delete Address Success");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("Delete Address Failed");
-      });
+    swal({
+      title: "Remove address?",
+      text: `Are you sure want to remove this address?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (confirm) => {
+      if (confirm) {
+        axios
+          .delete(`http://localhost:4000/v1/address/${address_id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            setAddressForm(res.data.data);
+            swal({
+              title: "Remove Success",
+              text: `Address have been removed`,
+              icon: "success",
+            });
+          })
+          .catch(() => {
+            swal({
+              title: "Failed",
+              text: `Failed removing address`,
+              icon: "warning",
+            });
+          });
+      }
+    });
   };
 
   const prepareDataAddress = (address_id) => {
@@ -225,17 +258,36 @@ const ProfileBuyer = () => {
       )
       .then((res) => {
         setAddressForm(res.data.data);
-        alert("Update Address Success");
+        swal({
+          title: "Address updated",
+          text: `Your address have been updated`,
+          icon: "success",
+        }).then(() => {
+          navigate("/profile");
+        });
       })
-      .catch((err) => {
-        console.log(err);
-        alert("Update Address Failed");
+      .catch(() => {
+        swal({
+          title: "Update failed",
+          text: `Make sure your address data is correct`,
+          icon: "warning",
+        });
       });
   };
 
   const logout = () => {
-    localStorage.clear();
-    navigate("/login");
+    swal({
+      title: "Logging Out",
+      text: `Are you sure want to leave?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (confirm) => {
+      if (confirm) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
   };
 
   return (
@@ -413,7 +465,7 @@ const ProfileBuyer = () => {
                                   type="radio"
                                   name="gender"
                                   value={1}
-                                  defaultChecked={users?.gender == 1}
+                                  defaultChecked={users?.gender === 1}
                                 />{" "}
                                 Pria
                               </p>
@@ -422,7 +474,7 @@ const ProfileBuyer = () => {
                                   type="radio"
                                   name="gender"
                                   value={2}
-                                  defaultChecked={users?.gender == 2}
+                                  defaultChecked={users?.gender === 2}
                                 />{" "}
                                 Perempuan
                               </p>
@@ -1074,7 +1126,7 @@ const ProfileBuyer = () => {
                                       </div>
                                     </div>
                                     <p className={styles["price"]}>
-                                      $ {item.price}
+                                      Rp {item.price * item.qty}
                                     </p>
                                   </div>
                                 </div>
@@ -1171,7 +1223,7 @@ const ProfileBuyer = () => {
                                         </div>
                                       </div>
                                       <p className={styles["price"]}>
-                                        $ {item.price}
+                                        Rp {item.price * item.qty}
                                       </p>
                                     </div>
                                   </div>
@@ -1438,7 +1490,7 @@ const ProfileBuyer = () => {
                                         </div>
                                       </div>
                                       <p className={styles["price"]}>
-                                        $ {item.price}
+                                        Rp {item.price * item.qty}
                                       </p>
                                     </div>
                                   </div>
