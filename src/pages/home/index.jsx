@@ -75,9 +75,7 @@ const Home = () => {
   const getDataProduct = (sort, asc, limit, page) => {
     axios
       .get(
-        `${
-          process.env.BACKEND_APP_API_URL
-        }/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
+        `https://tikitoko.up.railway.app/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`
       )

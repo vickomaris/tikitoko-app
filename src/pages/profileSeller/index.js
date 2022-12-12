@@ -180,9 +180,7 @@ const ProfileSeller = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `${
-          process.env.BACKEND_APP_API_URL
-        }/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
+        `https://tikitoko.up.railway.app/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`,
         {
