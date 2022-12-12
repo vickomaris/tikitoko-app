@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 import swal from "sweetalert";
 import {
   BrowserRouter,
@@ -50,28 +51,43 @@ const Auth = ({ children }) => {
 };
 
 const Router = () => {
+  const [socket, setSocket] = useState(null);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!socket && token) {
+      const res = io(`${process.env.BACKEND_APP_API_URL}`, {
+        query: {
+          token: token,
+        },
+        transports: ["websocket", "polling"]
+      });
+      setSocket(res);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
+
   return (
     <BrowserRouter>
       <ScrollToTop>
         <Routes>
           {/* Auth Routes  */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setSocket={setSocket} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/reset" element={<Reset />} />
 
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/category" element={<SearchCategory />} />
-          <Route path="/product" element={<ProductDetail />} />
-          <Route path="/mybag" element={<Mybag />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/search/" element={<Search />} />
+          <Route path="/v1/category/:id" element={<Auth><SearchCategory /></Auth>} />
+          <Route path="/v1/product/:id" element={<ProductDetail />} />
+          <Route path="/mybag" element={<Auth><Mybag /></Auth>} />
+          <Route path="/checkout" element={<Auth><Checkout /></Auth>} />
+          <Route path="/chat" element={<Auth><Chat socket={socket} /></Auth>} />
 
           {/* Profile Routes */}
-          <Route path="/profile" element={<ProfileBuyer />} />
-          <Route path="/store" element={<ProfileSeller />} />
+          <Route path="/profile" element={<Auth><ProfileBuyer /></Auth>} />
+          <Route path="/store" element={<Auth><ProfileSeller /></Auth>} />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
