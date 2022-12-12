@@ -23,11 +23,10 @@ import "./coba.css";
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 
 const ProductDetail = () => {
-  const navigate = useNavigate();
 
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 

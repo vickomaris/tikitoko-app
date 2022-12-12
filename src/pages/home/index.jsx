@@ -75,7 +75,9 @@ const Home = () => {
   const getDataProduct = (sort, asc, limit, page) => {
     axios
       .get(
-        `${process.env.BACKEND_APP_API_URL}/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
+        `${
+          process.env.BACKEND_APP_API_URL
+        }/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`
       )

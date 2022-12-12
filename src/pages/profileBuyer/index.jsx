@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./profilebuyer.module.css";

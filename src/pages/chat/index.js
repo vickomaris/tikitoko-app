@@ -26,16 +26,20 @@ const Chat = ({ socket }) => {
   useEffect(() => {
     if (localStorage.buyer) {
       const { buyer_id: id } = JSON.parse(localStorage.getItem("buyer"));
-      axios.get(`${process.env.BACKEND_APP_API_URL}/v1/buyer/${id}`).then((res) => {
-        const user = res.data.data;
-        setUser(user);
-      });
+      axios
+        .get(`${process.env.BACKEND_APP_API_URL}/v1/buyer/${id}`)
+        .then((res) => {
+          const user = res.data.data;
+          setUser(user);
+        });
     } else if (localStorage.seller) {
       const { seller_id: id } = JSON.parse(localStorage.getItem("seller"));
-      axios.get(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`).then((res) => {
-        const user = res.data.data;
-        setUser(user);
-      });
+      axios
+        .get(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`)
+        .then((res) => {
+          const user = res.data.data;
+          setUser(user);
+        });
     }
   }, []);
 
@@ -157,7 +161,11 @@ const Chat = ({ socket }) => {
                         className={`flex d-flex align-items-center ${styles["chat-room"]}`}
                       >
                         <div className="col-3">
-                          <img src={item.avatar} alt="" className={styles.avatar} />
+                          <img
+                            src={item.avatar}
+                            alt=""
+                            className={styles.avatar}
+                          />
                         </div>
                         <div className="col-8">
                           <p className={`${styles["name-chat"]}`}>

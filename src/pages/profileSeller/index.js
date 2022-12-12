@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./profileSeller.module.css";
 import pictureUser from "../../assets/user-icon.svg";
@@ -179,7 +180,9 @@ const ProfileSeller = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `${process.env.BACKEND_APP_API_URL}/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
+        `${
+          process.env.BACKEND_APP_API_URL
+        }/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`,
         {
@@ -211,7 +214,7 @@ const ProfileSeller = () => {
 
   //SORTING
   const handleSorting = () => {
-    if (sort == "product_id") {
+    if (sort === "product_id") {
       setSort("name");
     } else {
       setSort("product_id");
@@ -221,7 +224,7 @@ const ProfileSeller = () => {
 
   // ASCENDING
   const handleSortingAsc = () => {
-    if (sortOrder == "asc") {
+    if (sortOrder === "asc") {
       setSortOrder("desc");
     } else {
       setSortOrder("asc");
@@ -299,11 +302,14 @@ const ProfileSeller = () => {
   const getOwnOrder = (queryOrder) => {
     const token = localStorage.getItem("token");
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/order/myorder?search=${queryOrder}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.BACKEND_APP_API_URL}/v1/order/myorder?search=${queryOrder}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         setOwnOrder(res.data.data);
@@ -341,12 +347,14 @@ const ProfileSeller = () => {
       dangerMode: true,
     }).then(async (confirm) => {
       if (confirm) {
-        axios.put(`${process.env.BACKEND_APP_API_URL}/v1/order/pay/${val}`).then((res) => {
-          swal({
-            title: "Payment confirmed",
-            icon: "success",
+        axios
+          .put(`${process.env.BACKEND_APP_API_URL}/v1/order/pay/${val}`)
+          .then((res) => {
+            swal({
+              title: "Payment confirmed",
+              icon: "success",
+            });
           });
-        });
       }
     });
   };
@@ -435,7 +443,7 @@ const ProfileSeller = () => {
               </div>
               <div className="mt-5">
                 <div>
-                  {iconDownStore == 0 ? (
+                  {iconDownStore === 0 ? (
                     <button
                       type="button"
                       className={styles.btnStore}
@@ -502,7 +510,7 @@ const ProfileSeller = () => {
                   </div>
                 </div>
                 <div className="mt-3">
-                  {iconDownOrder == 0 ? (
+                  {iconDownOrder === 0 ? (
                     <button
                       type="button"
                       className={styles.btnStore}
@@ -578,7 +586,7 @@ const ProfileSeller = () => {
                   </div>
                 </div>
                 <div className="mt-3">
-                  {icondown == 0 ? (
+                  {icondown === 0 ? (
                     <button
                       type="button"
                       className={styles.btnStore}
@@ -675,7 +683,7 @@ const ProfileSeller = () => {
           </div>
           <div className={`col-md-9 ${styles.containerDua}`}>
             <div className={styles.containerProfileSideRight}>
-              {viewPage == 0 ? (
+              {viewPage === 0 ? (
                 <div className={styles.containerCardStoreProfile}>
                   <div className={styles.containerTitle}>
                     <div>
@@ -688,7 +696,7 @@ const ProfileSeller = () => {
                     </div>
                     <hr />
                   </div>
-                  {disableEdit == 0 ? (
+                  {disableEdit === 0 ? (
                     <div className={styles.containerMain}>
                       <div className="row">
                         <div
@@ -780,7 +788,11 @@ const ProfileSeller = () => {
                         </div>
                         <div className="col-md-4 text-center">
                           <div className={styles.containePictureUser}>
-                            <img className={styles.img} src={profile.avatar} />
+                            <img
+                              className={styles.img}
+                              src={profile.avatar}
+                              alt=""
+                            />
                           </div>
                           <div className="mt-3">
                             <input
@@ -901,6 +913,7 @@ const ProfileSeller = () => {
                             <img
                               className={styles.img}
                               src={preview ? preview : profile.avatar}
+                              alt="avatar"
                             />
                           </div>
                           <div className="mt-3">
@@ -924,7 +937,7 @@ const ProfileSeller = () => {
                     </div>
                   )}
                 </div>
-              ) : viewPage == 1 ? (
+              ) : viewPage === 1 ? (
                 <div className={styles.containerCardMyProduct}>
                   <div className={styles.containerTitleMyProduct}>
                     <div>
@@ -1024,7 +1037,7 @@ const ProfileSeller = () => {
                         </div>
                       </div> */}
                       <div className={styles.containerMainAllItem}>
-                        {ownProduct == "" ? (
+                        {ownProduct === "" ? (
                           <div className="mt-4 text-center">
                             <img src={iconEmpety} alt="" />
                           </div>
@@ -1049,7 +1062,7 @@ const ProfileSeller = () => {
                                   <td>{data.stock}</td>
                                   <td>Rp. {data.price}</td>
                                   <td>
-                                    {data.condition == 0 ? "Baru" : "Bekas"}
+                                    {data.condition === 0 ? "Baru" : "Bekas"}
                                   </td>
                                   <td>{data.description}</td>
                                   <td>
@@ -1221,7 +1234,7 @@ const ProfileSeller = () => {
                           <li className="page-item">
                             <button
                               className="btn btn-warning-custom page-link"
-                              disabled={page == 1}
+                              disabled={page === 1}
                               onClick={() => PreviousPage()}
                             >
                               <i class="fa fa-backward"></i>
@@ -1235,7 +1248,7 @@ const ProfileSeller = () => {
                           <li style={{ marginLeft: 3 }} className="page-item">
                             <button
                               className="btn btn-warning-custom page-link"
-                              disabled={ownProduct == 0}
+                              disabled={ownProduct === 0}
                               onClick={() => NextPage()}
                             >
                               <i class="fa fa-forward"></i>
@@ -1246,7 +1259,7 @@ const ProfileSeller = () => {
                     </div>
                   </div>
                 </div>
-              ) : viewPage == 2 ? (
+              ) : viewPage === 2 ? (
                 <div>
                   <div className={styles.containerSellingProduct}>
                     <div className={styles.containerCardInventory}>
@@ -1502,7 +1515,7 @@ const ProfileSeller = () => {
                     </button>
                   </div>
                 </div>
-              ) : viewPage == 3 ? (
+              ) : viewPage === 3 ? (
                 <div className={styles.containerCardMyOrder}>
                   <div className={styles.TitleMyOrder}>
                     <div>
@@ -1583,7 +1596,7 @@ const ProfileSeller = () => {
                       </div>
                     </div>
                     <div className="text-center mt-3">
-                      {ownOrder == "" ? (
+                      {ownOrder === "" ? (
                         <img src={iconMyOrderEmpty} alt="" />
                       ) : (
                         <table className="table table-hover table-responsive">
@@ -1634,7 +1647,7 @@ const ProfileSeller = () => {
                     </div>
                   </div>
                 </div>
-              ) : viewPage == 4 ? (
+              ) : viewPage === 4 ? (
                 <div className={styles.containerCardOrderCancel}>
                   <div className={styles.TitleOrderCancel}>
                     <div>
@@ -1714,7 +1727,7 @@ const ProfileSeller = () => {
                       </div>
                     </div>
                     <div className="text-center mt-3">
-                      {ownOrder == "" ? (
+                      {ownOrder === "" ? (
                         <img src={iconMyOrderEmpty} alt="" />
                       ) : (
                         <table className="table table-hover table-responsive">
@@ -1757,7 +1770,7 @@ const ProfileSeller = () => {
                     </div>
                   </div>
                 </div>
-              ) : viewPage == 5 ? (
+              ) : viewPage === 5 ? (
                 <div className={styles.containerCardOrderCancel}>
                   <div className={styles.TitleOrderCancel}>
                     <div>
@@ -1837,7 +1850,7 @@ const ProfileSeller = () => {
                       </div>
                     </div>
                     <div className="text-center mt-3">
-                      {ownOrder == "" ? (
+                      {ownOrder === "" ? (
                         <img src={iconMyOrderEmpty} alt="" />
                       ) : (
                         <table className="table table-hover table-responsive">
@@ -1882,7 +1895,7 @@ const ProfileSeller = () => {
                     </div>
                   </div>
                 </div>
-              ) : viewPage == 6 ? (
+              ) : viewPage === 6 ? (
                 <div className={styles.containerCardOrderCancel}>
                   <div className={styles.TitleOrderCancel}>
                     <div>
@@ -1962,7 +1975,7 @@ const ProfileSeller = () => {
                       </div>
                     </div>
                     <div className="text-center mt-3">
-                      {ownOrder == "" ? (
+                      {ownOrder === "" ? (
                         <img src={iconMyOrderEmpty} alt="" />
                       ) : (
                         <table className="table table-hover table-responsive">
