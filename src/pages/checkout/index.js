@@ -36,7 +36,7 @@ const Checkout = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/v1/cart/`, {
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/cart/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -53,7 +53,7 @@ const Checkout = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/v1/address/`, {
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/address/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +78,7 @@ const Checkout = () => {
         };
 
         // console.log(data)
-        await axios.post(`http://localhost:4000/v1/order/`, data, {
+        await axios.post(`${process.env.BACKEND_APP_API_URL}/v1/order/`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

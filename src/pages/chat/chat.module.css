@@ -57,6 +57,14 @@
   border-radius: 4px 4px 0px 0px;
 }
 
+.avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: none;
+  border-radius: 50%;
+}
+
 .chat-box {
   border: solid 1px #8e8e93;
   border-radius: 0px 0px 4px 4px;

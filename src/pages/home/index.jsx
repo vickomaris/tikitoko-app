@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
-import mensuit from "../../assets/mensuit.png";
-import icStar from "../../assets/icStar.svg";
 import icCardTshirt from "../../assets/icCatTshirt.svg";
 import icCardShorts from "../../assets/icCardShorts.svg";
 import icCardJacket from "../../assets/icCardJacket.svg";
@@ -56,7 +54,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/v1/product`)
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/product`)
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);
@@ -76,7 +74,7 @@ const Home = () => {
   const getDataProduct = (sort, asc, limit, page) => {
     axios
       .get(
-        `http://localhost:4000/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
+        `${process.env.BACKEND_APP_API_URL}/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`
       )
@@ -91,7 +89,7 @@ const Home = () => {
   };
 
   const handleSorting = () => {
-    if (sort == "product_id") {
+    if (sort === "product_id") {
       setSort("name");
     } else {
       setSort("product_id");
@@ -100,7 +98,7 @@ const Home = () => {
   };
 
   const handleSortasc = () => {
-    if (asc == "asc") {
+    if (asc === "asc") {
       setAsc("desc");
     } else {
       setAsc("asc");

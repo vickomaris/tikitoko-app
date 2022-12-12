@@ -55,10 +55,11 @@ const Router = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!socket && token) {
-      const res = io("http://localhost:4000", {
+      const res = io(`${process.env.BACKEND_APP_API_URL}`, {
         query: {
           token: token,
         },
+        transports: ["websocket", "polling"]
       });
       setSocket(res);
     }

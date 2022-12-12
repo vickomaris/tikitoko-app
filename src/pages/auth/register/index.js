@@ -42,7 +42,7 @@ const Register = () => {
       email: form.email,
     };
     axios
-      .post(`http://localhost:4000/v1/buyer/register`, body)
+      .post(`${process.env.BACKEND_APP_API_URL}/v1/buyer/register`, body)
       .then((response) => {
         if (response.data.code !== 200) {
           alert(response.data.message);
@@ -91,7 +91,7 @@ const Register = () => {
       phone: form2.phone,
     };
     axios
-      .post(`http://localhost:4000/v1/seller/register`, body)
+      .post(`${process.env.BACKEND_APP_API_URL}/v1/seller/register`, body)
       .then((response) => {
         if (response.data.code !== 200) {
           alert(response.data.message);

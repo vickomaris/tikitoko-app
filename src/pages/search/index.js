@@ -26,7 +26,7 @@ const Search = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/v1/product?search=${titleSearch}`)
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/product?search=${titleSearch}`)
       .then((response) => {
         setData(response.data.data);
         console.log(response.data.data);

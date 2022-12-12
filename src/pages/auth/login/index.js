@@ -25,7 +25,7 @@ const Login = ({ setSocket }) => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:4000/v1/buyer/login`, formBuyer)
+      .post(`${process.env.BACKEND_APP_API_URL}/v1/buyer/login`, formBuyer)
       .then((response) => {
         console.log(response);
         if (response.data.status !== "success") {
@@ -45,10 +45,11 @@ const Login = ({ setSocket }) => {
             JSON.stringify(response.data.data.buyer.email)
           );
 
-          const socket = io("http://localhost:4000", {
+          const socket = io(`${process.env.BACKEND_APP_API_URL}`, {
             query: {
               token: token,
             },
+            transports: ["websocket", "polling"],
           });
 
           setSocket(socket);
@@ -73,7 +74,7 @@ const Login = ({ setSocket }) => {
     e.preventDefault();
 
     axios
-      .post(`http://localhost:4000/v1/seller/login`, formSeller)
+      .post(`${process.env.BACKEND_APP_API_URL}/v1/seller/login`, formSeller)
       .then((response) => {
         console.log(response);
         if (response.data.status !== "success") {
@@ -93,10 +94,11 @@ const Login = ({ setSocket }) => {
             JSON.stringify(response.data.data.seller.email)
           );
 
-          const socket = io("http://localhost:4000", {
+          const socket = io(`${process.env.BACKEND_APP_API_URL}`, {
             query: {
               token: token,
             },
+            transports: ["websocket", "polling"],
           });
 
           setSocket(socket);

@@ -54,7 +54,7 @@ const ProfileSeller = () => {
     const seller = JSON.parse(localStorage.getItem("seller"));
     const id = seller.seller_id;
     axios
-      .get(`http://localhost:4000/v1/seller/${id}`)
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`)
       .then((res) => {
         setProfile(res.data.data);
         if (res.data.data.avatar) {
@@ -100,7 +100,7 @@ const ProfileSeller = () => {
     }
     inputForm.append("avatar", updateImage);
     axios
-      .put(`http://localhost:4000/v1/seller/${id}`, inputForm)
+      .put(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`, inputForm)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -144,7 +144,7 @@ const ProfileSeller = () => {
     inputForm.append("description", insertProduct.description);
     inputForm.append("image", imageProduct);
     axios
-      .post(`http://localhost:4000/v1/product`, inputForm, {
+      .post(`${process.env.BACKEND_APP_API_URL}/v1/product`, inputForm, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -165,7 +165,7 @@ const ProfileSeller = () => {
 
   const getDataCategory = () => {
     axios
-      .get(`http://localhost:4000/v1/category`)
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/category`)
       .then((res) => {
         setCategory(res.data.data);
       })
@@ -179,7 +179,7 @@ const ProfileSeller = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `http://localhost:4000/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
+        `${process.env.BACKEND_APP_API_URL}/v1/product/myproduct?search=${query}&sortby=${sort}&order=${sortOrder}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`,
         {
@@ -231,7 +231,7 @@ const ProfileSeller = () => {
 
   const deleteProduct = (product_id) => {
     axios
-      .delete(`http://localhost:4000/v1/product/${product_id}`)
+      .delete(`${process.env.BACKEND_APP_API_URL}/v1/product/${product_id}`)
       .then((res) => {
         console.log(res);
         alert("Delete Success");
@@ -245,7 +245,7 @@ const ProfileSeller = () => {
   const [detailProduct, setDetailProduct] = useState([]);
   const getDetailProduct = (product_id) => {
     axios
-      .get(`http://localhost:4000/v1/product/${product_id}`)
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/product/${product_id}`)
       .then((res) => {
         console.log(res.data);
         setDetailProduct(res.data.data);
@@ -280,7 +280,7 @@ const ProfileSeller = () => {
       inputForm.append("description", productUpdate.description);
     }
     axios
-      .put(`http://localhost:4000/v1/product/${id}`, inputForm)
+      .put(`${process.env.BACKEND_APP_API_URL}/v1/product/${id}`, inputForm)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -299,7 +299,7 @@ const ProfileSeller = () => {
   const getOwnOrder = (queryOrder) => {
     const token = localStorage.getItem("token");
     axios
-      .get(`http://localhost:4000/v1/order/myorder?search=${queryOrder}`, {
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/order/myorder?search=${queryOrder}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -329,6 +329,24 @@ const ProfileSeller = () => {
         localStorage.removeItem("buyer");
         localStorage.removeItem("persist:data");
         setIsLogout(true);
+      }
+    });
+  };
+
+  const updateOrder = (val) => {
+    swal({
+      title: "Confirm payment?",
+      icon: "info",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (confirm) => {
+      if (confirm) {
+        axios.put(`${process.env.BACKEND_APP_API_URL}/v1/order/pay/${val}`).then((res) => {
+          swal({
+            title: "Payment confirmed",
+            icon: "success",
+          });
+        });
       }
     });
   };
@@ -367,20 +385,21 @@ const ProfileSeller = () => {
                 </div>
                 <div className="row">
                   <div className="col-auto">
+                    <img src={iconBell} alt="" />
+                  </div>
+                  <div className="col-auto">
                     <img
-                      src={iconBell}
+                      src={iconMail}
                       alt=""
                       onClick={() => navigate("/chat")}
                     />
-                  </div>
-                  <div className="col-auto">
-                    <img src={iconMail} alt="" />
                   </div>
                   <div className="col">
                     <img
                       className={styles.imgProfileNavbar}
                       src={pictureUser}
                       alt=""
+                      onClick={handleLogout}
                     />
                   </div>
                 </div>
@@ -1589,15 +1608,21 @@ const ProfileSeller = () => {
                                 <td>Rp. {data.total}</td>
                                 <td>{data.buyer_name}</td>
                                 <td>
-                                  {data.status == 0 ? (
+                                  {data.status === 0 ? (
                                     <div
                                       className={`p-1 ${styles.deleteProduct}`}
                                     >
                                       <span>Belum bayar</span>
                                     </div>
-                                  ) : (
+                                  ) : data.status === 1 ? (
                                     <div className={`p-1 ${styles.bgPaid}`}>
                                       <span>Sudah bayar</span>
+                                    </div>
+                                  ) : (
+                                    <div
+                                      className={`p-1 ${styles.deleteProduct}`}
+                                    >
+                                      <span>Dibatalkan</span>
                                     </div>
                                   )}
                                 </td>
@@ -1706,27 +1731,25 @@ const ProfileSeller = () => {
                           </thead>
                           {ownOrder.map((data, index) => (
                             <tbody>
-                              <tr>
-                                <td>{index + 1}</td>
-                                <td>{data.name}</td>
-                                <td>{data.qty}</td>
-                                <td>Rp. {data.price}</td>
-                                <td>Rp. {data.total}</td>
-                                <td>{data.buyer_name}</td>
-                                <td>
-                                  {data.status == 0 ? (
+                              {data.status === 2 ? (
+                                <tr>
+                                  <td>{index + 1}</td>
+                                  <td>{data.name}</td>
+                                  <td>{data.qty}</td>
+                                  <td>Rp. {data.price}</td>
+                                  <td>Rp. {data.total}</td>
+                                  <td>{data.buyer_name}</td>
+                                  <td>
                                     <div
                                       className={`p-1 ${styles.deleteProduct}`}
                                     >
-                                      <span>Belum bayar</span>
+                                      <span>Dibatalkan</span>
                                     </div>
-                                  ) : (
-                                    <div className={`p-1 ${styles.bgPaid}`}>
-                                      <span>Sudah bayar</span>
-                                    </div>
-                                  )}
-                                </td>
-                              </tr>
+                                  </td>
+                                </tr>
+                              ) : (
+                                ""
+                              )}
                             </tbody>
                           ))}
                         </table>
@@ -1830,7 +1853,7 @@ const ProfileSeller = () => {
                             </tr>
                           </thead>
                           {ownOrder.map((data, index) =>
-                            data.status == 1 ? (
+                            data.status === 1 ? (
                               <tbody>
                                 <tr>
                                   <td>{index + 1}</td>
@@ -1840,16 +1863,12 @@ const ProfileSeller = () => {
                                   <td>Rp. {data.total}</td>
                                   <td>{data.buyer_name}</td>
                                   <td>
-                                    {data.status == 0 ? (
-                                      <div
-                                        className={`p-1 ${styles.deleteProduct}`}
-                                      >
-                                        <span>Belum bayar</span>
-                                      </div>
-                                    ) : (
+                                    {data.status === 1 ? (
                                       <div className={`p-1 ${styles.bgPaid}`}>
                                         <span>Sudah bayar</span>
                                       </div>
+                                    ) : (
+                                      ""
                                     )}
                                   </td>
                                 </tr>
@@ -1959,7 +1978,7 @@ const ProfileSeller = () => {
                             </tr>
                           </thead>
                           {ownOrder.map((data, index) =>
-                            data.status == 0 ? (
+                            data.status === 0 ? (
                               <tbody>
                                 <tr>
                                   <td>{index + 1}</td>
@@ -1969,16 +1988,17 @@ const ProfileSeller = () => {
                                   <td>Rp. {data.total}</td>
                                   <td>{data.buyer_name}</td>
                                   <td>
-                                    {data.status == 0 ? (
-                                      <div
+                                    {data.status === 0 ? (
+                                      <button
                                         className={`p-1 ${styles.deleteProduct}`}
+                                        onClick={() =>
+                                          updateOrder(data.order_id)
+                                        }
                                       >
-                                        <span>Belum bayar</span>
-                                      </div>
+                                        <span>Konfirmasi</span>
+                                      </button>
                                     ) : (
-                                      <div className={`p-1 ${styles.bgPaid}`}>
-                                        <span>Sudah bayar</span>
-                                      </div>
+                                      ""
                                     )}
                                   </td>
                                 </tr>

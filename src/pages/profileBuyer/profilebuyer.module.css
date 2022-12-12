@@ -282,4 +282,21 @@
     font-size: 16px;
     color: #222222;
     margin-top: 1px;
-}/* CSS Checkout Page */
+}
+
+/* CSS Checkout Page */
+
+.price {
+    padding: 0;
+    margin: 0;
+}
+
+.delete-btn,
+.delete-btn:focus {
+    background-color: #DB3022;
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    outline: none;
+    margin-left: 10px;
+}

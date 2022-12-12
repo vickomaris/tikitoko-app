@@ -30,7 +30,7 @@ const Mybag = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/v1/cart/`, {
+      .get(`${process.env.BACKEND_APP_API_URL}/v1/cart/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,10 +56,10 @@ const Mybag = () => {
       dangerMode: true,
     }).then(async (confirm) => {
       if (confirm) {
-        axios.delete(`http://localhost:4000/v1/cart/${id}`).then(async () => {
+        axios.delete(`${process.env.BACKEND_APP_API_URL}/v1/cart/${id}`).then(async () => {
           // const posts = bagState.filter((token) => token.id !== id);
           // setBagState({ data: posts });
-          const result = await axios.get(`http://localhost:4000/v1/cart/`, {
+          const result = await axios.get(`${process.env.BACKEND_APP_API_URL}/v1/cart/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

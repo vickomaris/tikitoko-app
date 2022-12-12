@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./chat.module.css";
-import Navbar from "../../component/module/navbarLogin"
+import Navbar from "../../component/module/navbarLogin";
 
 const Chat = ({ socket }) => {
-  const navigate = useNavigate();
   const [role, setRole] = useState("");
 
   // messaging states
@@ -28,13 +26,13 @@ const Chat = ({ socket }) => {
   useEffect(() => {
     if (localStorage.buyer) {
       const { buyer_id: id } = JSON.parse(localStorage.getItem("buyer"));
-      axios.get(`http://localhost:4000/v1/buyer/${id}`).then((res) => {
+      axios.get(`${process.env.BACKEND_APP_API_URL}/v1/buyer/${id}`).then((res) => {
         const user = res.data.data;
         setUser(user);
       });
     } else if (localStorage.seller) {
       const { seller_id: id } = JSON.parse(localStorage.getItem("seller"));
-      axios.get(`http://localhost:4000/v1/seller/${id}`).then((res) => {
+      axios.get(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`).then((res) => {
         const user = res.data.data;
         setUser(user);
       });
@@ -45,7 +43,7 @@ const Chat = ({ socket }) => {
   useEffect(() => {
     if (localStorage.buyer) {
       axios
-        .get("http://localhost:4000/v1/seller/")
+        .get(`${process.env.BACKEND_APP_API_URL}/v1/seller/`)
         .then((res) => {
           console.log(res);
           const data = res.data.data;
@@ -54,7 +52,7 @@ const Chat = ({ socket }) => {
         .catch((err) => console.log(err));
     } else if (localStorage.seller) {
       axios
-        .get("http://localhost:4000/v1/buyer/")
+        .get(`${process.env.BACKEND_APP_API_URL}/v1/buyer/`)
         .then((res) => {
           console.log(res);
           const data = res.data.data;
@@ -79,7 +77,7 @@ const Chat = ({ socket }) => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `http://localhost:4000/v1/message/${
+        `${process.env.BACKEND_APP_API_URL}/v1/message/${
           role === "Buyer"
             ? contact.seller_id
             : role === "Seller"
@@ -108,7 +106,7 @@ const Chat = ({ socket }) => {
 
   // Sending message
   const sendMessage = () => {
-    console.log(message)
+    console.log(message);
     if (socket && message && (contact.buyer_id || contact.seller_id)) {
       socket.emit(
         "private-msg",
@@ -133,14 +131,14 @@ const Chat = ({ socket }) => {
   // Send message trigger
   const handleSend = async (e) => {
     if (e.key === "Enter") {
-      sendMessage()
+      sendMessage();
     }
   };
 
   return (
     <section className="mt-5">
       <Navbar />
-      <div className={`container ${styles['main-content']}`}>
+      <div className={`container ${styles["main-content"]}`}>
         <div className="row">
           <div className="flex d-flex justify-content-center">
             <div className="col-3 me-4">
@@ -156,13 +154,10 @@ const Chat = ({ socket }) => {
                   ? contacts.map((item, index) => (
                       <div
                         onClick={() => selectContact(item)}
-                        className={`flex d-flex align-items-center ${styles['chat-room']}`}
+                        className={`flex d-flex align-items-center ${styles["chat-room"]}`}
                       >
                         <div className="col-3">
-                          <img
-                            src={require("../../assets/Mask Group (1).png")}
-                            alt=""
-                          />
+                          <img src={item.avatar} alt="" className={styles.avatar} />
                         </div>
                         <div className="col-8">
                           <p className={`${styles["name-chat"]}`}>
@@ -181,8 +176,8 @@ const Chat = ({ socket }) => {
               <div>
                 <div className={`flex d-flex ${styles["chat-direction"]}`}>
                   <img
-                    className="ms-2 mt-2 mb-2"
-                    src={require("../../assets/Mask Group (1).png")}
+                    className={`ms-2 mt-2 mb-2 ${styles.avatar}`}
+                    src={contact.avatar}
                     alt=""
                   />
                   <p className={`ms-2 mt-2 mb-2 ${styles["name-chat"]}`}>
