@@ -109,7 +109,7 @@ const ProfileSeller = () => {
           text: `Your store have been updated`,
           icon: "success",
         });
-        window.location.reload();
+        
       })
       .catch((err) => {
         console.log(err);
@@ -157,7 +157,7 @@ const ProfileSeller = () => {
           text: `New product have been added`,
           icon: "success",
         });
-        window.location.reload();
+        
       })
       .catch((err) => {
         console.log(err);
@@ -238,7 +238,7 @@ const ProfileSeller = () => {
       .then((res) => {
         console.log(res);
         alert("Delete Success");
-        window.location.reload();
+        
       })
       .catch((err) => {
         console.log(err);
@@ -291,7 +291,7 @@ const ProfileSeller = () => {
           text: `Your product have been updated`,
           icon: "success",
         });
-        window.location.reload();
+        
       })
       .catch((err) => {
         console.log(err);
