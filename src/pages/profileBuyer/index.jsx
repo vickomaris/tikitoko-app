@@ -205,11 +205,14 @@ const ProfileBuyer = () => {
     }).then(async (confirm) => {
       if (confirm) {
         axios
-          .delete(`${process.env.BACKEND_APP_API_URL}/v1/address/${address_id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          .delete(
+            `${process.env.BACKEND_APP_API_URL}/v1/address/${address_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             setAddressForm(res.data.data);
             swal({
