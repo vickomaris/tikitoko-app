@@ -17,7 +17,7 @@ const ProfileBuyer = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/order`, {
+      .get(`https://tikitoko.up.railway.app/v1/order`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +37,7 @@ const ProfileBuyer = () => {
   const [dateBirth, setDateBirth] = useState("");
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/buyer/${id}`)
+      .get(`https://tikitoko.up.railway.app/v1/buyer/${id}`)
       .then((res) => {
         console.log(res.data);
         setUsers(res.data.data);
@@ -81,7 +81,7 @@ const ProfileBuyer = () => {
     let formData = new FormData(e.target);
     formData.append("buyer_id", id);
     axios
-      .put(`${process.env.BACKEND_APP_API_URL}/v1/buyer/${id}`, formData)
+      .put(`https://tikitoko.up.railway.app/v1/buyer/${id}`, formData)
       .then((res) => {
         swal({
           title: "Update Success",
@@ -99,7 +99,7 @@ const ProfileBuyer = () => {
   // const deleteUser = (e) => {
   //   e.preventDefault();
   //   axios
-  //   .delete(`${process.env.BACKEND_APP_API_URL}/user/delete/${buyer_id}`)
+  //   .delete(`https://tikitoko.up.railway.app/user/delete/${buyer_id}`)
   //   .then((res) => {
   //     // console.log(res);
   //     alert("Delete Success");
@@ -127,7 +127,7 @@ const ProfileBuyer = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/address`, {
+      .get(`https://tikitoko.up.railway.app/v1/address`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -170,7 +170,7 @@ const ProfileBuyer = () => {
         city: addressForm.city,
       };
       axios
-        .post(`${process.env.BACKEND_APP_API_URL}/v1/address`, body, {
+        .post(`https://tikitoko.up.railway.app/v1/address`, body, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -207,7 +207,7 @@ const ProfileBuyer = () => {
       if (confirm) {
         axios
           .delete(
-            `${process.env.BACKEND_APP_API_URL}/v1/address/${address_id}`,
+            `https://tikitoko.up.railway.app/v1/address/${address_id}`,
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -235,7 +235,7 @@ const ProfileBuyer = () => {
 
   const prepareDataAddress = (address_id) => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/address/${address_id}`, {
+      .get(`https://tikitoko.up.railway.app/v1/address/${address_id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -252,7 +252,7 @@ const ProfileBuyer = () => {
     e.preventDefault();
     axios
       .put(
-        `${process.env.BACKEND_APP_API_URL}/v1/address/${editAddress.address_id}`,
+        `https://tikitoko.up.railway.app/v1/address/${editAddress.address_id}`,
         editAddress,
         {
           headers: {
@@ -289,7 +289,7 @@ const ProfileBuyer = () => {
     }).then(async (confirm) => {
       if (confirm) {
         axios
-          .put(`${process.env.BACKEND_APP_API_URL}/v1/order/cancel/${val}`)
+          .put(`https://tikitoko.up.railway.app/v1/order/cancel/${val}`)
           .then((res) => {
             swal({
               title: "Order Cancelled",

@@ -25,7 +25,7 @@ const Login = ({ setSocket }) => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.BACKEND_APP_API_URL}/v1/buyer/login`, formBuyer)
+      .post(`https://tikitoko.up.railway.app/v1/buyer/login`, formBuyer)
       .then((response) => {
         console.log(response);
         if (response.data.status !== "success") {
@@ -45,7 +45,7 @@ const Login = ({ setSocket }) => {
             JSON.stringify(response.data.data.buyer.email)
           );
 
-          const socket = io(`${process.env.BACKEND_APP_API_URL}`, {
+          const socket = io(`https://tikitoko.up.railway.app`, {
             query: {
               token: token,
             },
@@ -74,7 +74,7 @@ const Login = ({ setSocket }) => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.BACKEND_APP_API_URL}/v1/seller/login`, formSeller)
+      .post(`https://tikitoko.up.railway.app/v1/seller/login`, formSeller)
       .then((response) => {
         console.log(response);
         if (response.data.status !== "success") {
@@ -94,7 +94,7 @@ const Login = ({ setSocket }) => {
             JSON.stringify(response.data.data.seller.email)
           );
 
-          const socket = io(`${process.env.BACKEND_APP_API_URL}`, {
+          const socket = io(`https://tikitoko.up.railway.app`, {
             query: {
               token: token,
             },

@@ -11,7 +11,7 @@ const SearchCategory = () => {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product?category=${id}`)
+      .get(`https://tikitoko.up.railway.app/v1/product?category=${id}`)
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);

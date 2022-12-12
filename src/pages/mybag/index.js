@@ -29,7 +29,7 @@ const Mybag = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/cart/`, {
+      .get(`https://tikitoko.up.railway.app/v1/cart/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,12 +56,12 @@ const Mybag = () => {
     }).then(async (confirm) => {
       if (confirm) {
         axios
-          .delete(`${process.env.BACKEND_APP_API_URL}/v1/cart/${id}`)
+          .delete(`https://tikitoko.up.railway.app/v1/cart/${id}`)
           .then(async () => {
             // const posts = bagState.filter((token) => token.id !== id);
             // setBagState({ data: posts });
             const result = await axios.get(
-              `${process.env.BACKEND_APP_API_URL}/v1/cart/`,
+              `https://tikitoko.up.railway.app/v1/cart/`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,

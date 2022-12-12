@@ -36,7 +36,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product/${id}`)
+      .get(`https://tikitoko.up.railway.app/v1/product/${id}`)
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);
@@ -49,7 +49,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product`)
+      .get(`https://tikitoko.up.railway.app/v1/product`)
       .then((response) => {
         console.log(response.data.data);
         setRecommend(response.data.data);
@@ -79,7 +79,7 @@ const ProductDetail = () => {
     };
 
     axios
-      .post(`${process.env.BACKEND_APP_API_URL}/v1/cart`, form, {
+      .post(`https://tikitoko.up.railway.app/v1/cart`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

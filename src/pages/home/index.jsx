@@ -55,7 +55,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product`)
+      .get(`https://tikitoko.up.railway.app/v1/product`)
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);

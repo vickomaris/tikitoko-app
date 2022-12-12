@@ -55,7 +55,7 @@ const ProfileSeller = () => {
     const seller = JSON.parse(localStorage.getItem("seller"));
     const id = seller.seller_id;
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`)
+      .get(`https://tikitoko.up.railway.app/v1/seller/${id}`)
       .then((res) => {
         setProfile(res.data.data);
         if (res.data.data.avatar) {
@@ -101,7 +101,7 @@ const ProfileSeller = () => {
     }
     inputForm.append("avatar", updateImage);
     axios
-      .put(`${process.env.BACKEND_APP_API_URL}/v1/seller/${id}`, inputForm)
+      .put(`https://tikitoko.up.railway.app/v1/seller/${id}`, inputForm)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -145,7 +145,7 @@ const ProfileSeller = () => {
     inputForm.append("description", insertProduct.description);
     inputForm.append("image", imageProduct);
     axios
-      .post(`${process.env.BACKEND_APP_API_URL}/v1/product`, inputForm, {
+      .post(`https://tikitoko.up.railway.app/v1/product`, inputForm, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -166,7 +166,7 @@ const ProfileSeller = () => {
 
   const getDataCategory = () => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/category`)
+      .get(`https://tikitoko.up.railway.app/v1/category`)
       .then((res) => {
         setCategory(res.data.data);
       })
@@ -234,7 +234,7 @@ const ProfileSeller = () => {
 
   const deleteProduct = (product_id) => {
     axios
-      .delete(`${process.env.BACKEND_APP_API_URL}/v1/product/${product_id}`)
+      .delete(`https://tikitoko.up.railway.app/v1/product/${product_id}`)
       .then((res) => {
         console.log(res);
         alert("Delete Success");
@@ -248,7 +248,7 @@ const ProfileSeller = () => {
   const [detailProduct, setDetailProduct] = useState([]);
   const getDetailProduct = (product_id) => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product/${product_id}`)
+      .get(`https://tikitoko.up.railway.app/v1/product/${product_id}`)
       .then((res) => {
         console.log(res.data);
         setDetailProduct(res.data.data);
@@ -283,7 +283,7 @@ const ProfileSeller = () => {
       inputForm.append("description", productUpdate.description);
     }
     axios
-      .put(`${process.env.BACKEND_APP_API_URL}/v1/product/${id}`, inputForm)
+      .put(`https://tikitoko.up.railway.app/v1/product/${id}`, inputForm)
       .then((res) => {
         console.log(res.data);
         swal({
@@ -303,7 +303,7 @@ const ProfileSeller = () => {
     const token = localStorage.getItem("token");
     axios
       .get(
-        `${process.env.BACKEND_APP_API_URL}/v1/order/myorder?search=${queryOrder}`,
+        `https://tikitoko.up.railway.app/v1/order/myorder?search=${queryOrder}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -348,7 +348,7 @@ const ProfileSeller = () => {
     }).then(async (confirm) => {
       if (confirm) {
         axios
-          .put(`${process.env.BACKEND_APP_API_URL}/v1/order/pay/${val}`)
+          .put(`https://tikitoko.up.railway.app/v1/order/pay/${val}`)
           .then((res) => {
             swal({
               title: "Payment confirmed",
