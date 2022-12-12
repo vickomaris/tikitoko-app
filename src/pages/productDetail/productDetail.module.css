@@ -1,4 +1,3 @@
-/* CSS Product Detail Page */
 .main {
   background-color: #ffffff;
   height: max-content;
@@ -14,12 +13,6 @@
 .sideInfocategory {
   margin-top: 50px;
 }
-
-/* .pageOne {
-    height: max-content;
-    padding-bottom: 100px;
-    background-color: blue;
-} */
 
 .leftsideImage {
   background-color: transparent;
@@ -78,7 +71,6 @@
 }
 
 .colorBlack:focus {
-  /* outline: thick double red !important; */
   outline: 3px solid red !important;
   outline-offset: 2px;
 }
