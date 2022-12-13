@@ -4,8 +4,7 @@ import icStar from "../../assets/icStar.svg";
 
 import NavbarLogin from "../../component/module/navbarLogin";
 import Navbar from "../../component/module/navbar";
-import CardProduct from "../../component/module/cardProduct";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 const Search = () => {
@@ -26,7 +25,9 @@ const Search = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product?search=${titleSearch}`)
+      .get(
+        `https://tikitoko.up.railway.app/v1/product?search=${titleSearch}`
+      )
       .then((response) => {
         setData(response.data.data);
         console.log(response.data.data);
@@ -69,7 +70,7 @@ const Search = () => {
             </div> */}
             {/* <p className={`mt-3 ${styles.textTitleCategory}`}> T-Shirt </p> */}
             <div className="row row-cols-1 row-cols-md-5 gx-0 gy-4">
-              {data == 0 ? (
+              {data === 0 ? (
                 <h4> Data Not Found</h4>
               ) : (
                 data.map((item, index) => (

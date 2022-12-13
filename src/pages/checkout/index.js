@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import styles from "./checkout.module.css";
 import Card from "../../component/module/card";
@@ -36,7 +37,7 @@ const Checkout = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/cart/`, {
+      .get(`https://tikitoko.up.railway.app/v1/cart/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -53,7 +54,7 @@ const Checkout = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/address/`, {
+      .get(`https://tikitoko.up.railway.app/v1/address/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +79,7 @@ const Checkout = () => {
         };
 
         // console.log(data)
-        await axios.post(`${process.env.BACKEND_APP_API_URL}/v1/order/`, data, {
+        await axios.post(`https://tikitoko.up.railway.app/v1/order/`, data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

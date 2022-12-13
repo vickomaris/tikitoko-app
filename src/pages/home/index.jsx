@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
-import icCardTshirt from "../../assets/icCatTshirt.svg";
-import icCardShorts from "../../assets/icCardShorts.svg";
-import icCardJacket from "../../assets/icCardJacket.svg";
-import icCardPants from "../../assets/icCardPants.svg";
-import icCardShoes from "../../assets/icCardShoes.svg";
-import icCardpromo1 from "../../assets/promoone.png";
-import icCardpromo2 from "../../assets/promotwo.png";
+import icCardTshirt from "../../assets/shirt.png";
+import icCardShorts from "../../assets/short.png";
+import icCardJacket from "../../assets/jacket.png";
+import icCardPants from "../../assets/pants.png";
+import icCardShoes from "../../assets/shoes.png";
+
+import icCardpromo1 from "../../assets/promo-1.png";
+import icCardpromo2 from "../../assets/promo-2.png";
 
 import CardProduct from "../../component/module/cardProduct";
 import Navbar from "../../component/module/navbar";
@@ -54,7 +55,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_APP_API_URL}/v1/product`)
+      .get(`https://tikitoko.up.railway.app/v1/product`)
       .then((response) => {
         console.log(response.data.data);
         setData(response.data.data);
@@ -74,7 +75,7 @@ const Home = () => {
   const getDataProduct = (sort, asc, limit, page) => {
     axios
       .get(
-        `${process.env.BACKEND_APP_API_URL}/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
+        `https://tikitoko.up.railway.app/v1/product?sortby=${sort}&order=${asc}&limit=${limit}${
           page ? `&page=${page}` : ""
         }`
       )

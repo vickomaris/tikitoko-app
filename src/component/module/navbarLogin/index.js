@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import swal from "sweetalert";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./navbarlogin.module.css";
 

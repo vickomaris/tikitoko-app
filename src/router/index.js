@@ -55,11 +55,11 @@ const Router = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!socket && token) {
-      const res = io(`${process.env.BACKEND_APP_API_URL}`, {
+      const res = io(`https://tikitoko.up.railway.app`, {
         query: {
           token: token,
         },
-        transports: ["websocket", "polling"]
+        transports: ["websocket", "polling"],
       });
       setSocket(res);
     }
@@ -79,15 +79,57 @@ const Router = () => {
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/search/" element={<Search />} />
-          <Route path="/v1/category/:id" element={<Auth><SearchCategory /></Auth>} />
+          <Route
+            path="/v1/category/:id"
+            element={
+              <Auth>
+                <SearchCategory />
+              </Auth>
+            }
+          />
           <Route path="/v1/product/:id" element={<ProductDetail />} />
-          <Route path="/mybag" element={<Auth><Mybag /></Auth>} />
-          <Route path="/checkout" element={<Auth><Checkout /></Auth>} />
-          <Route path="/chat" element={<Auth><Chat socket={socket} /></Auth>} />
+          <Route
+            path="/mybag"
+            element={
+              <Auth>
+                <Mybag />
+              </Auth>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <Auth>
+                <Checkout />
+              </Auth>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <Auth>
+                <Chat socket={socket} />
+              </Auth>
+            }
+          />
 
           {/* Profile Routes */}
-          <Route path="/profile" element={<Auth><ProfileBuyer /></Auth>} />
-          <Route path="/store" element={<Auth><ProfileSeller /></Auth>} />
+          <Route
+            path="/profile"
+            element={
+              <Auth>
+                <ProfileBuyer />
+              </Auth>
+            }
+          />
+          <Route
+            path="/store"
+            element={
+              <Auth>
+                <ProfileSeller />
+              </Auth>
+            }
+          />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
