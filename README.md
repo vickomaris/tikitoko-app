@@ -204,7 +204,7 @@ Contributions are what make the open source community such an amazing place to b
 ## Meet The Teams
 
 <center>
-  <table>
+  <table align="center">
     <tr>
       <th>Backend/PO</th>
       <th>Frontend</th>
