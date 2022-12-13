@@ -1,6 +1,9 @@
 # Tikitoko (Frontend)
 
 <!-- Logo -->
+<div align="center">
+<img src="./src/documentation/logo.png" align="center" width="200" height="auto" />
+</div>
 
 <!-- Table of Contents -->
 ## Table of Contents
@@ -103,14 +106,145 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- Screenshoots -->
 ## Screenshoots
+<table>
+  <tr>
+    <td><image src="./src/documentation/register-b.jpeg" alt="Register - Buyer" width=100% ></td>
+    <td><image src="./src/documentation/login-b.jpeg" alt="Login - Buyer" width=100%/></td>
+  </tr>
+  <tr>
+    <td align="center">Register (Buyer)</td>
+    <td align="center">Login (Buyer)</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/register-s.jpeg" alt="Register - Seller" width=100% ></td>
+    <td><image src="./src/documentation/login-s.jpeg" alt="Login - Seller" width=100%/></td>
+  </tr>
+  <tr>
+    <td align="center">Register (Seller)</td>
+    <td align="center">Login (Seller)</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/home.jpeg" alt="Homepage" width=100%></td>
+    <td><image src="./src/documentation/search.jpeg" alt="Searchpage" width=100%></td>
+  </tr>
+  <tr>
+      <td align="center">Homepage</td>
+      <td align="center">Search Result</td>
+  </tr>
+
+  <tr>
+    <td><image src="./src/documentation/product-detail.jpeg" alt="Product Detail" width=100%></td>
+    <td><image src="./src/documentation/chat.jpeg" alt="Chat page" width=100%/></td>
+  </tr>
+   <tr>
+    <td align="center">Product Detail</td>
+    <td align="center">Chat Page</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/mybag.jpeg" alt="Mybag" width=100%></td>
+    <td><image src="./src/documentation/checkout.jpeg" alt="Checkout" width=100%></td>
+  </tr>
+  <tr>
+      <td align="center">My Bag</td>
+       <td align="center">Checkout</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/profile-b.jpeg" alt="Profile" width=100%></td>
+    <td><image src="./src/documentation/profile-b-address.jpeg" alt="Profile - Address" width=100%></td>
+  </tr>
+  <tr>
+      <td align="center">Profile (Buyer)</td>
+     <td align="center">Profile (Buyer) - Address Sect.</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/profile-b-all-order.jpeg" alt="Profile - Order" width=100%></td>
+    <td><image src="./src/documentation/profile-b-unpaid-order.jpeg" alt="Profile - Cancel Order" width=100%></td>
+  </tr>
+  <tr>
+      <td align="center">Profile (Buyer) - Order Sect.</td>
+     <td align="center">Profile (Buyer) - Cancel Order Sect.</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/profile-s.jpeg" alt="Profile (Seller)" width=100%></td>
+    <td><image src="./src/documentation/profile-s-list-product.jpeg" alt="Profile (Seller) - Product List" width=100%></td>    
+  </tr>
+  <tr>
+     <td align="center">Profile (Seller)</td>
+     <td align="center">Profile (Seller) - List Product</td>
+  </tr>
+  
+  <tr>
+    <td><image src="./src/documentation/profile-s-new-product.jpeg" alt="Profile (Seller) - New Product" width=100%></td>
+    <td><image src="./src/documentation/profile-s-order.jpeg" alt="Profile (Seller) - Order" width=100%></td>    
+  </tr>
+  <tr>
+     <td align="center">Profile (Seller) - New Product</td>
+     <td align="center">Profile (Seller) - Order</td>
+  </tr>
+</table>
+
 
 <!-- Related Projects -->
 ## Related Project
 :rocket: [`Tikitoko (Backend)`](https://github.com/brndnwjy/tikitoko-api)
 
+:rocket: [`Tikitoko App Demo`](https://tikitoko.netlify.app)
+
+:rocket: [`Tikitoko (Admin)`](https://github.com/brndnwjy/tikitoko-admin)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- Meet The Teams -->
 ## Meet The Teams
+
+<center>
+  <table>
+    <tr>
+      <th>Backend/PO</th>
+      <th>Frontend</th>
+      <th>Frontend</th>
+      <th>Frontend</th>
+      <th>Frontend</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/brndnwjy">
+          <img width="150" src="https://avatars.githubusercontent.com/u/68231097?v=4" alt="Brandon Wijaya"><br/>
+          <b>Brandon Wijaya</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/alfatpololo">
+          <img width="150" src="https://media-exp1.licdn.com/dms/image/D5603AQFsGr9k1i8aQg/profile-displayphoto-shrink_100_100/0/1664426265179?e=1676505600&v=beta&t=BuTa0qWttnRgh3JuoOS-oYUVqEcvkM5i4h2UxdRH0Qg" alt="Muhammad Alfath Aditya"><br/>
+          <b>Muhammad Alfath Aditya</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/rezafauzanakbar">
+          <img width="150" src="https://avatars.githubusercontent.com/u/47907237?v=4" alt="Reza Fauzan Akbar"><br/>
+          <b>Reza Fauzan Akbar</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/taufikrmdhan">
+          <img width="150" src="https://avatars.githubusercontent.com/u/59110317?v=4" alt="Taufik Ramadhan"><br/>
+          <b>Taufik Ramadhan</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/vickomaris">
+          <img width="150" src="https://avatars.githubusercontent.com/u/64400928?v=4" alt="Vicko Maris Septiadi"><br/>
+          <b>Vicko Maris Septiadi</b>
+        </a>
+      </td>
+    </tr>
+  </table>
+</center>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
