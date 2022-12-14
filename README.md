@@ -35,7 +35,9 @@
 
 <!-- About The Project -->
 ## About The Project
-Tikitoko Description coming soon!
+Tikitoko is an ecommerce app where you can buy and sell things.
+You can start by making a new account with the corresponding role- either buyer or seller.
+As a buyer, you can keep your stuff in your bag before buying, you can see your account and order details in your profile. As a seller, you can add stuff to your store and sell it worldwide. Manage your store and inventory to keep your store running.
 
 ### Built With
 This app was built with some technologies below:
